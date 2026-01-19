@@ -50,7 +50,13 @@ MANUAL_NAME_TO_ID = {
     "Gabriel Fernando de Jesus": 5543,  # Gabriel Jesus
     "Gabriel Martinelli Silva": 7752,  # Martinelli
     "Murillo Santiago Costa dos Santos": 12123,  # Murillo
-    "Diogo Teixeira da Silva": 7281,  # Diogo Dalot
+    "Diogo Dalot Teixeira": 7281,  # Diogo Dalot (Man Utd)
+    "Diogo Teixeira da Silva": 6854,  # Diogo Jota (Liverpool)
+    "Antony Matheus dos Santos": 11094,  # Antony
+    "Norberto Murara Neto": 1297,  # Neto (Bournemouth GK)
+    "Vini de Souza Costa": 10872,  # Vinicius Souza
+    "Felipe Rodrigues da Silva": 7921,  # Felipe (Forest)
+    "João Maria Lobo Alves Palhares Costa Palhinha Gonçalves": 10715,  # Palhinha
 
     # Players with name format differences
     "Benjamin White": 7298,  # Ben White
@@ -64,7 +70,24 @@ MANUAL_NAME_TO_ID = {
     "Yehor Yarmoliuk": 11772,  # Yehor Yarmolyuk
     "João Victor Gomes da Silva": 12766,  # Jota Silva
     "Toti António Gomes": 10293,  # Toti
+    "Joe Aribo": 10766,  # Joe Ayodele-Aribo
+    "Cheick Doucouré": 8666,  # Cheick Oumar Doucoure
+    "Jaden Philogene": 9415,  # Jaden Philogene-Bidace
+    "Olu Aina": 725,  # Ola Aina
+    "Benoît Badiashile": 7240,  # Benoit Badiashile Mukinayi
+    "Alexandre Moreno Lopera": 4120,  # Álex Moreno
+    "Maximilian Kilman": 7332,  # Max Kilman
+    "Ryan Giles": 7277,  # Ryan John Giles
+    "Sam Szmodics": 12752,  # Sammie Szmodics
+    "Josh King": 12410,  # Joshua King
+    "Nayef Aguerd": 6935,  # Naif Aguerd
+    "Ollie Scarles": 12358,  # Oliver Scarles
+    "Amari'i Bell": 11713,  # Amari'i Bell (HTML entity in understat)
+
+    # Players with apostrophes in names
     "Dara O'Shea": 8756,  # Dara O'Shea
+    "Jake O'Brien": 12014,  # Jake O'Brien
+    "Matt O'Riley": 13206,  # Matt O'Riley
 
     # Goalkeeper/special cases
     "André Onana": 10913,  # André Onana (different from Amadou Onana)
@@ -73,12 +96,18 @@ MANUAL_NAME_TO_ID = {
     # Eastern European name differences
     "Đorđe Petrović": 12032,  # Djordje Petrovic
 
+    # Players with nicknames in FPL name
+    "Rodrigo 'Rodri' Hernandez": 2496,  # Rodri (Man City)
+    "Rodrigo 'Rodri' Hernandez Cascante": 2496,  # Rodri alternate name
+    "Rodrigo Hernandez": 2496,  # Rodri without nickname
+    "Sávio 'Savinho' Moreira de Oliveira": 11735,  # Savinho (Sávio)
+
     # Collision fixes (players who share name parts)
     "Jonny Evans": 807,  # Jonny Evans (not Jonny from Wolves)
     "Kyle Walker-Peters": 885,  # Kyle Walker-Peters (not Kyle Walker)
     "Kevin Danso": 5261,  # Kevin Danso
-    "Emerson Palmieri dos Santos": 7430,  # Emerson (West Ham)
-    "Emerson Leite de Souza Junior": 7430,  # Emerson Royal? - needs verification
+    "Emerson Palmieri dos Santos": 1245,  # Emerson Palmieri (West Ham) - FIXED
+    "Emerson Leite de Souza Junior": 7430,  # Emerson Royal (Spurs)
 }
 
 # Common name parts that shouldn't be matched alone (too many collisions)
