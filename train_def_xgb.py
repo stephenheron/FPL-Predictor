@@ -1,5 +1,7 @@
 import argparse
+import json
 from dataclasses import dataclass
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -16,6 +18,8 @@ class Config:
     holdout_file: str
     importance_out: str
     model_out: str
+    fixed_window_config: str
+    train_full: bool
     random_state: int = 42
 
 
@@ -76,6 +80,16 @@ def parse_args() -> Config:
     parser.add_argument("--train-windows", nargs="+", type=int, default=[15, 25, 35])
     parser.add_argument("--importance-out", default="feature_importance_def.csv")
     parser.add_argument("--model-out", default="xgb_def_model.json")
+    parser.add_argument(
+        "--fixed-window-config",
+        default="best_windows.json",
+        help="Optional JSON file with fixed training windows by position.",
+    )
+    parser.add_argument(
+        "--train-full",
+        action="store_true",
+        help="Train on all seasons (includes holdout) and skip holdout eval.",
+    )
     args = parser.parse_args()
 
     return Config(
@@ -86,6 +100,8 @@ def parse_args() -> Config:
         holdout_file=args.holdout_file,
         importance_out=args.importance_out,
         model_out=args.model_out,
+        fixed_window_config=args.fixed_window_config,
+        train_full=args.train_full,
     )
 
 
@@ -234,18 +250,35 @@ def main() -> None:
 
     train_df = pd.concat(train_frames, ignore_index=True)
 
+    if config.train_full:
+        train_df = pd.concat([train_df, holdout_df], ignore_index=True)
+
     train_df = build_features(train_df, config.position, config.roll_windows)
     holdout_df = build_features(holdout_df, config.position, config.roll_windows)
 
     feature_cols = get_feature_columns(train_df, config.roll_windows)
 
-    cv_results = evaluate_cv(train_df, feature_cols, config.train_windows, config.random_state)
-    cv_results = cv_results.sort_values("mae")
+    best_window = None
+    config_path = Path(config.fixed_window_config)
+    if config_path.exists():
+        with config_path.open("r", encoding="utf-8") as handle:
+            window_map = json.load(handle)
+        best_window = window_map.get(config.position)
+        if best_window is not None:
+            print(
+                f"Using fixed window for {config.position} from {config.fixed_window_config}: {best_window}"
+            )
 
-    best_window = int(cv_results.iloc[0]["train_window"])
-    print("CV results (sorted by MAE):")
-    print(cv_results.to_string(index=False))
-    print(f"Best window: {best_window}")
+    if best_window is None:
+        cv_results = evaluate_cv(
+            train_df, feature_cols, config.train_windows, config.random_state
+        )
+        cv_results = cv_results.sort_values("mae")
+
+        best_window = int(cv_results.iloc[0]["train_window"])
+        print("CV results (sorted by MAE):")
+        print(cv_results.to_string(index=False))
+        print(f"Best window: {best_window}")
 
     final_train = restrict_to_window(train_df, best_window)
     model = train_model(config.random_state)
@@ -261,12 +294,15 @@ def main() -> None:
     importance_df.to_csv(config.importance_out, index=False)
     print(f"Saved full feature importances to: {config.importance_out}")
 
-    holdout_preds = model.predict(holdout_df[feature_cols])
-    holdout_mae = mean_absolute_error(holdout_df["total_points"], holdout_preds)
-    holdout_rmse = np.sqrt(mean_squared_error(holdout_df["total_points"], holdout_preds))
-    print("Holdout evaluation (2025-26):")
-    print(f"MAE: {holdout_mae:.4f}")
-    print(f"RMSE: {holdout_rmse:.4f}")
+    if config.train_full:
+        print("Skipped holdout evaluation (train-full enabled).")
+    else:
+        holdout_preds = model.predict(holdout_df[feature_cols])
+        holdout_mae = mean_absolute_error(holdout_df["total_points"], holdout_preds)
+        holdout_rmse = np.sqrt(mean_squared_error(holdout_df["total_points"], holdout_preds))
+        print("Holdout evaluation (2025-26):")
+        print(f"MAE: {holdout_mae:.4f}")
+        print(f"RMSE: {holdout_rmse:.4f}")
 
 
 if __name__ == "__main__":
