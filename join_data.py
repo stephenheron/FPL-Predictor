@@ -1,3 +1,4 @@
+import numpy as np
 import pandas as pd
 from pathlib import Path
 import unicodedata
@@ -287,10 +288,219 @@ def load_understat_data(understat_dir: Path) -> pd.DataFrame:
     return pd.concat(all_data, ignore_index=True)
 
 
+def add_dynamic_opponent_strengths(
+    merged_df: pd.DataFrame,
+    ratings_state: Optional[dict] = None,
+    k_factor: float = 0.2,
+) -> tuple[pd.DataFrame, dict]:
+    required_cols = [
+        "season",
+        "fixture",
+        "team",
+        "opponent_name",
+        "was_home",
+        "kickoff_time",
+        "expected_goals",
+        "expected_goals_conceded",
+    ]
+    missing_cols = [col for col in required_cols if col not in merged_df.columns]
+    if missing_cols:
+        print(
+            "Skipping dynamic opponent strengths - missing columns: "
+            + ", ".join(missing_cols)
+        )
+        if ratings_state is None:
+            ratings_state = {
+                "teams": {},
+                "league_mean": {
+                    "attack_home": 0.0,
+                    "attack_away": 0.0,
+                    "defence_home": 0.0,
+                    "defence_away": 0.0,
+                },
+            }
+        return merged_df, ratings_state
+
+    rating_slots = ["attack_home", "attack_away", "defence_home", "defence_away"]
+
+    if ratings_state is None:
+        ratings_state = {
+            "teams": {},
+            "league_mean": {slot: 0.0 for slot in rating_slots},
+        }
+
+    fixture_cols = [
+        "season",
+        "fixture",
+        "team",
+        "opponent_name",
+        "was_home",
+        "kickoff_time",
+    ]
+
+    fixture_df = merged_df[
+        fixture_cols + ["expected_goals", "expected_goals_conceded"]
+    ].copy()
+    fixture_df[["expected_goals", "expected_goals_conceded"]] = fixture_df[
+        ["expected_goals", "expected_goals_conceded"]
+    ].fillna(0)
+    fixture_df["kickoff_time_dt"] = pd.to_datetime(
+        fixture_df["kickoff_time"], errors="coerce"
+    )
+
+    fixture_agg = (
+        fixture_df.groupby(fixture_cols, dropna=False, as_index=False)
+        .agg(
+            {
+                "expected_goals": "sum",
+                "expected_goals_conceded": "sum",
+                "kickoff_time_dt": "max",
+            }
+        )
+        .sort_values(["kickoff_time_dt", "fixture", "team"], kind="mergesort")
+        .reset_index(drop=True)
+    )
+
+    home_mask = fixture_agg["was_home"] == True
+    away_mask = fixture_agg["was_home"] == False
+
+    overall_xg = fixture_agg["expected_goals"].mean()
+    overall_xga = fixture_agg["expected_goals_conceded"].mean()
+    if pd.isna(overall_xg):
+        overall_xg = 0.0
+    if pd.isna(overall_xga):
+        overall_xga = 0.0
+
+    home_xg = fixture_agg.loc[home_mask, "expected_goals"].mean()
+    home_xga = fixture_agg.loc[home_mask, "expected_goals_conceded"].mean()
+    away_xg = fixture_agg.loc[away_mask, "expected_goals"].mean()
+    away_xga = fixture_agg.loc[away_mask, "expected_goals_conceded"].mean()
+
+    if pd.isna(home_xg):
+        home_xg = overall_xg
+    if pd.isna(home_xga):
+        home_xga = overall_xga
+    if pd.isna(away_xg):
+        away_xg = overall_xg
+    if pd.isna(away_xga):
+        away_xga = overall_xga
+
+    def ensure_team(team_name: str) -> None:
+        if team_name not in ratings_state["teams"]:
+            ratings_state["teams"][team_name] = {
+                slot: ratings_state["league_mean"][slot] for slot in rating_slots
+            }
+
+    def clamp_rating(value: float) -> float:
+        return max(-1.5, min(1.5, value))
+
+    records = []
+    decay = 0.005
+    eps = 1e-6
+
+    grouped = fixture_agg.groupby(["fixture", "kickoff_time_dt"], sort=False)
+    for _, group in grouped:
+        teams_in_group = set(group["team"]).union(set(group["opponent_name"]))
+        for team_name in teams_in_group:
+            ensure_team(team_name)
+
+        pre_ratings = {
+            team_name: ratings_state["teams"][team_name].copy()
+            for team_name in teams_in_group
+        }
+        updates = {
+            team_name: {slot: 0.0 for slot in rating_slots}
+            for team_name in teams_in_group
+        }
+
+        for row in group.itertuples(index=False):
+            team_name = row.team
+            opponent_name = row.opponent_name
+            was_home = bool(row.was_home)
+
+            if was_home:
+                team_attack_key = "attack_home"
+                team_defence_key = "defence_home"
+                opp_attack_key = "attack_away"
+                opp_defence_key = "defence_away"
+                baseline_xg = home_xg
+                baseline_xga = home_xga
+            else:
+                team_attack_key = "attack_away"
+                team_defence_key = "defence_away"
+                opp_attack_key = "attack_home"
+                opp_defence_key = "defence_home"
+                baseline_xg = away_xg
+                baseline_xga = away_xga
+
+            team_attack = pre_ratings[team_name][team_attack_key]
+            team_defence = pre_ratings[team_name][team_defence_key]
+            opp_attack = pre_ratings[opponent_name][opp_attack_key]
+            opp_defence = pre_ratings[opponent_name][opp_defence_key]
+
+            expected_xg = baseline_xg * np.exp(team_attack - opp_defence)
+            expected_xga = baseline_xga * np.exp(opp_attack - team_defence)
+
+            actual_xg = row.expected_goals
+            actual_xga = row.expected_goals_conceded
+
+            attack_delta = k_factor * (actual_xg - expected_xg) / max(baseline_xg, eps)
+            defence_delta = k_factor * (expected_xga - actual_xga) / max(
+                baseline_xga, eps
+            )
+
+            updates[team_name][team_attack_key] += attack_delta
+            updates[team_name][team_defence_key] += defence_delta
+
+            opp_attack_display = 1000.0 * np.exp(opp_attack)
+            opp_defence_display = 1000.0 * np.exp(opp_defence)
+            records.append(
+                {
+                    "season": row.season,
+                    "fixture": row.fixture,
+                    "team": team_name,
+                    "opponent_name": opponent_name,
+                    "was_home": row.was_home,
+                    "kickoff_time": row.kickoff_time,
+                    "opp_dyn_attack": opp_attack_display,
+                    "opp_dyn_defence": opp_defence_display,
+                    "opp_dyn_overall": (opp_attack_display + opp_defence_display) / 2.0,
+                }
+            )
+
+        for team_name, deltas in updates.items():
+            for slot, delta in deltas.items():
+                updated = ratings_state["teams"][team_name][slot] * (1.0 - decay)
+                updated += delta
+                ratings_state["teams"][team_name][slot] = clamp_rating(updated)
+
+    season_teams = set(fixture_agg["team"]).union(set(fixture_agg["opponent_name"]))
+    if season_teams:
+        ratings_state["league_mean"] = {
+            slot: sum(ratings_state["teams"][team][slot] for team in season_teams)
+            / len(season_teams)
+            for slot in rating_slots
+        }
+
+    fixture_strengths = pd.DataFrame(records)
+    merged_df = merged_df.merge(fixture_strengths, on=fixture_cols, how="left")
+    for col in ["opp_dyn_attack", "opp_dyn_defence", "opp_dyn_overall"]:
+        if col in merged_df.columns:
+            stats = merged_df[col].describe()[["min", "mean", "max"]]
+            print(
+                f"{col} stats: min={stats['min']:.2f}, mean={stats['mean']:.2f}, max={stats['max']:.2f}"
+            )
+    return merged_df, ratings_state
+
+
 def process_season(
-    season: str, data_base_dir: Path, output_dir: Path
-) -> Optional[pd.DataFrame]:
-    """Process a single season and return the merged DataFrame."""
+    season: str,
+    data_base_dir: Path,
+    output_dir: Path,
+    ratings_state: Optional[dict] = None,
+    k_factor: float = 0.2,
+) -> tuple[Optional[pd.DataFrame], Optional[dict]]:
+    """Process a single season and return the merged DataFrame and ratings."""
     print(f"\n{'=' * 50}")
     print(f"Processing season: {season}")
     print(f"{'=' * 50}")
@@ -302,13 +512,13 @@ def process_season(
 
     if not merged_gw_path.exists():
         print(f"  Skipping: {merged_gw_path} not found")
-        return None
+        return None, ratings_state
     if not understat_dir.exists():
         print(f"  Skipping: {understat_dir} not found")
-        return None
+        return None, ratings_state
     if not teams_path.exists():
         print(f"  Skipping: {teams_path} not found")
-        return None
+        return None, ratings_state
 
     # Load FPL data
     print("Loading FPL data...")
@@ -356,7 +566,7 @@ def process_season(
     understat_df = load_understat_data(understat_dir)
     if len(understat_df) == 0:
         print(f"  Skipping: No understat data found")
-        return None
+        return None, ratings_state
     understat_df["match_date"] = pd.to_datetime(
         understat_df["date"], format="mixed"
     ).dt.date.astype(str)
@@ -586,6 +796,10 @@ def process_season(
         merged_df = merged_df[~missing_player_id].copy()
         print(f"Removed {removed_missing_id} rows without player_id")
 
+    merged_df, ratings_state = add_dynamic_opponent_strengths(
+        merged_df, ratings_state=ratings_state, k_factor=k_factor
+    )
+
     # Drop helper columns
     merged_df = merged_df.drop(columns=["match_date"])
 
@@ -595,7 +809,7 @@ def process_season(
     merged_df.to_csv(output_path, index=False)
     print(f"Saved to {output_path}")
 
-    return merged_df
+    return merged_df, ratings_state
 
 
 def main():
@@ -607,8 +821,15 @@ def main():
     seasons = ["2022-23", "2023-24", "2024-25", "2025-26"]
 
     all_dfs = []
+    ratings_state = None
     for season in seasons:
-        df = process_season(season, data_base_dir, output_dir)
+        df, ratings_state = process_season(
+            season,
+            data_base_dir,
+            output_dir,
+            ratings_state=ratings_state,
+            k_factor=0.2,
+        )
         if df is not None:
             all_dfs.append(df)
 

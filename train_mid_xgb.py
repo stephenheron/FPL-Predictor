@@ -53,13 +53,9 @@ PER90_COLS = [
 
 FIXTURE_COLS = [
     "was_home",
-    "opponent_strength",
-    "opponent_strength_overall_home",
-    "opponent_strength_overall_away",
-    "opponent_strength_attack_home",
-    "opponent_strength_attack_away",
-    "opponent_strength_defence_home",
-    "opponent_strength_defence_away",
+    "opp_dyn_attack",
+    "opp_dyn_defence",
+    "opp_dyn_overall",
 ]
 
 

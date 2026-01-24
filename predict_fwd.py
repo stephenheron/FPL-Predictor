@@ -72,16 +72,6 @@ def build_future_rows(
     team_id_to_code = teams.set_index("id")["code"].to_dict()
     team_name_to_id = teams.set_index("name")["id"].to_dict()
 
-    strength_cols = [
-        "strength_overall_home",
-        "strength_overall_away",
-        "strength_attack_home",
-        "strength_attack_away",
-        "strength_defence_home",
-        "strength_defence_away",
-    ]
-    strength_map = teams.set_index("id")[strength_cols].to_dict(orient="index")
-
     contexts = []
     for _, fixture in fixtures.iterrows():
         home_id = int(fixture["team_h"])
@@ -91,7 +81,6 @@ def build_future_rows(
                 "team_id": home_id,
                 "opponent_id": away_id,
                 "was_home": True,
-                "opponent_strength": fixture["team_a_difficulty"],
                 "fixture_id": fixture["id"],
             }
         )
@@ -100,7 +89,6 @@ def build_future_rows(
                 "team_id": away_id,
                 "opponent_id": home_id,
                 "was_home": False,
-                "opponent_strength": fixture["team_h_difficulty"],
                 "fixture_id": fixture["id"],
             }
         )
@@ -126,8 +114,6 @@ def build_future_rows(
         opponent_name = team_id_to_name.get(opponent_id)
         opponent_short = team_id_to_short.get(opponent_id)
         opponent_code = team_id_to_code.get(opponent_id)
-        opponent_strengths = strength_map.get(opponent_id, {})
-
         team_rows["GW"] = predict_gw
         team_rows["round"] = predict_gw
         team_rows["fixture"] = context["fixture_id"]
@@ -136,10 +122,9 @@ def build_future_rows(
         team_rows["opponent_name"] = opponent_name
         team_rows["opponent_short_name"] = opponent_short
         team_rows["opponent_code"] = opponent_code
-        team_rows["opponent_strength"] = context["opponent_strength"]
 
-        for col, value in opponent_strengths.items():
-            team_rows[f"opponent_{col}"] = value
+        for col in ["opp_dyn_attack", "opp_dyn_defence", "opp_dyn_overall"]:
+            team_rows[col] = np.nan
 
         team_rows["team_h_score"] = np.nan
         team_rows["team_a_score"] = np.nan
@@ -176,10 +161,41 @@ def main() -> None:
     model = XGBRegressor()
     model.load_model(args.model_file)
 
+    minutes_last_3 = None
     if args.predict_gw is not None:
-        df = df[df["GW"] == args.predict_gw]
+        history = df[df["GW"] < args.predict_gw][["player_id", "GW", "minutes"]].copy()
+        history["GW"] = pd.to_numeric(history["GW"], errors="coerce")
+        minutes_lookup = history.groupby(["player_id", "GW"], sort=False)[
+            "minutes"
+        ].sum()
+        minutes_lookup = minutes_lookup.to_dict()
+
+        df = df[df["GW"] == args.predict_gw].copy()
+
+        def last_three_minutes(player_id: float) -> float:
+            return sum(
+                minutes_lookup.get((player_id, gw), 0)
+                for gw in range(args.predict_gw - 3, args.predict_gw)
+            )
+
+        minutes_last_3 = df["player_id"].map(last_three_minutes)
+    elif "roll_3_minutes" in df.columns:
+        minutes_last_3 = df["roll_3_minutes"].fillna(0) * 3
+    else:
+        minutes_last_3 = pd.Series(np.zeros(len(df)), index=df.index)
 
     preds = model.predict(df[feature_cols])
+
+    multipliers = np.select(
+        [
+            minutes_last_3 >= 180,
+            minutes_last_3 >= 90,
+            minutes_last_3 > 0,
+        ],
+        [1.0, 0.7, 0.4],
+        default=0.2,
+    )
+    preds = preds * multipliers
 
     output_cols = [
         "name",
@@ -189,11 +205,11 @@ def main() -> None:
         "GW",
         "was_home",
         "opponent_name",
-        "opponent_strength",
         "total_points",
     ]
     existing_cols = [col for col in output_cols if col in df.columns]
     result = df[existing_cols].copy()
+    result["availability_multiplier"] = multipliers
     result["predicted_points"] = preds
     result.to_csv(args.output_file, index=False)
 
