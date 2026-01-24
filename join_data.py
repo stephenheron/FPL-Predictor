@@ -570,6 +570,22 @@ def process_season(
             )
             print(unmatched.head(5).to_string(index=False))
 
+    if metric_col and season == "2022-23":
+        unmatched_played_mask = (merged_df["minutes"] > 0) & (
+            merged_df[metric_col].isna()
+        )
+        removed = int(unmatched_played_mask.sum())
+        if removed:
+            merged_df = merged_df[~unmatched_played_mask].copy()
+            print(f"Removed {removed} unmatched rows from 2022-23")
+
+    # Drop rows without an understat player_id
+    missing_player_id = merged_df["player_id"].isna()
+    removed_missing_id = int(missing_player_id.sum())
+    if removed_missing_id:
+        merged_df = merged_df[~missing_player_id].copy()
+        print(f"Removed {removed_missing_id} rows without player_id")
+
     # Drop helper columns
     merged_df = merged_df.drop(columns=["match_date"])
 
@@ -588,7 +604,7 @@ def main():
     )
     output_dir = Path("/Users/stephenheron/Workspace/f/fpl-prediction")
 
-    seasons = ["2023-24", "2024-25", "2025-26"]
+    seasons = ["2022-23", "2023-24", "2024-25", "2025-26"]
 
     all_dfs = []
     for season in seasons:
