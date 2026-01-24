@@ -15,6 +15,7 @@ dependencies = [
 [project.scripts]
 fpl-train = "fpl_prediction.cli.train:main"
 fpl-predict = "fpl_prediction.cli.predict:main"
+fpl-prices = "fpl_prediction.cli.prices:main"
 
 [build-system]
 requires = ["hatchling"]

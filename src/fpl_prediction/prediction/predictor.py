@@ -166,7 +166,9 @@ class XGBoostPredictor:
         df = build_features_xgboost(df, config.position, config.roll_windows)
 
         # Get feature columns
-        feature_cols = get_feature_columns_xgboost(df, config.roll_windows)
+        feature_cols = get_feature_columns_xgboost(
+            df, config.roll_windows, position=config.position
+        )
         missing_cols = [col for col in feature_cols if col not in df.columns]
         if missing_cols:
             raise ValueError(f"Missing feature columns: {missing_cols}")

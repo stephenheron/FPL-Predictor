@@ -6,6 +6,7 @@ from .availability import (
     compute_minutes_last_3_xgboost,
 )
 from .predictor import LSTMPredictor, XGBoostPredictor, predict_model
+from .prices import PriceJoinConfig, add_prices_to_predictions
 
 __all__ = [
     "LSTMPredictor",
@@ -13,5 +14,7 @@ __all__ = [
     "compute_availability_multipliers",
     "compute_minutes_last_3",
     "compute_minutes_last_3_xgboost",
+    "PriceJoinConfig",
+    "add_prices_to_predictions",
     "predict_model",
 ]

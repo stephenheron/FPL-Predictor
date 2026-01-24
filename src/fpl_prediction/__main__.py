@@ -3,6 +3,7 @@
 Usage:
     python -m fpl_prediction train --position FWD --model lstm
     python -m fpl_prediction predict --position FWD --model lstm --gw 23
+    python -m fpl_prediction prices --input mid_predictions_gw23.csv
 """
 
 import sys
@@ -19,10 +20,12 @@ Usage:
 Commands:
     train     Train prediction models
     predict   Generate predictions
+    prices    Attach player prices to predictions
 
 Examples:
     python -m fpl_prediction train --position FWD --model lstm
     python -m fpl_prediction predict --position all --model all --gw 23
+    python -m fpl_prediction prices --input mid_predictions_gw23.csv
 
 Run 'python -m fpl_prediction <command> --help' for command-specific help.
 """)
@@ -38,9 +41,12 @@ Run 'python -m fpl_prediction <command> --help' for command-specific help.
     elif command == "predict":
         from fpl_prediction.cli.predict import main as predict_main
         predict_main()
+    elif command == "prices":
+        from fpl_prediction.cli.prices import main as prices_main
+        prices_main()
     else:
         print(f"Unknown command: {command}")
-        print("Valid commands: train, predict")
+        print("Valid commands: train, predict, prices")
         sys.exit(1)
 
 

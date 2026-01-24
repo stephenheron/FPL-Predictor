@@ -31,6 +31,8 @@ PER90_COLS: tuple[str, ...] = (
     "us_key_passes",
     "us_xGChain",
     "us_xGBuildup",
+    "saves",
+    "expected_goals_conceded",
     "total_points",
 )
 
@@ -65,6 +67,26 @@ ROLLING_COLS: tuple[str, ...] = (
     "us_xGBuildup",
 )
 
+GK_ROLLING_COLS: tuple[str, ...] = (
+    "minutes",
+    "starts",
+    "total_points",
+    "goals_scored",
+    "assists",
+    "expected_goals",
+    "expected_assists",
+    "expected_goal_involvements",
+    "ict_index",
+    "bps",
+    "bonus",
+    "threat",
+    "influence",
+    "creativity",
+    "saves",
+    "clean_sheets",
+    "expected_goals_conceded",
+)
+
 # Fixture context columns
 FIXTURE_COLS: tuple[str, ...] = (
     "was_home",
@@ -96,13 +118,21 @@ def get_lstm_feature_columns(roll_window: int, available_cols: list[str]) -> lis
     return [col for col in feature_cols if col in available_cols]
 
 
+def get_xgboost_rolling_cols(position: str | None) -> tuple[str, ...]:
+    """Get rolling columns for XGBoost by position."""
+    if position and position.upper() == "GK":
+        return GK_ROLLING_COLS
+    return ROLLING_COLS
+
+
 def get_xgboost_feature_columns(
-    roll_windows: tuple[int, ...], available_cols: list[str]
+    roll_windows: tuple[int, ...], available_cols: list[str], position: str | None = None
 ) -> list[str]:
     """Get feature columns for XGBoost model."""
     feature_cols: list[str] = []
+    rolling_cols = get_xgboost_rolling_cols(position)
     for window in roll_windows:
-        for col in ROLLING_COLS:
+        for col in rolling_cols:
             feature_cols.append(f"roll_{window}_{col}")
         for col in PER90_COLS:
             feature_cols.append(f"roll_{window}_{col}_per90")

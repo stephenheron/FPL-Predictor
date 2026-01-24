@@ -226,7 +226,9 @@ class XGBoostTrainer:
             holdout_df, config.position, config.roll_windows
         )
 
-        self.feature_cols = get_feature_columns_xgboost(train_df, config.roll_windows)
+        self.feature_cols = get_feature_columns_xgboost(
+            train_df, config.roll_windows, position=config.position
+        )
 
         # Determine best training window
         best_window = None

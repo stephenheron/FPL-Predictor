@@ -10,7 +10,7 @@ from fpl_prediction.config.features import (
     FIXTURE_COLS,
     PER90_COLS,
     ROLL_HINT_COLS,
-    ROLLING_COLS,
+    get_xgboost_rolling_cols,
 )
 
 
@@ -41,15 +41,16 @@ def add_rolling_features_lstm(df: pd.DataFrame, roll_window: int) -> pd.DataFram
 
 
 def add_rolling_features_xgboost(
-    df: pd.DataFrame, roll_windows: tuple[int, ...]
+    df: pd.DataFrame, roll_windows: tuple[int, ...], rolling_cols: tuple[str, ...]
 ) -> pd.DataFrame:
     """Add rolling features for XGBoost model.
 
-    Uses ROLLING_COLS and creates multiple window sizes with per90 variants.
+    Uses rolling_cols and creates multiple window sizes with per90 variants.
 
     Args:
         df: Input DataFrame sorted by season, player_id, GW.
         roll_windows: Tuple of window sizes (e.g., (3, 5, 8)).
+        rolling_cols: Rolling columns to use for feature creation.
 
     Returns:
         DataFrame with additional rolling feature columns.
@@ -69,7 +70,7 @@ def add_rolling_features_xgboost(
         )
 
     # Add rolling mean features
-    for col in ROLLING_COLS:
+    for col in rolling_cols:
         shifted = grouped[col].shift(1)
         for window in roll_windows:
             roll_name = f"roll_{window}_{col}"
@@ -86,6 +87,8 @@ def add_rolling_features_xgboost(
         minutes_vals = df[minutes_col]
         for col in PER90_COLS:
             base_col = f"roll_{window}_{col}"
+            if base_col not in df.columns:
+                continue
             per90_col = f"roll_{window}_{col}_per90"
             df[per90_col] = np.where(
                 minutes_vals > 0,
@@ -107,6 +110,8 @@ def add_per90_features(df: pd.DataFrame) -> pd.DataFrame:
     """
     minutes = df["minutes"].replace(0, np.nan)
     for col in PER90_COLS:
+        if col not in df.columns:
+            continue
         per90_col = f"{col}_per90"
         df[per90_col] = df[col] / minutes * 90.0
     return df
@@ -150,7 +155,8 @@ def build_features_xgboost(
         DataFrame with position-filtered and engineered features.
     """
     df = df[df["position"] == position].copy()
-    df = add_rolling_features_xgboost(df, roll_windows)
+    rolling_cols = get_xgboost_rolling_cols(position)
+    df = add_rolling_features_xgboost(df, roll_windows, rolling_cols)
     return df
 
 
@@ -173,7 +179,7 @@ def get_feature_columns_lstm(df: pd.DataFrame, roll_window: int) -> list[str]:
 
 
 def get_feature_columns_xgboost(
-    df: pd.DataFrame, roll_windows: tuple[int, ...]
+    df: pd.DataFrame, roll_windows: tuple[int, ...], position: str | None = None
 ) -> list[str]:
     """Get feature columns for XGBoost model.
 
@@ -185,8 +191,9 @@ def get_feature_columns_xgboost(
         List of feature column names that exist in the DataFrame.
     """
     feature_cols: list[str] = []
+    rolling_cols = get_xgboost_rolling_cols(position)
     for window in roll_windows:
-        for col in ROLLING_COLS:
+        for col in rolling_cols:
             feature_cols.append(f"roll_{window}_{col}")
         for col in PER90_COLS:
             feature_cols.append(f"roll_{window}_{col}_per90")

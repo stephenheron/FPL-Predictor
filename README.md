@@ -119,6 +119,39 @@ fpl-predict --position all --model all --gw 23 --combine
 - LSTM: `{pos}_predictions_lstm.csv`
 - Combined: `{pos}_predictions_combined.csv`
 
+## Attaching Player Prices
+
+Add FPL prices from the season-specific `Fantasy-Premier-League/data/<season>/cleaned_players.csv`
+to a predictions CSV (updates in place by default):
+
+```bash
+python -m fpl_prediction prices --input mid_predictions_gw23.csv
+```
+
+The tool reads the `season` column to pick the right players file.
+
+Write to a new file instead:
+
+```bash
+python -m fpl_prediction prices \
+  --input mid_predictions_gw23.csv \
+  --output mid_predictions_gw23_with_prices.csv
+```
+
+Override the players file if needed:
+
+```bash
+python -m fpl_prediction prices \
+  --input mid_predictions_gw23.csv \
+  --players Fantasy-Premier-League/data/2024-25/cleaned_players.csv
+```
+
+### Alternative CLI
+
+```bash
+fpl-prices --input mid_predictions_gw23.csv
+```
+
 ## Configuration
 
 All hyperparameters are centralized in `src/fpl_prediction/config/`:
