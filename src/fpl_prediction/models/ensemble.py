@@ -8,6 +8,7 @@ def combine_predictions(
     lstm_file: str,
     output_file: str,
     weight_xgb: float = 0.5,
+    normalize_scores: bool = True,
 ) -> pd.DataFrame:
     """Combine XGBoost and LSTM predictions with weighted average.
 
@@ -54,11 +55,37 @@ def combine_predictions(
     if "predicted_points_lstm" not in merged.columns:
         raise ValueError(f"Missing predicted_points in {lstm_file}")
 
-    # Compute weighted average
-    merged["combined_points"] = (
-        merged["predicted_points_xgb"] * weight_xgb
-        + merged["predicted_points_lstm"] * (1.0 - weight_xgb)
-    )
+    group_keys = ["GW"]
+    if "season" in merged.columns:
+        group_keys.append("season")
+
+    if normalize_scores:
+        grouped = merged.groupby(group_keys, dropna=False)
+        xgb_mean = grouped["predicted_points_xgb"].transform("mean")
+        xgb_std = grouped["predicted_points_xgb"].transform("std").fillna(0.0)
+        xgb_std = xgb_std.mask(xgb_std == 0, 1.0)
+        lstm_mean = grouped["predicted_points_lstm"].transform("mean")
+        lstm_std = grouped["predicted_points_lstm"].transform("std").fillna(0.0)
+        lstm_std = lstm_std.mask(lstm_std == 0, 1.0)
+
+        xgb_scores = (merged["predicted_points_xgb"] - xgb_mean) / xgb_std
+        lstm_scores = (merged["predicted_points_lstm"] - lstm_mean) / lstm_std
+    else:
+        xgb_scores = merged["predicted_points_xgb"]
+        lstm_scores = merged["predicted_points_lstm"]
+        xgb_mean = merged["predicted_points_xgb"]
+        lstm_mean = merged["predicted_points_lstm"]
+        xgb_std = 1.0
+        lstm_std = 1.0
+
+    combined_scores = xgb_scores * weight_xgb + lstm_scores * (1.0 - weight_xgb)
+
+    if normalize_scores:
+        combined_mean = xgb_mean * weight_xgb + lstm_mean * (1.0 - weight_xgb)
+        combined_std = xgb_std * weight_xgb + lstm_std * (1.0 - weight_xgb)
+        merged["combined_points"] = combined_scores * combined_std + combined_mean
+    else:
+        merged["combined_points"] = combined_scores
 
     # Helper to pick best column value
     def pick_column(df: pd.DataFrame, col: str) -> pd.Series | None:
@@ -97,6 +124,7 @@ def combine_position_predictions(
     lstm_file: str | None = None,
     output_file: str | None = None,
     weight_xgb: float = 0.5,
+    normalize_scores: bool = True,
 ) -> pd.DataFrame:
     """Combine predictions for a position with default file paths.
 
@@ -115,4 +143,10 @@ def combine_position_predictions(
     lstm_file = lstm_file or f"{pos_lower}_predictions_lstm.csv"
     output_file = output_file or f"{pos_lower}_predictions_combined.csv"
 
-    return combine_predictions(xgb_file, lstm_file, output_file, weight_xgb)
+    return combine_predictions(
+        xgb_file,
+        lstm_file,
+        output_file,
+        weight_xgb,
+        normalize_scores,
+    )

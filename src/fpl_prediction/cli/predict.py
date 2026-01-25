@@ -64,6 +64,18 @@ Examples:
         default=0.5,
         help="Weight for XGBoost in combined predictions (default: 0.5).",
     )
+    parser.add_argument(
+        "--normalize-scores",
+        action="store_true",
+        help="Normalize model scores before combining (default: True).",
+    )
+    parser.add_argument(
+        "--no-normalize-scores",
+        action="store_false",
+        dest="normalize_scores",
+        help="Disable score normalization when combining.",
+    )
+    parser.set_defaults(normalize_scores=True)
     return parser.parse_args()
 
 
@@ -88,7 +100,11 @@ def main() -> None:
             print(f"\n{'=' * 60}")
             print(f"Combining predictions for {position}")
             print(f"{'=' * 60}\n")
-            combine_position_predictions(position, weight_xgb=args.weight_xgb)
+            combine_position_predictions(
+                position,
+                weight_xgb=args.weight_xgb,
+                normalize_scores=args.normalize_scores,
+            )
 
 
 if __name__ == "__main__":

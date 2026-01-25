@@ -7,6 +7,7 @@ requires-python = ">=3.11"
 dependencies = [
     "numpy>=2.0.2",
     "pandas>=2.3.3",
+    "pulp>=2.9.0",
     "torch>=2.8.0",
     "scikit-learn>=1.6.0",
     "xgboost>=2.1.0",
@@ -16,6 +17,7 @@ dependencies = [
 fpl-train = "fpl_prediction.cli.train:main"
 fpl-predict = "fpl_prediction.cli.predict:main"
 fpl-prices = "fpl_prediction.cli.prices:main"
+fpl-optimize = "fpl_prediction.cli.optimize:main"
 
 [build-system]
 requires = ["hatchling"]

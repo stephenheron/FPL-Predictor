@@ -1,5 +1,7 @@
 """Fixture data utilities for building future prediction rows."""
 
+from typing import cast
+
 import numpy as np
 import pandas as pd
 
@@ -61,11 +63,9 @@ def build_future_rows(
         )
 
     # Get latest row for each player
-    latest_rows = (
-        df.sort_values(["season", "GW"])
-        .groupby("player_id", as_index=False)
-        .tail(1)
-        .copy()
+    latest_rows = cast(
+        pd.DataFrame,
+        df.sort_values(["season", "GW"]).groupby("player_id", as_index=False).tail(1).copy(),
     )
     latest_rows["team_id"] = latest_rows["team"].map(team_name_to_id.get)
 
@@ -74,10 +74,30 @@ def build_future_rows(
         missing = latest_rows.loc[missing_mask, "team"].dropna().unique().tolist()
         raise ValueError(f"Missing team ids for: {missing}")
 
+    # Build latest opponent strength lookups
+    opp_cols = ["opp_dyn_attack", "opp_dyn_defence", "opp_dyn_overall"]
+    order_col = "kickoff_time" if "kickoff_time" in df.columns else "GW"
+    opp_source = cast(
+        pd.DataFrame, df.loc[:, ["opponent_name", order_col, *opp_cols]]
+    ).dropna(subset=opp_cols)
+    if not opp_source.empty:
+        opp_source = opp_source.sort_values(order_col)
+        latest_opp = opp_source.groupby("opponent_name", as_index=False).tail(1)
+        opp_attack_map = latest_opp.set_index("opponent_name")["opp_dyn_attack"].to_dict()
+        opp_defence_map = latest_opp.set_index("opponent_name")["opp_dyn_defence"].to_dict()
+        opp_overall_map = latest_opp.set_index("opponent_name")["opp_dyn_overall"].to_dict()
+    else:
+        opp_attack_map = {}
+        opp_defence_map = {}
+        opp_overall_map = {}
+
     # Create future rows for each fixture context
     future_rows: list[pd.DataFrame] = []
     for context in contexts:
-        team_rows = latest_rows[latest_rows["team_id"] == context["team_id"]].copy()
+        team_rows = cast(
+            pd.DataFrame,
+            latest_rows.loc[latest_rows["team_id"] == context["team_id"]].copy(),
+        )
         if team_rows.empty:
             continue
 
@@ -95,9 +115,15 @@ def build_future_rows(
         team_rows["opponent_short_name"] = opponent_short
         team_rows["opponent_code"] = opponent_code
 
-        # Clear unknown future values
-        for col in ["opp_dyn_attack", "opp_dyn_defence", "opp_dyn_overall"]:
-            team_rows[col] = np.nan
+        # Set opponent strength from latest known ratings
+        if opponent_name:
+            team_rows["opp_dyn_attack"] = opp_attack_map.get(opponent_name, np.nan)
+            team_rows["opp_dyn_defence"] = opp_defence_map.get(opponent_name, np.nan)
+            team_rows["opp_dyn_overall"] = opp_overall_map.get(opponent_name, np.nan)
+        else:
+            team_rows["opp_dyn_attack"] = np.nan
+            team_rows["opp_dyn_defence"] = np.nan
+            team_rows["opp_dyn_overall"] = np.nan
 
         team_rows["team_h_score"] = np.nan
         team_rows["team_a_score"] = np.nan

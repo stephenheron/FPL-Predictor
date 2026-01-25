@@ -105,6 +105,7 @@ def add_dynamic_opponent_strengths(
     fixture_df[["expected_goals", "expected_goals_conceded"]] = fixture_df[
         ["expected_goals", "expected_goals_conceded"]
     ].fillna(0)
+
     fixture_df["kickoff_time_dt"] = pd.to_datetime(
         fixture_df["kickoff_time"], errors="coerce"
     )
@@ -583,7 +584,7 @@ def run_pipeline(
             data_base_dir,
             output_dir,
             ratings_state=ratings_state,
-            k_factor=0.2,
+        k_factor=0.2,
         )
         if df is not None:
             all_dfs.append(df)

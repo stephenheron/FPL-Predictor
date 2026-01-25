@@ -4,6 +4,7 @@ Usage:
     python -m fpl_prediction train --position FWD --model lstm
     python -m fpl_prediction predict --position FWD --model lstm --gw 23
     python -m fpl_prediction prices --input mid_predictions_gw23.csv
+    python -m fpl_prediction optimize --gw 23
 """
 
 import sys
@@ -21,11 +22,13 @@ Commands:
     train     Train prediction models
     predict   Generate predictions
     prices    Attach player prices to predictions
+    optimize  Build optimal squad using ILP
 
 Examples:
     python -m fpl_prediction train --position FWD --model lstm
     python -m fpl_prediction predict --position all --model all --gw 23
     python -m fpl_prediction prices --input mid_predictions_gw23.csv
+    python -m fpl_prediction optimize --gw 23
 
 Run 'python -m fpl_prediction <command> --help' for command-specific help.
 """)
@@ -44,9 +47,12 @@ Run 'python -m fpl_prediction <command> --help' for command-specific help.
     elif command == "prices":
         from fpl_prediction.cli.prices import main as prices_main
         prices_main()
+    elif command == "optimize":
+        from fpl_prediction.cli.optimize import main as optimize_main
+        optimize_main()
     else:
         print(f"Unknown command: {command}")
-        print("Valid commands: train, predict, prices")
+        print("Valid commands: train, predict, prices, optimize")
         sys.exit(1)
 
 

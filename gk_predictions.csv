@@ -1,35 +1,35 @@
-name,player_id,team,season,GW,was_home,opponent_name,total_points,availability_multiplier,predicted_points,now_cost
-Bernd Leno,181.0,Fulham,2025-26,23,True,Brighton,,1.0,3.913860321044922,4.9
-Odysseas Vlachodimos,375.0,Newcastle,2025-26,23,True,Aston Villa,,0.2,0.0238476783037185,4.0
-Jordan Pickford,741.0,Everton,2025-26,23,True,Leeds,,1.0,3.244708776473999,5.6
-Karl Darlow,780.0,Leeds,2025-26,23,False,Everton,,0.7,2.986958885192871,3.9
-Sam Johnstone,978.0,Wolves,2025-26,23,False,Man City,,0.2,0.6821479320526124,4.4
-Gianluigi Donnarumma,1116.0,Man City,2025-26,23,True,Wolves,,1.0,2.0772647857666016,5.7
-Alisson Becker,1257.0,Liverpool,2025-26,23,False,Bournemouth,,1.0,4.440752983093262,5.4
-Norberto Murara Neto,1297.0,Bournemouth,2025-26,23,True,Liverpool,,0.2,0.0238476783037185,4.5
-Alphonse Areola,2310.0,West Ham,2025-26,23,True,Sunderland,,1.0,3.4768357276916504,4.3
-Emiliano Martínez Romero,4401.0,Aston Villa,2025-26,23,False,Newcastle,,1.0,3.1357057094573975,5.0
-Nick Pope,5552.0,Newcastle,2025-26,23,True,Aston Villa,,1.0,4.899749755859375,5.1
-Aaron Ramsdale,5603.0,Newcastle,2025-26,23,True,Aston Villa,,0.2,0.9292811393737792,4.8
-Ederson Santana de Moraes,6054.0,Man City,2025-26,23,True,Wolves,,0.2,0.0238476783037185,5.3
-Martin Dúbravka,6532.0,Burnley,2025-26,23,True,Spurs,,1.0,2.7650551795959473,4.0
-Matz Sels,6903.0,Nott'm Forest,2025-26,23,False,Brentford,,1.0,3.4767324924468994,4.6
-Dean Henderson,7702.0,Crystal Palace,2025-26,23,True,Chelsea,,1.0,3.495452404022217,5.1
-Caoimhín Kelleher,7904.0,Brentford,2025-26,23,True,Nott'm Forest,,1.0,2.43241548538208,4.6
-Guglielmo Vicario,8858.0,Spurs,2025-26,23,False,Burnley,,1.0,4.696807861328125,4.8
-James Trafford,9077.0,Man City,2025-26,23,True,Wolves,,0.2,0.514300298690796,4.5
-Robert Lynch Sánchez,9098.0,Chelsea,2025-26,23,False,Crystal Palace,,1.0,2.711351156234741,4.9
-Filip Jörgensen,9272.0,Chelsea,2025-26,23,False,Crystal Palace,,0.7,2.874352836608886,4.3
-Marco Bizot,9614.0,Aston Villa,2025-26,23,False,Newcastle,,0.4,1.2056429862976077,4.2
-David Raya Martín,9676.0,Arsenal,2025-26,23,True,Man Utd,,1.0,5.00402307510376,5.9
-Giorgi Mamardashvili,9693.0,Liverpool,2025-26,23,False,Bournemouth,,0.2,0.5833210468292237,4.2
-José Malheiro de Sá,9740.0,Wolves,2025-26,23,False,Man City,,1.0,3.827529191970825,4.2
-André Onana,10913.0,Man Utd,2025-26,23,False,Arsenal,,0.2,0.0598849534988403,4.9
-Bart Verbruggen,11711.0,Brighton,2025-26,23,False,Fulham,,1.0,2.5834224224090576,4.5
-Đorđe Petrović,12032.0,Bournemouth,2025-26,23,True,Liverpool,,1.0,3.3348262310028076,4.5
-Altay Bayındır,12054.0,Man Utd,2025-26,23,False,Arsenal,,0.2,0.7160251617431641,4.7
-Lucas Estella Perri,12369.0,Leeds,2025-26,23,False,Everton,,1.0,3.647359609603882,4.5
-Mads Hermansen,12910.0,West Ham,2025-26,23,True,Sunderland,,0.2,0.6171637058258057,4.2
-Robin Roefs,13712.0,Sunderland,2025-26,23,False,West Ham,,1.0,2.6817257404327393,5.0
-John Victor Maciel Furtado,14017.0,Nott'm Forest,2025-26,23,False,Brentford,,0.4,1.4258813858032229,4.0
-Senne Lammens,14056.0,Man Utd,2025-26,23,False,Arsenal,,1.0,4.470963001251221,5.0
+name,player_id,team,season,GW,was_home,opponent_name,total_points,availability_multiplier,predicted_points
+Bernd Leno,181.0,Fulham,2025-26,23,True,Brighton,,1.0,3.468214511871338
+Odysseas Vlachodimos,375.0,Newcastle,2025-26,23,True,Aston Villa,,0.2,0.015622621774673462
+Jordan Pickford,741.0,Everton,2025-26,23,True,Leeds,,1.0,3.2354748249053955
+Karl Darlow,780.0,Leeds,2025-26,23,False,Everton,,0.7,2.2767969369888306
+Sam Johnstone,978.0,Wolves,2025-26,23,False,Man City,,0.2,0.5175940990447998
+Gianluigi Donnarumma,1116.0,Man City,2025-26,23,True,Wolves,,1.0,3.0959842205047607
+Alisson Becker,1257.0,Liverpool,2025-26,23,False,Bournemouth,,1.0,3.9055230617523193
+Norberto Murara Neto,1297.0,Bournemouth,2025-26,23,True,Liverpool,,0.2,0.027533814311027527
+Alphonse Areola,2310.0,West Ham,2025-26,23,True,Sunderland,,1.0,3.727715015411377
+Emiliano Martínez Romero,4401.0,Aston Villa,2025-26,23,False,Newcastle,,1.0,2.672062873840332
+Nick Pope,5552.0,Newcastle,2025-26,23,True,Aston Villa,,1.0,4.325861930847168
+Aaron Ramsdale,5603.0,Newcastle,2025-26,23,True,Aston Villa,,0.2,1.1300207138061524
+Ederson Santana de Moraes,6054.0,Man City,2025-26,23,True,Wolves,,0.2,0.0325816810131073
+Martin Dúbravka,6532.0,Burnley,2025-26,23,True,Spurs,,1.0,2.6077260971069336
+Matz Sels,6903.0,Nott'm Forest,2025-26,23,False,Brentford,,1.0,2.7458336353302
+Dean Henderson,7702.0,Crystal Palace,2025-26,23,True,Chelsea,,1.0,3.7519028186798096
+Caoimhín Kelleher,7904.0,Brentford,2025-26,23,True,Nott'm Forest,,1.0,2.887127637863159
+Guglielmo Vicario,8858.0,Spurs,2025-26,23,False,Burnley,,1.0,4.150623321533203
+James Trafford,9077.0,Man City,2025-26,23,True,Wolves,,0.2,0.5631779193878174
+Robert Lynch Sánchez,9098.0,Chelsea,2025-26,23,False,Crystal Palace,,1.0,1.5892442464828491
+Filip Jörgensen,9272.0,Chelsea,2025-26,23,False,Crystal Palace,,0.7,3.8565809249877927
+Marco Bizot,9614.0,Aston Villa,2025-26,23,False,Newcastle,,0.4,1.181681251525879
+David Raya Martín,9676.0,Arsenal,2025-26,23,True,Man Utd,,1.0,2.6385176181793213
+Giorgi Mamardashvili,9693.0,Liverpool,2025-26,23,False,Bournemouth,,0.2,0.6430022716522217
+José Malheiro de Sá,9740.0,Wolves,2025-26,23,False,Man City,,1.0,2.3863587379455566
+André Onana,10913.0,Man Utd,2025-26,23,False,Arsenal,,0.2,-0.010401243716478348
+Bart Verbruggen,11711.0,Brighton,2025-26,23,False,Fulham,,1.0,1.953326940536499
+Đorđe Petrović,12032.0,Bournemouth,2025-26,23,True,Liverpool,,1.0,2.81512188911438
+Altay Bayındır,12054.0,Man Utd,2025-26,23,False,Arsenal,,0.2,0.6217065334320069
+Lucas Estella Perri,12369.0,Leeds,2025-26,23,False,Everton,,1.0,4.167623519897461
+Mads Hermansen,12910.0,West Ham,2025-26,23,True,Sunderland,,0.2,0.8683968544006349
+Robin Roefs,13712.0,Sunderland,2025-26,23,False,West Ham,,1.0,3.074526071548462
+John Victor Maciel Furtado,14017.0,Nott'm Forest,2025-26,23,False,Brentford,,0.4,1.8991838455200196
+Senne Lammens,14056.0,Man Utd,2025-26,23,False,Arsenal,,1.0,2.5506904125213623
