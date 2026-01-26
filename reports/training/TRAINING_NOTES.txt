@@ -1,0 +1,37 @@
+ train_window      mae     rmse  folds
+           25 2.355446 3.149962     39
+           15 2.373658 3.233433     69
+           35 2.526771 3.527491      9
+Best window: 25
+Saved model to: xgb_fwd_model.json
+Top 25 feature importances:
+                          feature  importance
+                 roll_8_influence    0.034566
+                 roll_5_ict_index    0.023187
+                         was_home    0.022010
+   opponent_strength_overall_away    0.017911
+                   roll_8_minutes    0.017847
+                roll_8_us_xGChain    0.017627
+                 roll_8_ict_index    0.016355
+            roll_8_expected_goals    0.015587
+              roll_8_total_points    0.015554
+roll_8_expected_goal_involvements    0.015404
+                       roll_5_bps    0.015391
+              roll_8_goals_scored    0.015201
+             roll_8_us_key_passes    0.014955
+                       roll_8_bps    0.014149
+    opponent_strength_attack_home    0.013678
+                roll_8_creativity    0.013429
+    opponent_strength_attack_away    0.013189
+                     roll_5_bonus    0.013152
+                 roll_3_ict_index    0.012864
+                roll_3_us_xGChain    0.012597
+             roll_8_assists_per90    0.012592
+        roll_8_total_points_per90    0.012289
+              roll_3_us_xGBuildup    0.012071
+      roll_5_expected_goals_per90    0.012069
+              roll_8_us_xGBuildup    0.011829
+Saved full feature importances to: feature_importance_fwd.csv
+Holdout evaluation (2025-26):
+MAE: 2.1290
+RMSE: 3.0482

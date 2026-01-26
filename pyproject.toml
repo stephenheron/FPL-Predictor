@@ -18,6 +18,7 @@ fpl-train = "fpl_prediction.cli.train:main"
 fpl-predict = "fpl_prediction.cli.predict:main"
 fpl-prices = "fpl_prediction.cli.prices:main"
 fpl-optimize = "fpl_prediction.cli.optimize:main"
+fpl-top10 = "fpl_prediction.cli.top10:main"
 
 [build-system]
 requires = ["hatchling"]

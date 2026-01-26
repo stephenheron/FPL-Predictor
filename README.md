@@ -48,7 +48,7 @@ python -c "from fpl_prediction.pipeline import run_pipeline; run_pipeline()"
 ```
 
 This expects FPL + Understat data in `Fantasy-Premier-League/data/<season>/` folders
-and outputs `merged_fpl_understat_<season>.csv` files.
+and outputs `data/raw/merged_fpl_understat_<season>.csv` files.
 
 ## Training Models
 
@@ -81,8 +81,9 @@ fpl-train --position all --model xgboost
 
 ### Outputs
 
-- XGBoost: `xgb_{pos}_model.json`, `feature_importance_{pos}.csv`
-- LSTM: `lstm_{pos}_model.pt`, `lstm_{pos}_scaler.pkl`, `lstm_{pos}_training_report.csv`
+- XGBoost: `models/xgb/xgb_{pos}_model.json`, `reports/training/feature_importance_{pos}.csv`
+- LSTM: `models/lstm/lstm_{pos}_model.pt`, `models/lstm/lstm_{pos}_scaler.pkl`,
+  `reports/training/lstm_{pos}_training_report.csv`
 
 ## Generating Predictions
 
@@ -115,9 +116,17 @@ fpl-predict --position all --model all --gw 23 --combine
 
 ### Outputs
 
-- XGBoost: `{pos}_predictions.csv`
-- LSTM: `{pos}_predictions_lstm.csv`
-- Combined: `{pos}_predictions_combined.csv`
+- XGBoost: `reports/predictions/{pos}_predictions.csv`
+- LSTM: `reports/predictions/{pos}_predictions_lstm.csv`
+- Combined: `reports/predictions/{pos}_predictions_combined.csv`
+
+### Top 10 by Position
+
+```bash
+fpl-top10
+fpl-top10 --gw 23 --limit 15
+fpl-top10 --metric predicted_points_xgb
+```
 
 ## Attaching Player Prices
 
@@ -125,7 +134,7 @@ Add FPL prices from the season-specific `Fantasy-Premier-League/data/<season>/cl
 to a predictions CSV (updates in place by default):
 
 ```bash
-python -m fpl_prediction prices --input mid_predictions_gw23.csv
+python -m fpl_prediction prices --input reports/predictions/mid_predictions_gw23.csv
 ```
 
 The tool reads the `season` column to pick the right players file.
@@ -134,22 +143,22 @@ Write to a new file instead:
 
 ```bash
 python -m fpl_prediction prices \
-  --input mid_predictions_gw23.csv \
-  --output mid_predictions_gw23_with_prices.csv
+  --input reports/predictions/mid_predictions_gw23.csv \
+  --output reports/predictions/mid_predictions_gw23_with_prices.csv
 ```
 
 Override the players file if needed:
 
 ```bash
 python -m fpl_prediction prices \
-  --input mid_predictions_gw23.csv \
+  --input reports/predictions/mid_predictions_gw23.csv \
   --players Fantasy-Premier-League/data/2024-25/cleaned_players.csv
 ```
 
 ### Alternative CLI
 
 ```bash
-fpl-prices --input mid_predictions_gw23.csv
+fpl-prices --input reports/predictions/mid_predictions_gw23.csv
 ```
 
 ## Configuration

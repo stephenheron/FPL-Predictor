@@ -66,26 +66,26 @@ Examples:
     parser.add_argument(
         "--gk",
         type=Path,
-        default=Path("gk_predictions_combined.csv"),
+        default=Path("reports/predictions/gk_predictions_combined.csv"),
         help="Goalkeeper predictions CSV.",
     )
     parser.add_argument(
         "--def",
         dest="def_path",
         type=Path,
-        default=Path("def_predictions_combined.csv"),
+        default=Path("reports/predictions/def_predictions_combined.csv"),
         help="Defender predictions CSV.",
     )
     parser.add_argument(
         "--mid",
         type=Path,
-        default=Path("mid_predictions_combined.csv"),
+        default=Path("reports/predictions/mid_predictions_combined.csv"),
         help="Midfielder predictions CSV.",
     )
     parser.add_argument(
         "--fwd",
         type=Path,
-        default=Path("fwd_predictions_combined.csv"),
+        default=Path("reports/predictions/fwd_predictions_combined.csv"),
         help="Forward predictions CSV.",
     )
     parser.add_argument(

@@ -1,0 +1,37 @@
+name,player_id,team,season,GW,was_home,opponent_name,opponent_strength,total_points,predicted_points
+Callum Wilson,468.0,West Ham,2025-26,22,False,Spurs,3,6,2.6171708
+Dominic Solanke-Mitchell,1679.0,Spurs,2025-26,22,True,West Ham,3,1,1.0772014
+Jarrod Bowen,1776.0,West Ham,2025-26,22,False,Spurs,3,3,3.9138145
+Raúl Jiménez Rodríguez,4105.0,Fulham,2025-26,22,False,Leeds,3,2,5.251101
+Gabriel Fernando de Jesus,5543.0,Arsenal,2025-26,22,False,Nott'm Forest,3,1,2.7359543
+Dominic Calvert-Lewin,5555.0,Leeds,2025-26,22,True,Fulham,3,2,7.1785517
+Jean-Philippe Mateta,5735.0,Crystal Palace,2025-26,22,False,Sunderland,3,2,4.34218
+Randal Kolo Muani,5743.0,Spurs,2025-26,22,True,West Ham,3,2,3.075943
+Yoane Wissa,5786.0,Newcastle,2025-26,22,False,Wolves,3,1,2.5375898
+Richarlison de Andrade,6026.0,Spurs,2025-26,22,True,West Ham,3,0,5.305573
+Enes Ünal,6219.0,Bournemouth,2025-26,22,False,Brighton,3,0,2.596937
+Lukas Nmecha,6544.0,Leeds,2025-26,22,True,Fulham,3,7,2.08916
+Viktor Gyökeres,7254.0,Arsenal,2025-26,22,False,Nott'm Forest,3,1,2.2969337
+Lyle Foster,7498.0,Burnley,2025-26,22,False,Liverpool,4,1,1.2019961
+Arnaud Kalimuendo,8056.0,Nott'm Forest,2025-26,22,True,Arsenal,5,0,1.377668
+Nick Woltemade,8117.0,Newcastle,2025-26,22,False,Wolves,3,2,2.8063278
+Erling Haaland,8260.0,Man City,2025-26,22,False,Man Utd,3,2,7.0326195
+João Pedro Junqueira de Jesus,8272.0,Chelsea,2025-26,22,True,Brentford,3,8,3.7983115
+Armando Broja,8384.0,Burnley,2025-26,22,False,Liverpool,4,2,3.483931
+Ollie Watkins,8865.0,Aston Villa,2025-26,22,True,Everton,3,2,7.2949843
+Liam Delap,8868.0,Chelsea,2025-26,22,True,Brentford,3,4,3.0984888
+Tolu Arokodare,8875.0,Wolves,2025-26,22,True,Newcastle,3,2,3.0072703
+Hugo Ekitiké,8995.0,Liverpool,2025-26,22,True,Burnley,3,2,6.356515
+Brian Brobbey,9789.0,Sunderland,2025-26,22,True,Crystal Palace,3,9,2.6265447
+Norberto Bercique Gomes Betuncal,9983.0,Everton,2025-26,22,False,Aston Villa,3,1,1.4902911
+Valentín Castellanos,10948.0,West Ham,2025-26,22,False,Spurs,3,1,5.9747624
+Jørgen Strand Larsen,11070.0,Wolves,2025-26,22,True,Newcastle,3,1,1.7341676
+Junior Kroupi,11504.0,Bournemouth,2025-26,22,False,Brighton,3,0,2.5087383
+Thierno Barry,12916.0,Everton,2025-26,22,False,Aston Villa,3,8,4.645578
+Francisco Evanilson de Lima Barbosa,12963.0,Bournemouth,2025-26,22,False,Brighton,3,0,2.4873674
+Igor Thiago Nascimento Rodrigues,13222.0,Brentford,2025-26,22,False,Chelsea,3,2,4.3301277
+Jonah Kusi-Asare,13262.0,Fulham,2025-26,22,False,Leeds,3,0,1.4715353
+Mateus Mané,13484.0,Wolves,2025-26,22,True,Newcastle,3,2,5.6270347
+Eliezer Mayenda Dossou,13718.0,Sunderland,2025-26,22,True,Crystal Palace,3,1,2.5058086
+Igor Jesus Maciel da Cruz,13778.0,Nott'm Forest,2025-26,22,True,Arsenal,5,2,2.0351195
+Pablo Felipe Pereira de Jesus,14290.0,West Ham,2025-26,22,False,Spurs,3,2,1.4119568
