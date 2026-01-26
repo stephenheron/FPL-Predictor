@@ -76,15 +76,16 @@ def _load_predictions(path: Path, position: str, gw: int | None) -> pd.DataFrame
     if "opponent_name" not in df.columns:
         df = df.assign(opponent_name=pd.NA)
 
-    grouped = (
-        df.groupby(["player_id", "name", "team", "now_cost"], as_index=False)
-        .agg(
-            predicted_points=(points_col, "sum"),
-            availability_multiplier=("availability_multiplier", "max"),
-            opponent_name=("opponent_name", _resolve_single_opponent),
-        )
-        .assign(position=position)
-    )
+    group_keys = ["player_id", "name", "team", "now_cost"]
+    agg_spec = {
+        "predicted_points": (points_col, "sum"),
+        "availability_multiplier": ("availability_multiplier", "max"),
+        "opponent_name": ("opponent_name", _resolve_single_opponent),
+    }
+    if "fpl_id" in df.columns:
+        agg_spec["fpl_id"] = ("fpl_id", "first")
+
+    grouped = df.groupby(group_keys, as_index=False).agg(**agg_spec).assign(position=position)
 
     return grouped
 

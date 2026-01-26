@@ -99,12 +99,14 @@ FIXTURE_COLS: tuple[str, ...] = (
 OUTPUT_COLS: tuple[str, ...] = (
     "name",
     "player_id",
+    "fpl_id",
     "team",
     "season",
     "GW",
     "was_home",
     "opponent_name",
     "total_points",
+    "now_cost",
 )
 
 

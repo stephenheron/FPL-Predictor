@@ -103,7 +103,7 @@ class PredictionConfig:
     @property
     def output_file(self) -> str:
         suffix = "_lstm" if self.model_type == "lstm" else ""
-        return f"{self.position.lower()}_predictions{suffix}.csv"
+        return f"reports/predictions/{self.position.lower()}_predictions{suffix}.csv"
 
 
 # Availability multiplier thresholds

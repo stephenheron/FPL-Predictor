@@ -1,7 +1,7 @@
 """Data joining pipeline for FPL and Understat data."""
 
 from pathlib import Path
-from typing import Optional
+from typing import Optional, cast
 
 import numpy as np
 import pandas as pd
@@ -345,6 +345,15 @@ def process_season(
     # Load FPL data
     print("Loading FPL data...")
     fpl_df = pd.read_csv(merged_gw_path)
+    fpl_id_source = None
+    if "element" in fpl_df.columns:
+        fpl_id_source = "element"
+    elif "id" in fpl_df.columns:
+        fpl_id_source = "id"
+    if fpl_id_source is not None:
+        fpl_df["fpl_id"] = fpl_df[fpl_id_source]
+    else:
+        fpl_df["fpl_id"] = pd.NA
     fpl_df["match_date"] = pd.to_datetime(fpl_df["kickoff_time"]).dt.date.astype(str)
     fpl_df["season"] = season
 
@@ -358,6 +367,10 @@ def process_season(
     }
     fpl_df = fpl_df.drop(columns=[c for c in drop_fpl_cols if c in fpl_df.columns])
     fpl_df = fpl_df.drop(columns=[c for c in fpl_df.columns if c.startswith("mng_")])
+
+    if "now_cost" not in fpl_df.columns and "value" in fpl_df.columns:
+        value_series = cast(pd.Series, pd.to_numeric(fpl_df["value"], errors="coerce"))
+        fpl_df["now_cost"] = value_series.astype(float) / 10.0
 
     # Add opponent team info
     print("Loading teams data...")

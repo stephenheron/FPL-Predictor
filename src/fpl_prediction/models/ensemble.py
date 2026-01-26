@@ -1,5 +1,7 @@
 """Ensemble logic for combining model predictions."""
 
+from typing import cast
+
 import pandas as pd
 
 
@@ -91,20 +93,32 @@ def combine_predictions(
     def pick_column(df: pd.DataFrame, col: str) -> pd.Series | None:
         xgb_col = f"{col}_xgb" if f"{col}_xgb" in df.columns else None
         lstm_col = f"{col}_lstm" if f"{col}_lstm" in df.columns else None
-        if xgb_col and lstm_col:
-            return df[xgb_col].combine_first(df[lstm_col])
-        if xgb_col:
-            return df[xgb_col]
-        if lstm_col:
-            return df[lstm_col]
+        xgb_series: pd.Series | None = cast(pd.Series, df[xgb_col]) if xgb_col else None
+        lstm_series: pd.Series | None = cast(pd.Series, df[lstm_col]) if lstm_col else None
+        if xgb_series is not None and lstm_series is not None:
+            return xgb_series.where(xgb_series.notna(), lstm_series)
+        if xgb_series is not None:
+            return xgb_series
+        if lstm_series is not None:
+            return lstm_series
         if col in df.columns:
-            return df[col]
+            return cast(pd.Series, df[col])
         return None
 
     # Build output DataFrame
     output = pd.DataFrame()
     output["player_id"] = merged["player_id"]
-    for col in ["name", "team", "season", "GW", "was_home", "opponent_name", "total_points"]:
+    for col in [
+        "fpl_id",
+        "name",
+        "team",
+        "season",
+        "GW",
+        "was_home",
+        "opponent_name",
+        "total_points",
+        "now_cost",
+    ]:
         values = pick_column(merged, col)
         if values is not None:
             output[col] = values
@@ -139,9 +153,9 @@ def combine_position_predictions(
         DataFrame with combined predictions.
     """
     pos_lower = position.lower()
-    xgb_file = xgb_file or f"{pos_lower}_predictions.csv"
-    lstm_file = lstm_file or f"{pos_lower}_predictions_lstm.csv"
-    output_file = output_file or f"{pos_lower}_predictions_combined.csv"
+    xgb_file = xgb_file or f"reports/predictions/{pos_lower}_predictions.csv"
+    lstm_file = lstm_file or f"reports/predictions/{pos_lower}_predictions_lstm.csv"
+    output_file = output_file or f"reports/predictions/{pos_lower}_predictions_combined.csv"
 
     return combine_predictions(
         xgb_file,

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 from pathlib import Path
 
 import pandas as pd
@@ -39,13 +40,13 @@ Examples:
     parser.add_argument(
         "--bench-max-cost",
         type=float,
-        default=5.5,
+        default=5.0,
         help="Maximum cost per bench player (default: 5.5).",
     )
     parser.add_argument(
         "--bench-gk-max-cost",
         type=float,
-        default=5.0,
+        default=4.8,
         help="Maximum cost for the bench goalkeeper (default: 5.0).",
     )
     parser.add_argument(
@@ -93,6 +94,13 @@ Examples:
         type=Path,
         default=None,
         help="Optional CSV output path for selected squad.",
+    )
+    parser.add_argument(
+        "--output-json",
+        dest="output_json",
+        type=Path,
+        default=None,
+        help="Optional JSON output path for squad and summary.",
     )
     parser.add_argument(
         "--avoid",
@@ -176,6 +184,16 @@ def main() -> None:
         args.output.parent.mkdir(parents=True, exist_ok=True)
         selected.to_csv(args.output, index=False)
         print(f"\nSaved squad to {args.output}")
+
+    if args.output_json:
+        payload = {
+            "summary": summary,
+            "players": selected.to_dict(orient="records"),
+        }
+        args.output_json.parent.mkdir(parents=True, exist_ok=True)
+        with args.output_json.open("w", encoding="utf-8") as handle:
+            json.dump(payload, handle, indent=2)
+        print(f"\nSaved squad JSON to {args.output_json}")
 
 
 if __name__ == "__main__":
