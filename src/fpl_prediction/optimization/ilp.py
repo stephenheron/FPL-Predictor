@@ -89,6 +89,31 @@ def _load_predictions(path: Path, position: str, gw: int | None) -> pd.DataFrame
     return grouped
 
 
+def _apply_avoid_filter(players: pd.DataFrame, avoid_players: list[str]) -> pd.DataFrame:
+    if not avoid_players:
+        return players
+
+    avoid_ids: set[int] = set()
+    avoid_names: set[str] = set()
+    for entry in avoid_players:
+        cleaned = entry.strip()
+        if not cleaned:
+            continue
+        if cleaned.isdigit():
+            avoid_ids.add(int(cleaned))
+        else:
+            avoid_names.add(cleaned.casefold())
+
+    filtered = players
+    if avoid_ids:
+        filtered = filtered[~filtered["player_id"].isin(avoid_ids)]
+    if avoid_names and "name" in filtered.columns:
+        filtered = filtered[
+            ~filtered["name"].fillna("").astype(str).str.casefold().isin(avoid_names)
+        ]
+    return filtered
+
+
 def build_optimal_squad(
     gk_path: Path,
     def_path: Path,
@@ -101,6 +126,7 @@ def build_optimal_squad(
     bench_gk_max_cost: float | None = None,
     min_total_spend: float | None = None,
     conflict_penalty_weight: float = 0.2,
+    avoid_players: list[str] | None = None,
 ) -> tuple[pd.DataFrame, int | None]:
     """Build the optimal 15-player squad for a given gameweek."""
 
@@ -118,6 +144,8 @@ def build_optimal_squad(
     fwd_df = _load_predictions(fwd_path, "FWD", resolved_gw)
 
     players = pd.concat([gk_df, def_df, mid_df, fwd_df], ignore_index=True)
+    if avoid_players:
+        players = _apply_avoid_filter(players, avoid_players)
     if players.empty:
         raise ValueError("No players available after filtering.")
 

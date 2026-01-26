@@ -110,6 +110,11 @@ def add_dynamic_opponent_strengths(
         fixture_df["kickoff_time"], errors="coerce"
     )
 
+    fixture_df = fixture_df[
+        (fixture_df["expected_goals"] != 0)
+        & (fixture_df["expected_goals_conceded"] != 0)
+    ].copy()
+
     fixture_agg = (
         fixture_df.groupby(fixture_cols, dropna=False, as_index=False)
         .agg(
@@ -245,6 +250,48 @@ def add_dynamic_opponent_strengths(
         }
 
     fixture_strengths = pd.DataFrame(records)
+    fixture_strengths["kickoff_time_dt"] = pd.to_datetime(
+        fixture_strengths["kickoff_time"], errors="coerce"
+    )
+
+    weighted_records = []
+    for opponent_name, group in fixture_strengths.groupby(
+        "opponent_name", sort=False
+    ):
+        group = group.sort_values("kickoff_time_dt")
+        count = len(group)
+        if count == 0:
+            continue
+        if count == 1:
+            weights = np.array([1.0])
+        else:
+            weights = np.exp(np.arange(count) / (count - 1))
+        total_weight = weights.sum()
+        weighted_records.append(
+            {
+                "opponent_name": opponent_name,
+                "opp_dyn_attack": float(
+                    (group["opp_dyn_attack"].to_numpy() * weights).sum()
+                    / total_weight
+                ),
+                "opp_dyn_defence": float(
+                    (group["opp_dyn_defence"].to_numpy() * weights).sum()
+                    / total_weight
+                ),
+                "opp_dyn_overall": float(
+                    (group["opp_dyn_overall"].to_numpy() * weights).sum()
+                    / total_weight
+                ),
+            }
+        )
+
+    weighted_df = pd.DataFrame(weighted_records)
+    fixture_strengths = fixture_strengths.drop(
+        columns=["opp_dyn_attack", "opp_dyn_defence", "opp_dyn_overall"]
+    )
+    fixture_strengths = fixture_strengths.merge(
+        weighted_df, on="opponent_name", how="left"
+    )
     merged_df = merged_df.merge(fixture_strengths, on=fixture_cols, how="left")
 
     for col in ["opp_dyn_attack", "opp_dyn_defence", "opp_dyn_overall"]:

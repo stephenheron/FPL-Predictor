@@ -19,6 +19,8 @@ def parse_args() -> argparse.Namespace:
 Examples:
     fpl-optimize --gw 23
     fpl-optimize --budget 101.5 --max-per-team 3
+    fpl-optimize --avoid "Erling Haaland" --avoid 355
+    fpl-optimize --avoid "Erling Haaland, Mohamed Salah"
     fpl-optimize --output output/optimal_squad.csv
         """,
     )
@@ -92,6 +94,15 @@ Examples:
         default=None,
         help="Optional CSV output path for selected squad.",
     )
+    parser.add_argument(
+        "--avoid",
+        action="append",
+        default=[],
+        help=(
+            "Players to avoid by name or player_id. "
+            "Repeat the flag or provide a comma-separated list."
+        ),
+    )
     return parser.parse_args()
 
 
@@ -140,6 +151,9 @@ def main() -> None:
     args = parse_args()
 
     constraints = SquadConstraints(budget=args.budget, max_per_team=args.max_per_team)
+    avoid_players: list[str] = []
+    for entry in args.avoid:
+        avoid_players.extend([part.strip() for part in entry.split(",") if part.strip()])
     selected, resolved_gw = build_optimal_squad(
         gk_path=args.gk,
         def_path=args.def_path,
@@ -152,6 +166,7 @@ def main() -> None:
         bench_gk_max_cost=args.bench_gk_max_cost,
         min_total_spend=args.min_total_spend,
         conflict_penalty_weight=args.conflict_penalty_weight,
+        avoid_players=avoid_players,
     )
 
     summary = summarize_squad(selected)
