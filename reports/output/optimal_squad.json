@@ -1,0 +1,190 @@
+{
+  "summary": {
+    "total_cost": 95.00000000000001,
+    "total_points": 56.208471058381136,
+    "starter_points": 43.95501193093437,
+    "bench_points": 12.253459127446765
+  },
+  "players": [
+    {
+      "player_id": 8717.0,
+      "name": "Pascal Struijk",
+      "team": "Leeds",
+      "now_cost": 4.3,
+      "predicted_points": 3.3443722131314213,
+      "availability_multiplier": 1.0,
+      "opponent_name": "Everton",
+      "fpl_id": 343,
+      "position": "DEF",
+      "is_starter": true
+    },
+    {
+      "player_id": 10216.0,
+      "name": "Lewis Hall",
+      "team": "Newcastle",
+      "now_cost": 5.3,
+      "predicted_points": 3.2981748920630727,
+      "availability_multiplier": 1.0,
+      "opponent_name": "Aston Villa",
+      "fpl_id": 473,
+      "position": "DEF",
+      "is_starter": true
+    },
+    {
+      "player_id": 6807.0,
+      "name": "Jaka Bijol",
+      "team": "Leeds",
+      "now_cost": 3.9,
+      "predicted_points": 3.0736693657760172,
+      "availability_multiplier": 1.0,
+      "opponent_name": "Everton",
+      "fpl_id": 344,
+      "position": "DEF",
+      "is_starter": true
+    },
+    {
+      "player_id": 13713.0,
+      "name": "Trai Hume",
+      "team": "Sunderland",
+      "now_cost": 4.5,
+      "predicted_points": 2.840692896384642,
+      "availability_multiplier": 1.0,
+      "opponent_name": "West Ham",
+      "fpl_id": 532,
+      "position": "DEF",
+      "is_starter": false
+    },
+    {
+      "player_id": 9733.0,
+      "name": "Nathan Collins",
+      "team": "Brentford",
+      "now_cost": 5.0,
+      "predicted_points": 2.808609745156536,
+      "availability_multiplier": 1.0,
+      "opponent_name": "Nott'm Forest",
+      "fpl_id": 106,
+      "position": "DEF",
+      "is_starter": false
+    },
+    {
+      "player_id": 8260.0,
+      "name": "Erling Haaland",
+      "team": "Man City",
+      "now_cost": 15.1,
+      "predicted_points": 4.9837514692766,
+      "availability_multiplier": 1.0,
+      "opponent_name": "Wolves",
+      "fpl_id": 430,
+      "position": "FWD",
+      "is_starter": true
+    },
+    {
+      "player_id": 13222.0,
+      "name": "Igor Thiago Nascimento Rodrigues",
+      "team": "Brentford",
+      "now_cost": 7.1,
+      "predicted_points": 4.74316300143718,
+      "availability_multiplier": 1.0,
+      "opponent_name": "Nott'm Forest",
+      "fpl_id": 136,
+      "position": "FWD",
+      "is_starter": true
+    },
+    {
+      "player_id": 5555.0,
+      "name": "Dominic Calvert-Lewin",
+      "team": "Leeds",
+      "now_cost": 6.0,
+      "predicted_points": 4.178274863807631,
+      "availability_multiplier": 1.0,
+      "opponent_name": "Everton",
+      "fpl_id": 691,
+      "position": "FWD",
+      "is_starter": true
+    },
+    {
+      "player_id": 1116.0,
+      "name": "Gianluigi Donnarumma",
+      "team": "Man City",
+      "now_cost": 5.7,
+      "predicted_points": 3.425385475683317,
+      "availability_multiplier": 1.0,
+      "opponent_name": "Wolves",
+      "fpl_id": 736,
+      "position": "GK",
+      "is_starter": true
+    },
+    {
+      "player_id": 8858.0,
+      "name": "Guglielmo Vicario",
+      "team": "Spurs",
+      "now_cost": 4.8,
+      "predicted_points": 3.086927046420648,
+      "availability_multiplier": 1.0,
+      "opponent_name": "Burnley",
+      "fpl_id": 565,
+      "position": "GK",
+      "is_starter": false
+    },
+    {
+      "player_id": 8327.0,
+      "name": "Bruno Guimar\u00e3es Rodriguez Moura",
+      "team": "Newcastle",
+      "now_cost": 7.2,
+      "predicted_points": 4.482350759521436,
+      "availability_multiplier": 1.0,
+      "opponent_name": "Aston Villa",
+      "fpl_id": 488,
+      "position": "MID",
+      "is_starter": true
+    },
+    {
+      "player_id": 8397.0,
+      "name": "Florian Wirtz",
+      "team": "Liverpool",
+      "now_cost": 8.2,
+      "predicted_points": 4.385912446688554,
+      "availability_multiplier": 1.0,
+      "opponent_name": "Bournemouth",
+      "fpl_id": 382,
+      "position": "MID",
+      "is_starter": true
+    },
+    {
+      "player_id": 5596.0,
+      "name": "Harry Wilson",
+      "team": "Fulham",
+      "now_cost": 5.9,
+      "predicted_points": 4.094995191909015,
+      "availability_multiplier": 1.0,
+      "opponent_name": "Brighton",
+      "fpl_id": 329,
+      "position": "MID",
+      "is_starter": true
+    },
+    {
+      "player_id": 9156.0,
+      "name": "Kevin Schade",
+      "team": "Brentford",
+      "now_cost": 7.1,
+      "predicted_points": 3.9449622516401175,
+      "availability_multiplier": 1.0,
+      "opponent_name": "Nott'm Forest",
+      "fpl_id": 120,
+      "position": "MID",
+      "is_starter": true
+    },
+    {
+      "player_id": 8651.0,
+      "name": "Enzo Le F\u00e9e",
+      "team": "Sunderland",
+      "now_cost": 4.9,
+      "predicted_points": 3.5172294394849395,
+      "availability_multiplier": 1.0,
+      "opponent_name": "West Ham",
+      "fpl_id": 547,
+      "position": "MID",
+      "is_starter": false
+    }
+  ]
+}

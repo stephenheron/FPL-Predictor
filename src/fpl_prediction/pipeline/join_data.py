@@ -632,6 +632,8 @@ def run_pipeline(
         output_dir: Directory to save output files.
         seasons: List of seasons to process (default: 2022-23 to 2025-26).
     """
+    output_dir.mkdir(parents=True, exist_ok=True)
+
     if seasons is None:
         seasons = ["2022-23", "2023-24", "2024-25", "2025-26"]
 
@@ -663,7 +665,7 @@ def run_pipeline(
 def main() -> None:
     """Main entry point for join_data pipeline."""
     data_base_dir = Path("Fantasy-Premier-League/data")
-    output_dir = Path(".")
+    output_dir = Path("data")
     run_pipeline(data_base_dir, output_dir)
 
 

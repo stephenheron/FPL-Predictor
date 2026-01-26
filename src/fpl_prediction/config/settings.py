@@ -14,11 +14,11 @@ class LSTMConfig:
 
     position: Position
     train_files: tuple[str, ...] = (
-        "merged_fpl_understat_2022-23.csv",
-        "merged_fpl_understat_2023-24.csv",
-        "merged_fpl_understat_2024-25.csv",
+        "data/merged_fpl_understat_2022-23.csv",
+        "data/merged_fpl_understat_2023-24.csv",
+        "data/merged_fpl_understat_2024-25.csv",
     )
-    holdout_file: str = "merged_fpl_understat_2025-26.csv"
+    holdout_file: str = "data/merged_fpl_understat_2025-26.csv"
     seq_len: int = 5
     roll_window: int = 8
     hidden_size: int = 64
@@ -34,15 +34,15 @@ class LSTMConfig:
 
     @property
     def model_out(self) -> str:
-        return f"lstm_{self.position.lower()}_model.pt"
+        return f"models/lstm_{self.position.lower()}_model.pt"
 
     @property
     def scaler_out(self) -> str:
-        return f"lstm_{self.position.lower()}_scaler.pkl"
+        return f"models/lstm_{self.position.lower()}_scaler.pkl"
 
     @property
     def report_out(self) -> str:
-        return f"lstm_{self.position.lower()}_training_report.csv"
+        return f"models/lstm_{self.position.lower()}_training_report.csv"
 
 
 @dataclass
@@ -51,11 +51,11 @@ class XGBoostConfig:
 
     position: Position
     train_files: tuple[str, ...] = (
-        "merged_fpl_understat_2022-23.csv",
-        "merged_fpl_understat_2023-24.csv",
-        "merged_fpl_understat_2024-25.csv",
+        "data/merged_fpl_understat_2022-23.csv",
+        "data/merged_fpl_understat_2023-24.csv",
+        "data/merged_fpl_understat_2024-25.csv",
     )
-    holdout_file: str = "merged_fpl_understat_2025-26.csv"
+    holdout_file: str = "data/merged_fpl_understat_2025-26.csv"
     roll_windows: tuple[int, ...] = (3, 5, 8)
     train_windows: tuple[int, ...] = (15, 25, 35)
     fixed_window_config: str = "best_windows.json"
@@ -69,11 +69,11 @@ class XGBoostConfig:
 
     @property
     def model_out(self) -> str:
-        return f"xgb_{self.position.lower()}_model.json"
+        return f"models/xgb_{self.position.lower()}_model.json"
 
     @property
     def importance_out(self) -> str:
-        return f"feature_importance_{self.position.lower()}.csv"
+        return f"models/feature_importance_{self.position.lower()}.csv"
 
 
 @dataclass
@@ -82,7 +82,7 @@ class PredictionConfig:
 
     position: Position
     model_type: ModelType
-    input_file: str = "merged_fpl_understat_2025-26.csv"
+    input_file: str = "data/merged_fpl_understat_2025-26.csv"
     fixtures_file: str = "Fantasy-Premier-League/data/2025-26/fixtures.csv"
     teams_file: str = "Fantasy-Premier-League/data/2025-26/teams.csv"
     predict_gw: int | None = None
@@ -93,12 +93,12 @@ class PredictionConfig:
     @property
     def model_file(self) -> str:
         if self.model_type == "lstm":
-            return f"lstm_{self.position.lower()}_model.pt"
-        return f"xgb_{self.position.lower()}_model.json"
+            return f"models/lstm_{self.position.lower()}_model.pt"
+        return f"models/xgb_{self.position.lower()}_model.json"
 
     @property
     def scaler_file(self) -> str:
-        return f"lstm_{self.position.lower()}_scaler.pkl"
+        return f"models/lstm_{self.position.lower()}_scaler.pkl"
 
     @property
     def output_file(self) -> str:
