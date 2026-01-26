@@ -15,3 +15,4 @@ python -m fpl_prediction.cli.prices --input reports/predictions/gk_predictions_c
 python -m fpl_prediction.cli.prices --input reports/predictions/def_predictions_combined.csv
 python -m fpl_prediction.cli.prices --input reports/predictions/mid_predictions_combined.csv
 python -m fpl_prediction.cli.prices --input reports/predictions/fwd_predictions_combined.csv
+python -m fpl_prediction.cli.optimize --gw "$gw" --output-json reports/output/optimal_squad.json

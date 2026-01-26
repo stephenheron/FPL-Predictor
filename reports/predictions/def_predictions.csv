@@ -1,176 +1,176 @@
 name,player_id,fpl_id,team,season,GW,was_home,opponent_name,total_points,now_cost,availability_multiplier,predicted_points
-Fabian Schär,76.0,474,Newcastle,2025-26,23,True,Aston Villa,,5.3,0.7,2.259484791755676
-Jordan Beyer,160.0,194,Burnley,2025-26,23,True,Spurs,,3.9,0.2,0.05272178649902344
-Nathan Aké,579.0,405,Man City,2025-26,23,True,Wolves,,5.3,0.7,2.3198403120040894
-Séamus Coleman,585.0,294,Everton,2025-26,23,True,Leeds,,4.3,0.2,0.2963986158370972
-John Stones,586.0,409,Man City,2025-26,23,True,Wolves,,5.4,0.2,0.5331950187683105
-Nathaniel Clyne,603.0,263,Crystal Palace,2025-26,23,True,Chelsea,,3.8,0.4,0.9847850799560547
-Kyle Walker,638.0,187,Burnley,2025-26,23,True,Spurs,,4.4,1.0,2.511495351791382
-Kieran Trippier,652.0,478,Newcastle,2025-26,23,True,Aston Villa,,4.9,0.7,3.032927894592285
-Ben Davies,660.0,571,Spurs,2025-26,23,False,Burnley,,4.3,0.7,1.324114418029785
-Ola Aina,725.0,507,Nott'm Forest,2025-26,23,False,Brentford,,4.7,1.0,2.490813970565796
-Jamaal Lascelles,766.0,480,Newcastle,2025-26,23,True,Aston Villa,,4.4,0.2,0.5007016181945801
-Adam Smith,825.0,73,Bournemouth,2025-26,23,True,Liverpool,,4.4,0.2,0.367754602432251
-Virgil van Dijk,833.0,373,Liverpool,2025-26,23,False,Bournemouth,,5.9,1.0,3.100782632827759
-Kyle Walker-Peters,885.0,659,West Ham,2025-26,23,True,Sunderland,,4.2,1.0,2.2840070724487305
-Sam Byram,902.0,346,Leeds,2025-26,23,False,Everton,,4.0,0.2,0.5944305896759033
-Axel Tuanzebe,934.0,198,Burnley,2025-26,23,True,Spurs,,3.9,0.7,1.922392129898071
-Joe Gomez,987.0,376,Liverpool,2025-26,23,False,Bournemouth,,4.9,0.4,0.7831171035766602
-Luke Shaw,1006.0,443,Man Utd,2025-26,23,False,Arsenal,,4.5,1.0,2.5722217559814453
-Tyrone Mings,1024.0,40,Aston Villa,2025-26,23,False,Newcastle,,4.4,0.2,0.47933144569396974
-Emerson Palmieri dos Santos,1245.0,604,West Ham,2025-26,23,True,Sunderland,,4.4,0.2,0.04399773180484772
-Emil Krafth,1545.0,479,Newcastle,2025-26,23,True,Aston Villa,,4.4,0.2,0.43413615226745605
-Michael Keane,1653.0,295,Everton,2025-26,23,True,Leeds,,4.8,0.7,2.7146684408187864
-James Tarkowski,1665.0,291,Everton,2025-26,23,True,Leeds,,5.7,1.0,3.601032018661499
-Harry Maguire,1687.0,442,Man Utd,2025-26,23,False,Arsenal,,4.3,0.7,2.0021481275558473
-Andrew Robertson,1688.0,372,Liverpool,2025-26,23,False,Bournemouth,,5.8,0.4,0.6615222454071046
-Arthur Masuaku,1760.0,678,Sunderland,2025-26,23,False,West Ham,,4.0,0.2,0.35903511047363285
-Lucas Digne,1823.0,37,Aston Villa,2025-26,23,False,Newcastle,,4.5,0.7,1.6219671964645386
-Oleksandr Zinchenko,2958.0,12,Nott'm Forest,2025-26,23,False,Brentford,,4.9,0.2,0.3749849319458008
-Issa Diop,3203.0,320,Fulham,2025-26,23,True,Brighton,,4.3,1.0,1.5543745756149292
-Olivier Boscagli,3645.0,143,Brighton,2025-26,23,False,Fulham,,4.2,0.2,0.3242327928543091
-Kevin Danso,5261.0,570,Spurs,2025-26,23,False,Burnley,,4.2,0.2,0.04893342852592469
-Aaron Wan-Bissaka,5584.0,610,West Ham,2025-26,23,True,Sunderland,,4.1,0.7,2.587746477127075
-Tosin Adarabioyo,5590.0,232,Chelsea,2025-26,23,False,Crystal Palace,,4.0,0.7,1.7547557830810545
-Gabriel dos Santos Magalhães,5613.0,5,Arsenal,2025-26,23,True,Man Utd,,6.8,1.0,2.9662420749664307
-Nordi Mukiele,5659.0,694,Sunderland,2025-26,23,False,West Ham,,4.4,1.0,3.995760917663574
-Kenny Tete,5973.0,322,Fulham,2025-26,23,True,Brighton,,4.5,0.2,0.47375016212463383
-Lewis Dunk,6048.0,146,Brighton,2025-26,23,False,Fulham,,4.5,1.0,2.6058921813964844
-Victor Lindelöf,6080.0,719,Aston Villa,2025-26,23,False,Newcastle,,4.5,1.0,2.2016963958740234
-Timothy Castagne,6157.0,319,Fulham,2025-26,23,True,Brighton,,4.3,1.0,2.3797740936279297
-Nikola Milenković,6174.0,505,Nott'm Forest,2025-26,23,False,Brentford,,5.1,1.0,2.429760456085205
-Pau Torres,6221.0,41,Aston Villa,2025-26,23,False,Newcastle,,4.3,0.7,1.4276708602905273
-Joachim Andersen,6314.0,317,Fulham,2025-26,23,True,Brighton,,4.6,1.0,2.7466695308685303
-Ibrahima Konaté,6326.0,374,Liverpool,2025-26,23,False,Bournemouth,,5.4,1.0,3.359464645385742
-Joe Rodon,6377.0,348,Leeds,2025-26,23,False,Everton,,3.9,1.0,2.8343470096588135
-Trevoh Chalobah,6615.0,226,Chelsea,2025-26,23,False,Crystal Palace,,5.5,1.0,3.5033316612243652
-Rayan Aït-Nouri,6674.0,402,Man City,2025-26,23,True,Wolves,,5.7,0.4,1.1232081413269044
-Konstantinos Mavropanos,6722.0,606,West Ham,2025-26,23,True,Sunderland,,4.4,1.0,3.3572771549224854
-Jaka Bijol,6807.0,344,Leeds,2025-26,23,False,Everton,,3.9,1.0,3.809562921524048
-Jean-Clair Todibo,6816.0,609,West Ham,2025-26,23,True,Sunderland,,4.3,1.0,2.8372609615325928
-Matt Doherty,6852.0,632,Wolves,2025-26,23,False,Man City,,4.4,0.2,0.26555016040802004
-William Saliba,6888.0,6,Arsenal,2025-26,23,True,Man Utd,,6.0,1.0,3.348625898361206
-Pedro Porro Sauceda,6912.0,568,Spurs,2025-26,23,False,Burnley,,5.2,1.0,4.171360015869141
-Nayef Aguerd,6935.0,607,West Ham,2025-26,23,True,Sunderland,,4.4,0.2,0.04399773180484772
-Borna Sosa,7075.0,259,Crystal Palace,2025-26,23,True,Chelsea,,4.8,0.4,0.5710129261016846
-Marc Cucurella Saseta,7134.0,224,Chelsea,2025-26,23,False,Crystal Palace,,6.0,0.7,1.5382726907730102
-Cristian Romero,7218.0,569,Spurs,2025-26,23,False,Burnley,,5.0,1.0,3.84137225151062
-Benoît Badiashile Mukinayi,7240.0,229,Chelsea,2025-26,23,False,Crystal Palace,,4.4,0.7,1.1391448974609375
-Bafodé Diakité,7268.0,685,Bournemouth,2025-26,23,True,Liverpool,,4.3,0.4,0.6693909645080567
-Diogo Dalot Teixeira,7281.0,440,Man Utd,2025-26,23,False,Arsenal,,4.5,1.0,1.8876601457595825
-Benjamin White,7298.0,11,Arsenal,2025-26,23,True,Man Utd,,5.1,0.7,1.5594268798828124
-Maximilian Kilman,7332.0,605,West Ham,2025-26,23,True,Sunderland,,4.2,0.7,1.0074649810791014
-Dan Burn,7382.0,476,Newcastle,2025-26,23,True,Aston Villa,,5.2,0.2,0.5088809967041016
-Reinildo Mandava,7432.0,541,Sunderland,2025-26,23,False,West Ham,,3.8,0.7,2.0332451343536375
-Wesley Fofana,7589.0,230,Chelsea,2025-26,23,False,Crystal Palace,,4.4,0.4,0.7414303302764893
-Marc Guéhi,7603.0,260,Crystal Palace,2025-26,23,True,Chelsea,,5.3,1.0,2.551893949508667
-Ezri Konsa Ngoyo,7726.0,38,Aston Villa,2025-26,23,False,Newcastle,,4.4,1.0,2.224285364151001
-James Justin,7753.0,706,Leeds,2025-26,23,False,Everton,,3.9,1.0,2.8366966247558594
-Sebastiaan Bornauw,7791.0,345,Leeds,2025-26,23,False,Everton,,3.8,0.4,0.7368422508239747
-Matthijs de Ligt,7902.0,436,Man Utd,2025-26,23,False,Arsenal,,5.0,0.2,0.4640517711639405
-Felipe Rodrigues da Silva,7921.0,511,Nott'm Forest,2025-26,23,False,Brentford,,4.3,0.4,0.27416582107543946
-Igor Julio dos Santos de Paulo,7943.0,149,West Ham,2025-26,23,True,Sunderland,,4.5,0.2,0.484974479675293
-Reece James,8067.0,225,Chelsea,2025-26,23,False,Crystal Palace,,5.7,1.0,1.7180720567703247
-Riccardo Calafiori,8129.0,7,Arsenal,2025-26,23,True,Man Utd,,5.7,0.2,0.49808473587036134
-Neco Williams,8204.0,508,Nott'm Forest,2025-26,23,False,Brentford,,4.7,1.0,2.750758409500122
-Tyrick Mitchell,8214.0,258,Crystal Palace,2025-26,23,True,Chelsea,,5.0,1.0,3.0369935035705566
-Ki-Jana Hoever,8351.0,638,Wolves,2025-26,23,False,Man City,,3.8,0.2,0.21185793876647951
-Malick Thiaw,8378.0,684,Newcastle,2025-26,23,True,Aston Villa,,5.1,1.0,2.717456817626953
-Chris Richards,8430.0,261,Crystal Palace,2025-26,23,True,Chelsea,,4.4,0.7,1.8600874662399292
-Jorge Cuenca Barreno,8489.0,321,Fulham,2025-26,23,True,Brighton,,4.3,1.0,2.6324574947357178
-Dennis Cirkin,8537.0,535,Sunderland,2025-26,23,False,West Ham,,4.0,0.4,0.8061438560485841
-Sven Botman,8635.0,475,Newcastle,2025-26,23,True,Aston Villa,,4.9,0.7,2.1932851791381833
-Adrien Truffert,8640.0,74,Bournemouth,2025-26,23,True,Liverpool,,4.5,1.0,2.284329414367676
-Pascal Struijk,8717.0,343,Leeds,2025-26,23,False,Everton,,4.3,1.0,4.164519309997559
-Joël Veltman,8780.0,152,Brighton,2025-26,23,False,Fulham,,4.3,0.7,1.7691372871398925
-Destiny Udogie,8831.0,574,Spurs,2025-26,23,False,Burnley,,4.3,0.2,0.01768366098403931
-Maxence Lacroix,8853.0,257,Crystal Palace,2025-26,23,True,Chelsea,,5.1,1.0,2.5826854705810547
-Matty Cash,8864.0,36,Aston Villa,2025-26,23,False,Newcastle,,4.8,1.0,2.6316909790039062
-Antonee Robinson,8940.0,316,Fulham,2025-26,23,True,Brighton,,4.9,1.0,2.7642312049865723
-Aaron Hickey,8942.0,116,Brentford,2025-26,23,True,Nott'm Forest,,4.0,0.7,2.098193883895874
-Rúben dos Santos Gato Alves Dias,8961.0,408,Man City,2025-26,23,True,Wolves,,5.7,0.4,2.700956153869629
-Omar Alderete,8986.0,683,Sunderland,2025-26,23,False,West Ham,,4.1,1.0,4.001222133636475
-Malo Gusto,9017.0,228,Chelsea,2025-26,23,False,Crystal Palace,,5.0,0.7,1.7256920337677002
-Radu Drăgușin,9105.0,572,Spurs,2025-26,23,False,Burnley,,4.5,0.2,0.6175674915313721
-Jayden Bogle,9205.0,342,Leeds,2025-26,23,False,Everton,,4.4,0.4,1.4695614814758302
-Jeremie Frimpong,9328.0,370,Liverpool,2025-26,23,False,Bournemouth,,5.8,1.0,2.813081979751587
-Maxime Estève,9487.0,191,Burnley,2025-26,23,True,Spurs,,3.9,0.7,1.5489827156066893
-Tino Livramento,9512.0,477,Newcastle,2025-26,23,True,Aston Villa,,4.9,0.4,0.7263353347778321
-Kristoffer Ajer,9677.0,108,Brentford,2025-26,23,True,Nott'm Forest,,4.4,1.0,4.002996921539307
-Ethan Pinnock,9678.0,111,Brentford,2025-26,23,True,Nott'm Forest,,4.3,0.2,0.5737349987030029
-Rico Henry,9679.0,109,Brentford,2025-26,23,True,Nott'm Forest,,4.3,1.0,3.6980667114257812
-Nathan Collins,9733.0,106,Brentford,2025-26,23,True,Nott'm Forest,,5.0,1.0,4.30912446975708
-Joško Gvardiol,9790.0,403,Man City,2025-26,23,True,Wolves,,6.1,0.4,2.3758501052856444
-Piero Hincapié,9911.0,725,Arsenal,2025-26,23,True,Man Utd,,5.3,0.7,1.6284126043319702
-Gabriel Gudmundsson,9944.0,347,Leeds,2025-26,23,False,Everton,,3.8,1.0,3.2704269886016846
-Yerson Mosquera Valdelamar,9958.0,634,Wolves,2025-26,23,False,Man City,,4.3,1.0,2.974156141281128
-Cristhian Mosquera,10024.0,662,Arsenal,2025-26,23,True,Man Utd,,5.4,0.2,0.4123704433441162
-Lamare Bogarde,10025.0,44,Aston Villa,2025-26,23,False,Newcastle,,4.0,0.4,0.46188383102416997
-Micky van de Ven,10050.0,575,Spurs,2025-26,23,False,Burnley,,4.6,1.0,4.110876083374023
-Conor Bradley,10120.0,375,Liverpool,2025-26,23,False,Bournemouth,,5.0,1.0,2.756742000579834
-Hugo Bueno López,10140.0,633,Wolves,2025-26,23,False,Man City,,4.3,1.0,2.005269765853882
-Diego Coppola,10169.0,144,Brighton,2025-26,23,False,Fulham,,4.2,0.2,0.3697542190551758
-Lewis Hall,10216.0,473,Newcastle,2025-26,23,True,Aston Villa,,5.3,1.0,3.4865643978118896
-Vitalii Mykolenko,10291.0,292,Everton,2025-26,23,True,Leeds,,4.9,1.0,3.670060873031616
-Nathan Patterson,10292.0,296,Everton,2025-26,23,True,Leeds,,4.4,0.7,1.8315582752227781
-Toti Gomes,10293.0,637,Wolves,2025-26,23,False,Man City,,4.3,0.2,0.3094303369522095
-Leny Yoro,10564.0,444,Man Utd,2025-26,23,False,Arsenal,,4.2,0.7,0.5143872320652008
-Noussair Mazraoui,10696.0,438,Man Utd,2025-26,23,False,Arsenal,,4.9,0.2,0.24206764698028566
-Sepp van den Berg,10721.0,113,Brentford,2025-26,23,True,Nott'm Forest,,4.5,0.2,0.6855713367462158
-James Hill,10747.0,77,Bournemouth,2025-26,23,True,Liverpool,,3.9,1.0,2.3383498191833496
-Joe Worrall,10756.0,199,Burnley,2025-26,23,True,Spurs,,3.9,0.2,0.40517749786376955
-Djed Spence,10764.0,573,Spurs,2025-26,23,False,Burnley,,4.3,0.7,1.8801930665969848
-Lisandro Martínez,10802.0,437,Man Utd,2025-26,23,False,Arsenal,,4.8,1.0,1.9080392122268677
-Tyrell Malacia,10803.0,448,Man Utd,2025-26,23,False,Arsenal,,3.8,0.2,0.19972289800643922
-Jan Paul van Hecke,10807.0,151,Brighton,2025-26,23,False,Fulham,,4.5,1.0,3.179915428161621
-Keane Lewis-Potter,10809.0,107,Brentford,2025-26,23,True,Nott'm Forest,,4.9,0.7,3.7205551147460936
-Rico Lewis,10847.0,410,Man City,2025-26,23,True,Wolves,,4.6,0.7,2.1638390779495236
-Emmanuel Agbadou,10856.0,631,Wolves,2025-26,23,False,Man City,,4.3,0.2,0.3745842218399048
-Marcos Senesi Barón,10864.0,72,Bournemouth,2025-26,23,True,Liverpool,,4.8,1.0,2.090803861618042
-Santiago Ignacio Bueno,10945.0,636,Wolves,2025-26,23,False,Man City,,4.4,1.0,1.7494616508483887
-Matheus Nunes,11000.0,407,Man City,2025-26,23,True,Wolves,,5.5,0.7,5.346086645126342
-Bashir Humphreys,11243.0,193,Burnley,2025-26,23,True,Spurs,,3.9,1.0,3.1623098850250244
-Michael Kayode,11281.0,110,Brentford,2025-26,23,True,Nott'm Forest,,4.5,1.0,3.890153169631958
-Nico O'Reilly,11592.0,411,Man City,2025-26,23,True,Wolves,,5.2,0.7,2.7792298316955564
-Hjalmar Ekdal,11704.0,190,Burnley,2025-26,23,True,Spurs,,3.9,0.7,2.2283535718917844
-Jurriën Timber,11707.0,8,Arsenal,2025-26,23,True,Man Utd,,6.3,1.0,2.826301336288452
-Milos Kerkez,11709.0,371,Liverpool,2025-26,23,False,Bournemouth,,5.6,1.0,2.7630252838134766
-Calvin Bassey,11728.0,318,Fulham,2025-26,23,True,Brighton,,4.5,0.2,0.5449568271636963
-Abdukodir Khusanov,11763.0,406,Man City,2025-26,23,True,Wolves,,5.4,1.0,3.5531392097473145
-Ian Maatsen,11807.0,39,Aston Villa,2025-26,23,False,Newcastle,,4.2,0.7,1.2860461235046385
-Lucas Pires Silva,11824.0,195,Burnley,2025-26,23,True,Spurs,,3.8,1.0,1.6777218580245972
-Patrick Dorgu,11944.0,441,Man Utd,2025-26,23,False,Arsenal,,4.2,1.0,2.699331283569336
-Jake O'Brien,12014.0,293,Everton,2025-26,23,True,Leeds,,4.9,1.0,3.139388084411621
-Jackson Tchatchoua,12113.0,695,Wolves,2025-26,23,False,Man City,,4.4,1.0,2.0988411903381348
-Murillo Costa dos Santos,12123.0,506,Nott'm Forest,2025-26,23,False,Brentford,,5.2,1.0,3.183271884918213
-Álex Jiménez Sánchez,12168.0,713,Bournemouth,2025-26,23,True,Liverpool,,4.5,0.7,1.379081630706787
-Myles Lewis-Skelly,12272.0,10,Arsenal,2025-26,23,True,Man Utd,,5.1,0.4,0.5506845474243164
-Ollie Scarles,12358.0,608,West Ham,2025-26,23,True,Sunderland,,4.3,1.0,3.1989986896514893
-Daniel Muñoz Mejía,12408.0,256,Crystal Palace,2025-26,23,True,Chelsea,,6.0,0.2,0.48189687728881836
-Josh Acheampong,12535.0,233,Chelsea,2025-26,23,False,Crystal Palace,,3.8,0.4,0.6040547370910645
-Ladislav Krejcí,12721.0,709,Wolves,2025-26,23,False,Man City,,4.5,1.0,2.162813186645508
-Rodrigo Martins Gomes,12756.0,635,Wolves,2025-26,23,False,Man City,,4.4,0.4,0.678272294998169
-Nicolò Savona,12905.0,716,Nott'm Forest,2025-26,23,False,Brentford,,4.5,0.4,1.0175583839416504
-Lutsharel Geertruida,13064.0,724,Sunderland,2025-26,23,False,West Ham,,4.5,0.7,1.9568864107131956
-Ferdi Kadıoğlu,13066.0,148,Brighton,2025-26,23,False,Fulham,,4.4,1.0,2.4006919860839844
-Ayden Heaven,13080.0,447,Man Utd,2025-26,23,False,Arsenal,,3.9,0.7,0.9872804403305053
-Jaydee Canvot,13091.0,723,Crystal Palace,2025-26,23,True,Chelsea,,4.5,0.7,1.2586488008499144
-Pedro Cardoso de Lima,13156.0,640,Wolves,2025-26,23,False,Man City,,4.0,0.4,0.5778074264526367
-Ezra Mayers,13247.0,747,West Ham,2025-26,23,True,Sunderland,,4.0,0.4,0.8789555549621583
-Max Alleyne,13298.0,794,Man City,2025-26,23,True,Wolves,,4.5,0.7,3.7749024868011474
-Zach Abbott,13306.0,513,Nott'm Forest,2025-26,23,False,Brentford,,3.9,0.2,0.2604758977890015
-Andrés García,13392.0,42,Aston Villa,2025-26,23,False,Newcastle,,3.9,0.4,0.6571129322052003
-Tyler Fredricson,13467.0,446,Man Utd,2025-26,23,False,Arsenal,,3.8,0.2,0.20188529491424562
-Julio Soler Barreto,13474.0,80,Bournemouth,2025-26,23,True,Liverpool,,4.0,0.2,0.2862782239913941
-Maxim De Cuyper,13711.0,145,Brighton,2025-26,23,False,Fulham,,4.3,0.7,1.861061954498291
-Trai Hume,13713.0,532,Sunderland,2025-26,23,False,West Ham,,4.5,1.0,4.292630195617676
-Jenson Seelt,13714.0,542,Sunderland,2025-26,23,False,West Ham,,4.0,0.2,0.035661762952804564
-Daniel Ballard,13715.0,531,Sunderland,2025-26,23,False,West Ham,,4.6,1.0,3.617276191711426
-El Hadji Malick Diouf,13723.0,603,West Ham,2025-26,23,True,Sunderland,,4.1,0.2,0.7929520606994629
-Oliver Sonne,13726.0,197,Burnley,2025-26,23,True,Spurs,,3.8,0.4,1.0019796371459961
-Quilindschy Hartman,13727.0,192,Burnley,2025-26,23,True,Spurs,,4.0,0.2,0.7406398296356201
-David Møller Wolfe,13740.0,682,Wolves,2025-26,23,False,Man City,,4.3,0.4,0.530785083770752
-Jorrel Hato,13776.0,672,Chelsea,2025-26,23,False,Crystal Palace,,4.6,0.7,1.3904091596603392
-Jair Paula da Cunha Filho,13779.0,510,Nott'm Forest,2025-26,23,False,Brentford,,4.2,0.2,0.041262573003768926
-Veljko Milosavljevic,14027.0,721,Bournemouth,2025-26,23,True,Liverpool,,4.4,0.4,0.7799875259399415
-Luke O'Nien,14099.0,539,Sunderland,2025-26,23,False,West Ham,,4.0,0.4,0.7241362571716309
+Fabian Schär,76.0,474,Newcastle,2025-26,23,1.0,Aston Villa,,5.3,0.7,2.607844066619873
+Jordan Beyer,160.0,194,Burnley,2025-26,23,1.0,Spurs,,3.9,0.2,0.15159584283828736
+Nathan Aké,579.0,405,Man City,2025-26,23,1.0,Wolves,,5.3,0.7,2.9387725353240963
+Séamus Coleman,585.0,294,Everton,2025-26,23,1.0,Leeds,,4.3,0.2,0.14903228282928468
+John Stones,586.0,409,Man City,2025-26,23,1.0,Wolves,,5.4,0.2,0.2108163833618164
+Nathaniel Clyne,603.0,263,Crystal Palace,2025-26,23,1.0,Chelsea,,3.8,0.4,0.7202964305877686
+Kyle Walker,638.0,187,Burnley,2025-26,23,1.0,Spurs,,4.4,1.0,2.6941287517547607
+Kieran Trippier,652.0,478,Newcastle,2025-26,23,1.0,Aston Villa,,4.9,0.7,1.5187550544738768
+Ben Davies,660.0,571,Spurs,2025-26,23,0.0,Burnley,,4.3,0.7,1.9220104455947875
+Ola Aina,725.0,507,Nott'm Forest,2025-26,23,0.0,Brentford,,4.7,1.0,2.9207763671875
+Jamaal Lascelles,766.0,480,Newcastle,2025-26,23,1.0,Aston Villa,,4.4,0.2,0.14689980745315553
+Adam Smith,825.0,73,Bournemouth,2025-26,23,1.0,Liverpool,,4.4,0.2,0.20260341167449952
+Virgil van Dijk,833.0,373,Liverpool,2025-26,23,0.0,Bournemouth,,5.9,1.0,3.2251532077789307
+Kyle Walker-Peters,885.0,659,West Ham,2025-26,23,1.0,Sunderland,,4.2,1.0,2.8754498958587646
+Sam Byram,902.0,346,Leeds,2025-26,23,0.0,Everton,,4.0,0.2,0.16538721323013306
+Axel Tuanzebe,934.0,198,Burnley,2025-26,23,1.0,Spurs,,3.9,0.7,1.4510171890258787
+Joe Gomez,987.0,376,Liverpool,2025-26,23,0.0,Bournemouth,,4.9,0.4,0.5507846355438233
+Luke Shaw,1006.0,443,Man Utd,2025-26,23,0.0,Arsenal,,4.5,1.0,3.3037729263305664
+Tyrone Mings,1024.0,40,Aston Villa,2025-26,23,0.0,Newcastle,,4.4,0.2,0.09958168268203736
+Emerson Palmieri dos Santos,1245.0,604,West Ham,2025-26,23,1.0,Sunderland,,4.4,0.2,0.2018962860107422
+Emil Krafth,1545.0,479,Newcastle,2025-26,23,1.0,Aston Villa,,4.4,0.2,0.14689980745315553
+Michael Keane,1653.0,295,Everton,2025-26,23,1.0,Leeds,,4.8,0.7,2.524265384674072
+James Tarkowski,1665.0,291,Everton,2025-26,23,1.0,Leeds,,5.7,1.0,4.236689567565918
+Harry Maguire,1687.0,442,Man Utd,2025-26,23,0.0,Arsenal,,4.3,0.7,1.4035334587097168
+Andrew Robertson,1688.0,372,Liverpool,2025-26,23,0.0,Bournemouth,,5.8,0.4,0.5399601936340332
+Arthur Masuaku,1760.0,678,Sunderland,2025-26,23,0.0,West Ham,,4.0,0.2,0.12055532932281494
+Lucas Digne,1823.0,37,Aston Villa,2025-26,23,0.0,Newcastle,,4.5,0.7,1.628680634498596
+Oleksandr Zinchenko,2958.0,12,Nott'm Forest,2025-26,23,0.0,Brentford,,4.9,0.2,0.15813927650451662
+Issa Diop,3203.0,320,Fulham,2025-26,23,1.0,Brighton,,4.3,1.0,2.596442699432373
+Olivier Boscagli,3645.0,143,Brighton,2025-26,23,0.0,Fulham,,4.2,0.2,0.23104231357574465
+Kevin Danso,5261.0,570,Spurs,2025-26,23,0.0,Burnley,,4.2,0.2,0.33925006389617923
+Aaron Wan-Bissaka,5584.0,610,West Ham,2025-26,23,1.0,Sunderland,,4.1,0.7,2.1468368530273434
+Tosin Adarabioyo,5590.0,232,Chelsea,2025-26,23,0.0,Crystal Palace,,4.0,0.7,1.2835386395454407
+Gabriel dos Santos Magalhães,5613.0,5,Arsenal,2025-26,23,1.0,Man Utd,,6.8,1.0,3.4055347442626953
+Nordi Mukiele,5659.0,694,Sunderland,2025-26,23,0.0,West Ham,,4.4,1.0,4.367456436157227
+Kenny Tete,5973.0,322,Fulham,2025-26,23,1.0,Brighton,,4.5,0.2,0.2965611457824707
+Lewis Dunk,6048.0,146,Brighton,2025-26,23,0.0,Fulham,,4.5,1.0,2.2987961769104004
+Victor Lindelöf,6080.0,719,Aston Villa,2025-26,23,0.0,Newcastle,,4.5,1.0,2.22139048576355
+Timothy Castagne,6157.0,319,Fulham,2025-26,23,1.0,Brighton,,4.3,1.0,2.3005073070526123
+Nikola Milenković,6174.0,505,Nott'm Forest,2025-26,23,0.0,Brentford,,5.1,1.0,2.5358164310455322
+Pau Torres,6221.0,41,Aston Villa,2025-26,23,0.0,Newcastle,,4.3,0.7,1.2215166926383971
+Joachim Andersen,6314.0,317,Fulham,2025-26,23,1.0,Brighton,,4.6,1.0,2.8314836025238037
+Ibrahima Konaté,6326.0,374,Liverpool,2025-26,23,0.0,Bournemouth,,5.4,1.0,3.476233720779419
+Joe Rodon,6377.0,348,Leeds,2025-26,23,0.0,Everton,,3.9,1.0,2.484370470046997
+Trevoh Chalobah,6615.0,226,Chelsea,2025-26,23,0.0,Crystal Palace,,5.5,1.0,2.714681386947632
+Rayan Aït-Nouri,6674.0,402,Man City,2025-26,23,1.0,Wolves,,5.7,0.4,0.9971744537353516
+Konstantinos Mavropanos,6722.0,606,West Ham,2025-26,23,1.0,Sunderland,,4.4,1.0,3.0708987712860107
+Jaka Bijol,6807.0,344,Leeds,2025-26,23,0.0,Everton,,3.9,1.0,3.727908134460449
+Jean-Clair Todibo,6816.0,609,West Ham,2025-26,23,1.0,Sunderland,,4.3,1.0,3.0180718898773193
+Matt Doherty,6852.0,632,Wolves,2025-26,23,0.0,Man City,,4.4,0.2,0.16798354387283326
+William Saliba,6888.0,6,Arsenal,2025-26,23,1.0,Man Utd,,6.0,1.0,3.9571921825408936
+Pedro Porro Sauceda,6912.0,568,Spurs,2025-26,23,0.0,Burnley,,5.2,1.0,4.074914455413818
+Nayef Aguerd,6935.0,607,West Ham,2025-26,23,1.0,Sunderland,,4.4,0.2,0.2018962860107422
+Borna Sosa,7075.0,259,Crystal Palace,2025-26,23,1.0,Chelsea,,4.8,0.4,0.5987211227416992
+Marc Cucurella Saseta,7134.0,224,Chelsea,2025-26,23,0.0,Crystal Palace,,6.0,0.7,1.1734147906303405
+Cristian Romero,7218.0,569,Spurs,2025-26,23,0.0,Burnley,,5.0,1.0,4.829229354858398
+Benoît Badiashile Mukinayi,7240.0,229,Chelsea,2025-26,23,0.0,Crystal Palace,,4.4,0.7,1.13917418718338
+Bafodé Diakité,7268.0,685,Bournemouth,2025-26,23,1.0,Liverpool,,4.3,0.4,0.6284237384796143
+Diogo Dalot Teixeira,7281.0,440,Man Utd,2025-26,23,0.0,Arsenal,,4.5,1.0,2.320315361022949
+Benjamin White,7298.0,11,Arsenal,2025-26,23,1.0,Man Utd,,5.1,0.7,1.6515162706375122
+Maximilian Kilman,7332.0,605,West Ham,2025-26,23,1.0,Sunderland,,4.2,0.7,1.2587804794311523
+Dan Burn,7382.0,476,Newcastle,2025-26,23,1.0,Aston Villa,,5.2,0.2,0.2603005409240723
+Reinildo Mandava,7432.0,541,Sunderland,2025-26,23,0.0,West Ham,,3.8,0.7,1.8567818164825438
+Wesley Fofana,7589.0,230,Chelsea,2025-26,23,0.0,Crystal Palace,,4.4,0.4,0.6041204452514649
+Marc Guéhi,7603.0,260,Crystal Palace,2025-26,23,1.0,Chelsea,,5.3,1.0,2.5422701835632324
+Ezri Konsa Ngoyo,7726.0,38,Aston Villa,2025-26,23,0.0,Newcastle,,4.4,1.0,2.702563524246216
+James Justin,7753.0,706,Leeds,2025-26,23,0.0,Everton,,3.9,1.0,3.336573600769043
+Sebastiaan Bornauw,7791.0,345,Leeds,2025-26,23,0.0,Everton,,3.8,0.4,0.826472282409668
+Matthijs de Ligt,7902.0,436,Man Utd,2025-26,23,0.0,Arsenal,,5.0,0.2,0.09334454536437989
+Felipe Rodrigues da Silva,7921.0,511,Nott'm Forest,2025-26,23,0.0,Brentford,,4.3,0.4,0.596458387374878
+Igor Julio dos Santos de Paulo,7943.0,149,West Ham,2025-26,23,1.0,Sunderland,,4.5,0.2,0.2018962860107422
+Reece James,8067.0,225,Chelsea,2025-26,23,0.0,Crystal Palace,,5.7,1.0,1.7928645610809326
+Riccardo Calafiori,8129.0,7,Arsenal,2025-26,23,1.0,Man Utd,,5.7,0.2,0.18817291259765626
+Neco Williams,8204.0,508,Nott'm Forest,2025-26,23,0.0,Brentford,,4.7,1.0,2.680201768875122
+Tyrick Mitchell,8214.0,258,Crystal Palace,2025-26,23,1.0,Chelsea,,5.0,1.0,3.003035545349121
+Ki-Jana Hoever,8351.0,638,Wolves,2025-26,23,0.0,Man City,,3.8,0.2,0.15130072832107544
+Malick Thiaw,8378.0,684,Newcastle,2025-26,23,1.0,Aston Villa,,5.1,1.0,3.3737101554870605
+Chris Richards,8430.0,261,Crystal Palace,2025-26,23,1.0,Chelsea,,4.4,0.7,1.3146389842033386
+Jorge Cuenca Barreno,8489.0,321,Fulham,2025-26,23,1.0,Brighton,,4.3,1.0,2.7061879634857178
+Dennis Cirkin,8537.0,535,Sunderland,2025-26,23,0.0,West Ham,,4.0,0.4,0.8214227676391602
+Sven Botman,8635.0,475,Newcastle,2025-26,23,1.0,Aston Villa,,4.9,0.7,2.497029614448547
+Adrien Truffert,8640.0,74,Bournemouth,2025-26,23,1.0,Liverpool,,4.5,1.0,2.040346145629883
+Pascal Struijk,8717.0,343,Leeds,2025-26,23,0.0,Everton,,4.3,1.0,4.489830017089844
+Joël Veltman,8780.0,152,Brighton,2025-26,23,0.0,Fulham,,4.3,0.7,1.2251033067703245
+Destiny Udogie,8831.0,574,Spurs,2025-26,23,0.0,Burnley,,4.3,0.2,0.17111423015594485
+Maxence Lacroix,8853.0,257,Crystal Palace,2025-26,23,1.0,Chelsea,,5.1,1.0,3.0055251121520996
+Matty Cash,8864.0,36,Aston Villa,2025-26,23,0.0,Newcastle,,4.8,1.0,3.232581377029419
+Antonee Robinson,8940.0,316,Fulham,2025-26,23,1.0,Brighton,,4.9,1.0,2.8288955688476562
+Aaron Hickey,8942.0,116,Brentford,2025-26,23,1.0,Nott'm Forest,,4.0,0.7,2.1115299701690673
+Rúben dos Santos Gato Alves Dias,8961.0,408,Man City,2025-26,23,1.0,Wolves,,5.7,0.4,1.3796875953674317
+Omar Alderete,8986.0,683,Sunderland,2025-26,23,0.0,West Ham,,4.1,1.0,4.206058502197266
+Malo Gusto,9017.0,228,Chelsea,2025-26,23,0.0,Crystal Palace,,5.0,0.7,1.3681432962417601
+Radu Drăgușin,9105.0,572,Spurs,2025-26,23,0.0,Burnley,,4.5,0.2,0.43847103118896485
+Jayden Bogle,9205.0,342,Leeds,2025-26,23,0.0,Everton,,4.4,0.4,1.5382019996643068
+Jeremie Frimpong,9328.0,370,Liverpool,2025-26,23,0.0,Bournemouth,,5.8,1.0,3.4731130599975586
+Maxime Estève,9487.0,191,Burnley,2025-26,23,1.0,Spurs,,3.9,0.7,1.6602778196334838
+Tino Livramento,9512.0,477,Newcastle,2025-26,23,1.0,Aston Villa,,4.9,0.4,0.8866683006286622
+Kristoffer Ajer,9677.0,108,Brentford,2025-26,23,1.0,Nott'm Forest,,4.4,1.0,3.581197500228882
+Ethan Pinnock,9678.0,111,Brentford,2025-26,23,1.0,Nott'm Forest,,4.3,0.2,0.14696183204650878
+Rico Henry,9679.0,109,Brentford,2025-26,23,1.0,Nott'm Forest,,4.3,1.0,3.8879904747009277
+Nathan Collins,9733.0,106,Brentford,2025-26,23,1.0,Nott'm Forest,,5.0,1.0,4.367249011993408
+Joško Gvardiol,9790.0,403,Man City,2025-26,23,1.0,Wolves,,6.1,0.4,1.910569953918457
+Piero Hincapié,9911.0,725,Arsenal,2025-26,23,1.0,Man Utd,,5.3,0.7,1.6105301856994627
+Gabriel Gudmundsson,9944.0,347,Leeds,2025-26,23,0.0,Everton,,3.8,1.0,3.885061025619507
+Yerson Mosquera Valdelamar,9958.0,634,Wolves,2025-26,23,0.0,Man City,,4.3,1.0,3.4163296222686768
+Cristhian Mosquera,10024.0,662,Arsenal,2025-26,23,1.0,Man Utd,,5.4,0.2,0.11452937126159668
+Lamare Bogarde,10025.0,44,Aston Villa,2025-26,23,0.0,Newcastle,,4.0,0.4,0.6793309688568115
+Micky van de Ven,10050.0,575,Spurs,2025-26,23,0.0,Burnley,,4.6,1.0,3.3973100185394287
+Conor Bradley,10120.0,375,Liverpool,2025-26,23,0.0,Bournemouth,,5.0,1.0,2.4814608097076416
+Hugo Bueno López,10140.0,633,Wolves,2025-26,23,0.0,Man City,,4.3,1.0,2.4023914337158203
+Diego Coppola,10169.0,144,Brighton,2025-26,23,0.0,Fulham,,4.2,0.2,0.222271466255188
+Lewis Hall,10216.0,473,Newcastle,2025-26,23,1.0,Aston Villa,,5.3,1.0,3.0762696266174316
+Vitalii Mykolenko,10291.0,292,Everton,2025-26,23,1.0,Leeds,,4.9,1.0,4.460638999938965
+Nathan Patterson,10292.0,296,Everton,2025-26,23,1.0,Leeds,,4.4,0.7,1.885021948814392
+Toti Gomes,10293.0,637,Wolves,2025-26,23,0.0,Man City,,4.3,0.2,0.15409317016601565
+Leny Yoro,10564.0,444,Man Utd,2025-26,23,0.0,Arsenal,,4.2,0.7,0.7685249328613281
+Noussair Mazraoui,10696.0,438,Man Utd,2025-26,23,0.0,Arsenal,,4.9,0.2,0.2977781295776367
+Sepp van den Berg,10721.0,113,Brentford,2025-26,23,1.0,Nott'm Forest,,4.5,0.2,0.43142271041870117
+James Hill,10747.0,77,Bournemouth,2025-26,23,1.0,Liverpool,,3.9,1.0,2.372022867202759
+Joe Worrall,10756.0,199,Burnley,2025-26,23,1.0,Spurs,,3.9,0.2,0.2424025297164917
+Djed Spence,10764.0,573,Spurs,2025-26,23,0.0,Burnley,,4.3,0.7,2.1367092847824094
+Lisandro Martínez,10802.0,437,Man Utd,2025-26,23,0.0,Arsenal,,4.8,1.0,2.4303908348083496
+Tyrell Malacia,10803.0,448,Man Utd,2025-26,23,0.0,Arsenal,,3.8,0.2,0.14634308815002442
+Jan Paul van Hecke,10807.0,151,Brighton,2025-26,23,0.0,Fulham,,4.5,1.0,2.9019060134887695
+Keane Lewis-Potter,10809.0,107,Brentford,2025-26,23,1.0,Nott'm Forest,,4.9,0.7,2.903692293167114
+Rico Lewis,10847.0,410,Man City,2025-26,23,1.0,Wolves,,4.6,0.7,2.549704051017761
+Emmanuel Agbadou,10856.0,631,Wolves,2025-26,23,0.0,Man City,,4.3,0.2,0.13678829669952394
+Marcos Senesi Barón,10864.0,72,Bournemouth,2025-26,23,1.0,Liverpool,,4.8,1.0,3.4043331146240234
+Santiago Ignacio Bueno,10945.0,636,Wolves,2025-26,23,0.0,Man City,,4.4,1.0,1.7488247156143188
+Matheus Nunes,11000.0,407,Man City,2025-26,23,1.0,Wolves,,5.5,0.7,4.336190700531006
+Bashir Humphreys,11243.0,193,Burnley,2025-26,23,1.0,Spurs,,3.9,1.0,2.561410903930664
+Michael Kayode,11281.0,110,Brentford,2025-26,23,1.0,Nott'm Forest,,4.5,1.0,3.794058084487915
+Nico O'Reilly,11592.0,411,Man City,2025-26,23,1.0,Wolves,,5.2,0.7,3.281625509262085
+Hjalmar Ekdal,11704.0,190,Burnley,2025-26,23,1.0,Spurs,,3.9,0.7,1.4590824604034422
+Jurriën Timber,11707.0,8,Arsenal,2025-26,23,1.0,Man Utd,,6.3,1.0,2.7226507663726807
+Milos Kerkez,11709.0,371,Liverpool,2025-26,23,0.0,Bournemouth,,5.6,1.0,2.6778275966644287
+Calvin Bassey,11728.0,318,Fulham,2025-26,23,1.0,Brighton,,4.5,0.2,0.20411298274993897
+Abdukodir Khusanov,11763.0,406,Man City,2025-26,23,1.0,Wolves,,5.4,1.0,3.5059587955474854
+Ian Maatsen,11807.0,39,Aston Villa,2025-26,23,0.0,Newcastle,,4.2,0.7,1.824286913871765
+Lucas Pires Silva,11824.0,195,Burnley,2025-26,23,1.0,Spurs,,3.8,1.0,2.552215099334717
+Patrick Dorgu,11944.0,441,Man Utd,2025-26,23,0.0,Arsenal,,4.2,1.0,1.9694560766220093
+Jake O'Brien,12014.0,293,Everton,2025-26,23,1.0,Leeds,,4.9,1.0,3.407144784927368
+Jackson Tchatchoua,12113.0,695,Wolves,2025-26,23,0.0,Man City,,4.4,1.0,1.3963602781295776
+Murillo Costa dos Santos,12123.0,506,Nott'm Forest,2025-26,23,0.0,Brentford,,5.2,1.0,2.9635162353515625
+Álex Jiménez Sánchez,12168.0,713,Bournemouth,2025-26,23,1.0,Liverpool,,4.5,0.7,1.9054665088653564
+Myles Lewis-Skelly,12272.0,10,Arsenal,2025-26,23,1.0,Man Utd,,5.1,0.4,0.6483201503753663
+Ollie Scarles,12358.0,608,West Ham,2025-26,23,1.0,Sunderland,,4.3,1.0,2.937899112701416
+Daniel Muñoz Mejía,12408.0,256,Crystal Palace,2025-26,23,1.0,Chelsea,,6.0,0.2,0.11099671125411988
+Josh Acheampong,12535.0,233,Chelsea,2025-26,23,0.0,Crystal Palace,,3.8,0.4,0.62181715965271
+Ladislav Krejcí,12721.0,709,Wolves,2025-26,23,0.0,Man City,,4.5,1.0,2.1612181663513184
+Rodrigo Martins Gomes,12756.0,635,Wolves,2025-26,23,0.0,Man City,,4.4,0.4,0.5007867813110352
+Nicolò Savona,12905.0,716,Nott'm Forest,2025-26,23,0.0,Brentford,,4.5,0.4,0.7242682456970215
+Lutsharel Geertruida,13064.0,724,Sunderland,2025-26,23,0.0,West Ham,,4.5,0.7,1.8986586093902587
+Ferdi Kadıoğlu,13066.0,148,Brighton,2025-26,23,0.0,Fulham,,4.4,1.0,3.933457851409912
+Ayden Heaven,13080.0,447,Man Utd,2025-26,23,0.0,Arsenal,,3.9,0.7,1.4159678220748901
+Jaydee Canvot,13091.0,723,Crystal Palace,2025-26,23,1.0,Chelsea,,4.5,0.7,1.2461600303649902
+Pedro Cardoso de Lima,13156.0,640,Wolves,2025-26,23,0.0,Man City,,4.0,0.4,0.5568015098571778
+Ezra Mayers,13247.0,747,West Ham,2025-26,23,1.0,Sunderland,,4.0,0.4,1.1507952690124512
+Max Alleyne,13298.0,794,Man City,2025-26,23,1.0,Wolves,,4.5,0.7,3.2907458782196044
+Zach Abbott,13306.0,513,Nott'm Forest,2025-26,23,0.0,Brentford,,3.9,0.2,0.17401300668716432
+Andrés García,13392.0,42,Aston Villa,2025-26,23,0.0,Newcastle,,3.9,0.4,0.6852403640747071
+Tyler Fredricson,13467.0,446,Man Utd,2025-26,23,0.0,Arsenal,,3.8,0.2,0.14634308815002442
+Julio Soler Barreto,13474.0,80,Bournemouth,2025-26,23,1.0,Liverpool,,4.0,0.2,0.21171793937683106
+Maxim De Cuyper,13711.0,145,Brighton,2025-26,23,0.0,Fulham,,4.3,0.7,1.2812179088592528
+Trai Hume,13713.0,532,Sunderland,2025-26,23,0.0,West Ham,,4.5,1.0,3.761474370956421
+Jenson Seelt,13714.0,542,Sunderland,2025-26,23,0.0,West Ham,,4.0,0.2,0.12055532932281494
+Daniel Ballard,13715.0,531,Sunderland,2025-26,23,0.0,West Ham,,4.6,1.0,3.6184942722320557
+El Hadji Malick Diouf,13723.0,603,West Ham,2025-26,23,1.0,Sunderland,,4.1,0.2,0.3379615545272827
+Oliver Sonne,13726.0,197,Burnley,2025-26,23,1.0,Spurs,,3.8,0.4,1.0908333778381347
+Quilindschy Hartman,13727.0,192,Burnley,2025-26,23,1.0,Spurs,,4.0,0.2,0.28316707611083985
+David Møller Wolfe,13740.0,682,Wolves,2025-26,23,0.0,Man City,,4.3,0.4,0.48089461326599126
+Jorrel Hato,13776.0,672,Chelsea,2025-26,23,0.0,Crystal Palace,,4.6,0.7,1.852213454246521
+Jair Paula da Cunha Filho,13779.0,510,Nott'm Forest,2025-26,23,0.0,Brentford,,4.2,0.2,0.11050591468811036
+Veljko Milosavljevic,14027.0,721,Bournemouth,2025-26,23,1.0,Liverpool,,4.4,0.4,0.599950122833252
+Luke O'Nien,14099.0,539,Sunderland,2025-26,23,0.0,West Ham,,4.0,0.4,0.7325608253479005

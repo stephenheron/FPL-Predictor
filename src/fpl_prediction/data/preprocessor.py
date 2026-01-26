@@ -40,6 +40,105 @@ def add_rolling_features_lstm(df: pd.DataFrame, roll_window: int) -> pd.DataFram
     return df
 
 
+def fill_missing_gameweeks(df: pd.DataFrame) -> pd.DataFrame:
+    """Insert zero-minute rows for missing gameweeks.
+
+    Ensures rolling windows include gaps where players did not feature.
+    Missing rows copy static identifiers from the previous entry and
+    zero out match statistics while clearing fixture context fields.
+    """
+
+    df = df.sort_values(["season", "player_id", "GW"]).copy()
+
+    stat_cols = {
+        "minutes",
+        "starts",
+        "total_points",
+        "goals_scored",
+        "assists",
+        "expected_goals",
+        "expected_assists",
+        "expected_goal_involvements",
+        "ict_index",
+        "bps",
+        "bonus",
+        "threat",
+        "influence",
+        "creativity",
+        "saves",
+        "clean_sheets",
+        "expected_goals_conceded",
+        "goals_conceded",
+        "own_goals",
+        "penalties_missed",
+        "penalties_saved",
+        "red_cards",
+        "yellow_cards",
+        "us_shots",
+        "us_key_passes",
+        "us_npg",
+        "us_npxG",
+        "us_xGChain",
+        "us_xGBuildup",
+    }
+
+    fixture_cols = {
+        "kickoff_time",
+        "kickoff_time_dt",
+        "fixture",
+        "opponent_team",
+        "opponent_name",
+        "opponent_short_name",
+        "opponent_code",
+        "was_home",
+        "team_h_score",
+        "team_a_score",
+        "opp_dyn_attack",
+        "opp_dyn_defence",
+        "opp_dyn_overall",
+    }
+
+    rows: list[dict] = []
+    for _, group in df.groupby(["season", "player_id"], sort=False):
+        group = group.sort_values("GW")
+        gws = group["GW"].dropna().astype(int).to_list()
+        if not gws:
+            continue
+        min_gw, max_gw = min(gws), max(gws)
+        missing = [gw for gw in range(min_gw, max_gw + 1) if gw not in gws]
+        if not missing:
+            continue
+
+        group = group.reset_index(drop=True)
+        for gw in missing:
+            prev = group[group["GW"] < gw].tail(1)
+            if prev.empty:
+                continue
+            base = prev.iloc[0].to_dict()
+            base["GW"] = gw
+            if "round" in base:
+                base["round"] = gw
+            for col in stat_cols:
+                if col in base:
+                    base[col] = 0
+            for col in fixture_cols:
+                if col in base:
+                    base[col] = np.nan
+            if "is_future" in base:
+                base["is_future"] = False
+            rows.append(base)
+
+    if not rows:
+        return df
+
+    filled = pd.DataFrame(rows)
+    combined = pd.concat([df, filled], ignore_index=True)
+    combined = combined.sort_values(["season", "player_id", "GW"])
+    if "was_home" in combined.columns:
+        combined["was_home"] = pd.to_numeric(combined["was_home"], errors="coerce")
+    return cast(pd.DataFrame, combined)
+
+
 def add_rolling_features_xgboost(
     df: pd.DataFrame, roll_windows: tuple[int, ...], rolling_cols: tuple[str, ...]
 ) -> pd.DataFrame:
@@ -134,6 +233,7 @@ def build_features_lstm(
     """
     df = pd.DataFrame(df)
     df = cast(pd.DataFrame, df.loc[df["position"] == position].copy())
+    df = fill_missing_gameweeks(df)
     df = add_rolling_features_lstm(df, roll_window)
     df = add_per90_features(df)
     return df
@@ -154,10 +254,11 @@ def build_features_xgboost(
     Returns:
         DataFrame with position-filtered and engineered features.
     """
-    df = df[df["position"] == position].copy()
+    df = cast(pd.DataFrame, df[df["position"] == position].copy())
+    df = fill_missing_gameweeks(df)
     rolling_cols = get_xgboost_rolling_cols(position)
     df = add_rolling_features_xgboost(df, roll_windows, rolling_cols)
-    return df
+    return cast(pd.DataFrame, df)
 
 
 def get_feature_columns_lstm(df: pd.DataFrame, roll_window: int) -> list[str]:
