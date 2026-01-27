@@ -1,6 +1,6 @@
 {
   "summary": {
-    "total_cost": 98.10000000000001,
+    "total_cost": 97.89999999999999,
     "total_points": 53.58160062954582,
     "starter_points": 41.13556641028122,
     "bench_points": 12.446034219264593
@@ -82,7 +82,7 @@
       "player_id": 13222.0,
       "name": "Igor Thiago Nascimento Rodrigues",
       "team": "Brentford",
-      "now_cost": 7.2,
+      "now_cost": 7.1,
       "predicted_points": 4.020339659202135,
       "availability_multiplier": 1.0,
       "opponent_name": "Nott'm Forest",
@@ -166,7 +166,7 @@
       "player_id": 1228.0,
       "name": "Bruno Borges Fernandes",
       "team": "Man Utd",
-      "now_cost": 9.2,
+      "now_cost": 9.1,
       "predicted_points": 3.718051102621852,
       "availability_multiplier": 1.0,
       "opponent_name": "Arsenal",
