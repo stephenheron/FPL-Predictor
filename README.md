@@ -14,16 +14,17 @@ pip install -e .
 
 ## Quick Start
 
-Train all models for all positions:
-
 ```bash
-python -m fpl_prediction train --position all --model all
-```
+# Get latest FPL data
+cd Fantasy-Premier-League
+python global_scraper.py
+python understat.py
 
-Generate predictions for gameweek 23:
+# Run the full pipeline for a gameweek
+./full_pipeline.sh GW
 
-```bash
-python -m fpl_prediction predict --position all --model all --gw 23 --combine
+# Top 10 by position
+uv run fpl-top10
 ```
 
 ## Package Structure
