@@ -61,8 +61,8 @@ Examples:
     parser.add_argument(
         "--min-total-spend",
         type=float,
-        default=95.0,
-        help="Minimum total spend for the squad (default: 95.0).",
+        default=97.0,
+        help="Minimum total spend for the squad (default: 97.0).",
     )
     parser.add_argument(
         "--gk",
