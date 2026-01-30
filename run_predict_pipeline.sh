@@ -9,4 +9,5 @@ fi
 gw=$1
 
 python -m fpl_prediction.cli.predict --position all --model all --gw "$gw" --combine
-python -m fpl_prediction.cli.optimize --gw "$gw" --output-json reports/output/optimal_squad.json
+python -m fpl_prediction.cli.optimize --gw "$gw" --output-json reports/output/optimal_squad.json --avoid="Patrick Dorgu,Ollie Watkins"
+python -m fpl_prediction.cli.report --gw "$gw" --input-json reports/output/optimal_squad.json --output "predictions/${gw}.md"
