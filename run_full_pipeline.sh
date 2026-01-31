@@ -10,6 +10,7 @@ gw=$1
 
 python -m fpl_prediction.pipeline.join_data
 python -m fpl_prediction.cli.train --train-full
+python -m fpl_prediction train-meta --position all --regenerate-oof
 python -m fpl_prediction.cli.predict --position all --model all --gw "$gw" --combine
 python -m fpl_prediction.cli.prices --input reports/predictions/gk_predictions_combined.csv
 python -m fpl_prediction.cli.prices --input reports/predictions/def_predictions_combined.csv
