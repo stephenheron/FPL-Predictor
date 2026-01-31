@@ -195,14 +195,14 @@ const loadSquad = async () => {
   renderLoading()
 
   try {
-    const response = await fetch('/data/optimal_squad.json')
+    const response = await fetch('data/optimal_squad.json')
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}`)
     }
     const data = await response.json()
     renderApp(data)
   } catch (error) {
-    renderError('Make sure the data file exists at /public/data/optimal_squad.json.')
+    renderError('Make sure the data file exists at /public/data/optimal_squad.json and is included in the deployed build output.')
   }
 }
 
