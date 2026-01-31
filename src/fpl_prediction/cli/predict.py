@@ -61,8 +61,8 @@ Examples:
     parser.add_argument(
         "--weight-xgb",
         type=float,
-        default=0.5,
-        help="Weight for XGBoost in combined predictions (default: 0.5).",
+        default=None,
+        help="Weight for XGBoost in combined predictions (auto-loads learned weights if not specified).",
     )
     parser.add_argument(
         "--normalize-scores",

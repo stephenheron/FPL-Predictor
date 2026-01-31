@@ -2,6 +2,7 @@
 
 Usage:
     python -m fpl_prediction train --position FWD --model lstm
+    python -m fpl_prediction train-meta --position FWD --model ridge
     python -m fpl_prediction predict --position FWD --model lstm --gw 23
     python -m fpl_prediction prices --input mid_predictions_gw23.csv
     python -m fpl_prediction optimize --gw 23
@@ -19,13 +20,15 @@ Usage:
     python -m fpl_prediction <command> [options]
 
 Commands:
-    train     Train prediction models
-    predict   Generate predictions
-    prices    Attach player prices to predictions
-    optimize  Build optimal squad using ILP
+    train       Train prediction models
+    train-meta  Train meta-model to learn optimal ensemble weights
+    predict     Generate predictions
+    prices      Attach player prices to predictions
+    optimize    Build optimal squad using ILP
 
 Examples:
     python -m fpl_prediction train --position FWD --model lstm
+    python -m fpl_prediction train-meta --position all --model ridge
     python -m fpl_prediction predict --position all --model all --gw 23
     python -m fpl_prediction prices --input mid_predictions_gw23.csv
     python -m fpl_prediction optimize --gw 23
@@ -41,6 +44,9 @@ Run 'python -m fpl_prediction <command> --help' for command-specific help.
     if command == "train":
         from fpl_prediction.cli.train import main as train_main
         train_main()
+    elif command == "train-meta":
+        from fpl_prediction.cli.train_meta import main as train_meta_main
+        train_meta_main()
     elif command == "predict":
         from fpl_prediction.cli.predict import main as predict_main
         predict_main()
@@ -52,7 +58,7 @@ Run 'python -m fpl_prediction <command> --help' for command-specific help.
         optimize_main()
     else:
         print(f"Unknown command: {command}")
-        print("Valid commands: train, predict, prices, optimize")
+        print("Valid commands: train, train-meta, predict, prices, optimize")
         sys.exit(1)
 
 

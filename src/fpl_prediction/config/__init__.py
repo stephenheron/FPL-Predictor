@@ -16,6 +16,7 @@ from .settings import (
     AVAILABILITY_THRESHOLDS,
     POSITIONS,
     LSTMConfig,
+    MetaConfig,
     PredictionConfig,
     XGBoostConfig,
 )
@@ -28,6 +29,7 @@ __all__ = [
     "FIXTURE_COLS",
     "LSTMConfig",
     "MANUAL_NAME_TO_ID",
+    "MetaConfig",
     "OUTPUT_COLS",
     "PER90_COLS",
     "POSITIONS",

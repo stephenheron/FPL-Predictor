@@ -86,6 +86,62 @@ fpl-train --position all --model xgboost
 - LSTM: `models/lstm/lstm_{pos}_model.pt`, `models/lstm/lstm_{pos}_scaler.pkl`,
   `reports/training/lstm_{pos}_training_report.csv`
 
+## Learning Ensemble Weights
+
+Instead of using fixed 50/50 weights for combining XGBoost and LSTM predictions, you can
+train a meta-model to learn optimal weights from historical data using Ridge or Lasso regression.
+
+### Train Meta-Model
+
+```bash
+# Train Ridge meta-model for all positions (first run is slow - generates OOF predictions)
+python -m fpl_prediction train-meta --position all --model ridge
+
+# Train for a specific position
+python -m fpl_prediction train-meta --position MID --model ridge
+
+# Use Lasso to see if one model should be dropped entirely
+python -m fpl_prediction train-meta --position FWD --model lasso
+```
+
+### How It Works
+
+The meta-model uses **leave-one-season-out cross-validation** to generate out-of-fold predictions:
+
+1. For each season, train base models (XGBoost + LSTM) on all other seasons
+2. Generate predictions for the held-out season
+3. Train Ridge/Lasso regression on these OOF predictions to learn optimal weights
+4. Save weights to `models/meta_weights_{pos}.json`
+
+This ensures the meta-model doesn't overfit by only seeing predictions the base models
+made on data they weren't trained on.
+
+### Learned Weights
+
+After training, the weights are automatically used when combining predictions:
+
+```bash
+# Predictions now auto-load learned weights
+fpl-predict --position MID --model all --gw 24 --combine
+# Output: "Using learned meta-weights for MID: XGB=0.851"
+```
+
+Current learned weights:
+
+| Position | XGB Weight | LSTM Weight | Dominant Model |
+|----------|------------|-------------|----------------|
+| GK | 0.58 | 0.66 | LSTM (1.1x) |
+| DEF | 0.79 | 0.19 | XGB (4.1x) |
+| MID | 0.85 | 0.20 | XGB (4.3x) |
+| FWD | 0.77 | 0.23 | XGB (3.3x) |
+
+**Key insight**: XGBoost dominates for outfield players, but LSTM is slightly preferred for goalkeepers.
+
+### Outputs
+
+- Weights: `models/meta_weights_{pos}.json`
+- OOF predictions (cached): `models/meta_oof_{pos}.csv`
+
 ## Generating Predictions
 
 ### Predict for a Specific Gameweek
@@ -101,10 +157,10 @@ python -m fpl_prediction predict --position all --model xgboost --gw 23
 ### Predict and Combine
 
 ```bash
-# Generate both model predictions and combine them
+# Generate both model predictions and combine them (auto-loads learned weights if available)
 python -m fpl_prediction predict --position FWD --model all --gw 23 --combine
 
-# Adjust XGBoost weight in ensemble (default 0.5)
+# Override with manual XGBoost weight
 python -m fpl_prediction predict --position all --model all --gw 23 --combine --weight-xgb 0.6
 ```
 
@@ -166,7 +222,7 @@ fpl-prices --input reports/predictions/mid_predictions_gw23.csv
 
 All hyperparameters are centralized in `src/fpl_prediction/config/`:
 
-- `settings.py`: Model configs (LSTMConfig, XGBoostConfig, PredictionConfig)
+- `settings.py`: Model configs (LSTMConfig, XGBoostConfig, MetaConfig, PredictionConfig)
 - `features.py`: Feature column definitions (BASE_COLS, PER90_COLS, etc.)
 - `player_mappings.py`: Manual FPL-to-Understat player ID mappings
 

@@ -1,8 +1,26 @@
 """Ensemble logic for combining model predictions."""
 
+import json
+from pathlib import Path
 from typing import cast
 
 import pandas as pd
+
+
+def load_meta_weights(position: str) -> dict | None:
+    """Load learned meta weights for a position.
+
+    Args:
+        position: Position code (GK, DEF, MID, FWD).
+
+    Returns:
+        Dictionary with learned weights, or None if not found.
+    """
+    weights_file = Path(f"models/meta_weights_{position.lower()}.json")
+    if weights_file.exists():
+        with weights_file.open() as f:
+            return json.load(f)
+    return None
 
 
 def combine_predictions(
@@ -137,8 +155,9 @@ def combine_position_predictions(
     xgb_file: str | None = None,
     lstm_file: str | None = None,
     output_file: str | None = None,
-    weight_xgb: float = 0.5,
+    weight_xgb: float | None = None,
     normalize_scores: bool = True,
+    use_meta_weights: bool = True,
 ) -> pd.DataFrame:
     """Combine predictions for a position with default file paths.
 
@@ -147,7 +166,10 @@ def combine_position_predictions(
         xgb_file: Optional XGBoost file (defaults to {pos}_predictions.csv).
         lstm_file: Optional LSTM file (defaults to {pos}_predictions_lstm.csv).
         output_file: Optional output file (defaults to {pos}_predictions_combined.csv).
-        weight_xgb: Weight for XGBoost predictions.
+        weight_xgb: Weight for XGBoost predictions. If None and use_meta_weights
+            is True, attempts to load learned weights.
+        normalize_scores: Whether to normalize scores before combining.
+        use_meta_weights: If True and weight_xgb is None, load learned meta weights.
 
     Returns:
         DataFrame with combined predictions.
@@ -156,6 +178,17 @@ def combine_position_predictions(
     xgb_file = xgb_file or f"reports/predictions/{pos_lower}_predictions.csv"
     lstm_file = lstm_file or f"reports/predictions/{pos_lower}_predictions_lstm.csv"
     output_file = output_file or f"reports/predictions/{pos_lower}_predictions_combined.csv"
+
+    # Auto-load meta weights if available
+    if weight_xgb is None and use_meta_weights:
+        meta = load_meta_weights(position)
+        if meta:
+            weight_xgb = meta["weight_xgb"]
+            print(f"Using learned meta-weights for {position}: XGB={weight_xgb:.3f}")
+        else:
+            weight_xgb = 0.5  # Fallback to default
+    elif weight_xgb is None:
+        weight_xgb = 0.5
 
     return combine_predictions(
         xgb_file,

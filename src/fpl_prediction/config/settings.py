@@ -6,6 +6,7 @@ from typing import Literal
 
 Position = Literal["GK", "DEF", "MID", "FWD"]
 ModelType = Literal["lstm", "xgboost"]
+MetaModelType = Literal["ridge", "lasso"]
 
 
 @dataclass
@@ -104,6 +105,29 @@ class PredictionConfig:
     def output_file(self) -> str:
         suffix = "_lstm" if self.model_type == "lstm" else ""
         return f"reports/predictions/{self.position.lower()}_predictions{suffix}.csv"
+
+
+@dataclass
+class MetaConfig:
+    """Configuration for meta-model ensemble weight learning."""
+
+    position: Position
+    train_files: tuple[str, ...] = (
+        "data/merged_fpl_understat_2022-23.csv",
+        "data/merged_fpl_understat_2023-24.csv",
+        "data/merged_fpl_understat_2024-25.csv",
+    )
+    meta_model: MetaModelType = "ridge"
+    alpha_range: tuple[float, ...] = (0.001, 0.01, 0.1, 1.0, 10.0)
+    random_state: int = 42
+
+    @property
+    def weights_out(self) -> str:
+        return f"models/meta_weights_{self.position.lower()}.json"
+
+    @property
+    def oof_predictions_out(self) -> str:
+        return f"models/meta_oof_{self.position.lower()}.csv"
 
 
 # Availability multiplier thresholds

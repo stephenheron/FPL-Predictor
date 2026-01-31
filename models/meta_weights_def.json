@@ -1,0 +1,12 @@
+{
+  "position": "DEF",
+  "weight_xgb": 0.7946158647537231,
+  "weight_lstm": 0.19228854775428772,
+  "intercept": 0.1513155698776245,
+  "alpha": 10.0,
+  "model_type": "ridge",
+  "mae": 1.5289666652679443,
+  "rmse": 2.3689724578673417,
+  "dominant_model": "xgb",
+  "trust_ratio": 4.132413864135742
+}
