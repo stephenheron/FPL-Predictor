@@ -1,0 +1,190 @@
+{
+  "summary": {
+    "total_cost": 97.3,
+    "total_points": 60.076459425404394,
+    "starter_points": 46.87059146847926,
+    "bench_points": 13.20586795692514
+  },
+  "players": [
+    {
+      "player_id": 7753.0,
+      "name": "James Justin",
+      "team": "Leeds",
+      "now_cost": 3.9,
+      "predicted_points": 4.176553381581776,
+      "availability_multiplier": 1.0,
+      "opponent_name": "Arsenal",
+      "fpl_id": 706,
+      "position": "DEF",
+      "is_starter": true
+    },
+    {
+      "player_id": 5659.0,
+      "name": "Nordi Mukiele",
+      "team": "Sunderland",
+      "now_cost": 4.5,
+      "predicted_points": 3.921219925817253,
+      "availability_multiplier": 1.0,
+      "opponent_name": "Burnley",
+      "fpl_id": 694,
+      "position": "DEF",
+      "is_starter": true
+    },
+    {
+      "player_id": 6615.0,
+      "name": "Trevoh Chalobah",
+      "team": "Chelsea",
+      "now_cost": 5.6,
+      "predicted_points": 3.6084855292640214,
+      "availability_multiplier": 1.0,
+      "opponent_name": "West Ham",
+      "fpl_id": 226,
+      "position": "DEF",
+      "is_starter": true
+    },
+    {
+      "player_id": 9733.0,
+      "name": "Nathan Collins",
+      "team": "Brentford",
+      "now_cost": 5.0,
+      "predicted_points": 3.076783939745762,
+      "availability_multiplier": 1.0,
+      "opponent_name": "Aston Villa",
+      "fpl_id": 106,
+      "position": "DEF",
+      "is_starter": false
+    },
+    {
+      "player_id": 7218.0,
+      "name": "Cristian Romero",
+      "team": "Spurs",
+      "now_cost": 5.0,
+      "predicted_points": 3.064411947997339,
+      "availability_multiplier": 1.0,
+      "opponent_name": "Man City",
+      "fpl_id": 569,
+      "position": "DEF",
+      "is_starter": false
+    },
+    {
+      "player_id": 12916.0,
+      "name": "Thierno Barry",
+      "team": "Everton",
+      "now_cost": 5.7,
+      "predicted_points": 5.496019752966583,
+      "availability_multiplier": 1.0,
+      "opponent_name": "Brighton",
+      "fpl_id": 310,
+      "position": "FWD",
+      "is_starter": true
+    },
+    {
+      "player_id": 9789.0,
+      "name": "Brian Brobbey",
+      "team": "Sunderland",
+      "now_cost": 5.5,
+      "predicted_points": 4.901438709256654,
+      "availability_multiplier": 1.0,
+      "opponent_name": "Burnley",
+      "fpl_id": 730,
+      "position": "FWD",
+      "is_starter": true
+    },
+    {
+      "player_id": 8260.0,
+      "name": "Erling Haaland",
+      "team": "Man City",
+      "now_cost": 15.1,
+      "predicted_points": 1.913873835001512,
+      "availability_multiplier": 1.0,
+      "opponent_name": "Spurs",
+      "fpl_id": 430,
+      "position": "FWD",
+      "is_starter": true
+    },
+    {
+      "player_id": 741.0,
+      "name": "Jordan Pickford",
+      "team": "Everton",
+      "now_cost": 5.6,
+      "predicted_points": 3.1078516123723916,
+      "availability_multiplier": 1.0,
+      "opponent_name": "Brighton",
+      "fpl_id": 287,
+      "position": "GK",
+      "is_starter": true
+    },
+    {
+      "player_id": 7904.0,
+      "name": "Caoimh\u00edn Kelleher",
+      "team": "Brentford",
+      "now_cost": 4.6,
+      "predicted_points": 2.917104290506208,
+      "availability_multiplier": 1.0,
+      "opponent_name": "Aston Villa",
+      "fpl_id": 101,
+      "position": "GK",
+      "is_starter": false
+    },
+    {
+      "player_id": 1228.0,
+      "name": "Bruno Borges Fernandes",
+      "team": "Man Utd",
+      "now_cost": 9.3,
+      "predicted_points": 5.795272685350777,
+      "availability_multiplier": 1.0,
+      "opponent_name": "Fulham",
+      "fpl_id": 449,
+      "position": "MID",
+      "is_starter": true
+    },
+    {
+      "player_id": 12412.0,
+      "name": "Morgan Rogers",
+      "team": "Aston Villa",
+      "now_cost": 7.7,
+      "predicted_points": 5.0661038869094925,
+      "availability_multiplier": 1.0,
+      "opponent_name": "Brentford",
+      "fpl_id": 47,
+      "position": "MID",
+      "is_starter": true
+    },
+    {
+      "player_id": 11356.0,
+      "name": "Enzo Fern\u00e1ndez",
+      "team": "Chelsea",
+      "now_cost": 6.6,
+      "predicted_points": 4.841054259031239,
+      "availability_multiplier": 1.0,
+      "opponent_name": "West Ham",
+      "fpl_id": 237,
+      "position": "MID",
+      "is_starter": true
+    },
+    {
+      "player_id": 8651.0,
+      "name": "Enzo Le F\u00e9e",
+      "team": "Sunderland",
+      "now_cost": 4.9,
+      "predicted_points": 4.147567778675831,
+      "availability_multiplier": 1.0,
+      "opponent_name": "Burnley",
+      "fpl_id": 547,
+      "position": "MID",
+      "is_starter": false
+    },
+    {
+      "player_id": 8397.0,
+      "name": "Florian Wirtz",
+      "team": "Liverpool",
+      "now_cost": 8.3,
+      "predicted_points": 4.042717890927558,
+      "availability_multiplier": 1.0,
+      "opponent_name": "Newcastle",
+      "fpl_id": 382,
+      "position": "MID",
+      "is_starter": true
+    }
+  ]
+}
