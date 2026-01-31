@@ -4,9 +4,7 @@ import numpy as np
 import pandas as pd
 
 
-def compute_minutes_last_3(
-    df: pd.DataFrame, predict_gw: int | None = None
-) -> pd.Series:
+def compute_minutes_last_3(df: pd.DataFrame, predict_gw: int | None = None) -> pd.Series:
     """Compute weighted average minutes per game over last 3 gameweeks.
 
     Uses recency weighting: 50% last GW, 30% GW-1, 20% GW-2.
@@ -26,15 +24,11 @@ def compute_minutes_last_3(
 
     if predict_gw is not None:
         # Use historical data before the prediction GW
-        history = df.loc[
-            df["GW"] < predict_gw, ["season", "player_id", "GW", "minutes"]
-        ].copy()
+        history = df.loc[df["GW"] < predict_gw, ["season", "player_id", "GW", "minutes"]].copy()
         history = pd.DataFrame(history)
         history["GW"] = pd.to_numeric(history["GW"], errors="coerce")
 
-        minutes_lookup = history.groupby(
-            ["season", "player_id", "GW"], sort=False
-        )["minutes"].sum()
+        minutes_lookup = history.groupby(["season", "player_id", "GW"], sort=False)["minutes"].sum()
         minutes_lookup = minutes_lookup.to_dict()
 
         keys = list(zip(df["season"], df["player_id"]))
@@ -42,8 +36,7 @@ def compute_minutes_last_3(
         for season, player_id in keys:
             # Get minutes for last 3 GWs (most recent first)
             gw_minutes = [
-                minutes_lookup.get((season, player_id, predict_gw - i - 1), 0)
-                for i in range(3)
+                minutes_lookup.get((season, player_id, predict_gw - i - 1), 0) for i in range(3)
             ]
             # Weighted average
             weighted_avg = sum(m * w for m, w in zip(gw_minutes, weights))
@@ -80,29 +73,36 @@ def compute_minutes_last_3(
 
 def compute_availability_multipliers(
     weighted_minutes: np.ndarray,
-    min_multiplier: float = 0.1,
+    min_multiplier: float = 0.2,
+    midpoint: float = 45.0,
+    steepness: float = 0.08,
 ) -> np.ndarray:
     """Compute availability multipliers based on weighted recent minutes.
 
-    Uses a continuous scale based on weighted average minutes per game,
+    Uses a smooth sigmoid curve over weighted minutes per game,
     with more recent games weighted higher (50% last GW, 30% GW-1, 20% GW-2).
 
     Args:
         weighted_minutes: Array of weighted average minutes per game.
         min_multiplier: Floor multiplier for players with 0 minutes.
+        midpoint: Minutes value at the sigmoid midpoint.
+        steepness: Controls how quickly the curve rises.
 
     Returns:
         Array of multipliers (0.1 to 1.0) with same shape.
     """
-    # Scale by 90 minutes (full game), cap at 1.0, floor at min_multiplier
-    multipliers = weighted_minutes / 90.0
-    multipliers = np.clip(multipliers, min_multiplier, 1.0)
+    # Sigmoid smoothing from min_multiplier at 0 to 1.0 at 90 minutes
+    minutes = np.clip(weighted_minutes, 0.0, 90.0)
+    sigmoid = 1.0 / (1.0 + np.exp(-steepness * (minutes - midpoint)))
+    sig0 = 1.0 / (1.0 + np.exp(-steepness * (0.0 - midpoint)))
+    sig90 = 1.0 / (1.0 + np.exp(-steepness * (90.0 - midpoint)))
+    scaled = (sigmoid - sig0) / max(sig90 - sig0, 1e-6)
+    scaled = np.clip(scaled, 0.0, 1.0)
+    multipliers = min_multiplier + (1.0 - min_multiplier) * scaled
     return multipliers
 
 
-def compute_minutes_last_3_xgboost(
-    df: pd.DataFrame, predict_gw: int | None = None
-) -> pd.Series:
+def compute_minutes_last_3_xgboost(df: pd.DataFrame, predict_gw: int | None = None) -> pd.Series:
     """Compute weighted average minutes for XGBoost predictions.
 
     Uses recency weighting: 50% last GW, 30% GW-1, 20% GW-2.
@@ -119,16 +119,11 @@ def compute_minutes_last_3_xgboost(
     if predict_gw is not None:
         history = df[df["GW"] < predict_gw][["player_id", "GW", "minutes"]].copy()
         history["GW"] = pd.to_numeric(history["GW"], errors="coerce")
-        minutes_lookup = history.groupby(["player_id", "GW"], sort=False)[
-            "minutes"
-        ].sum()
+        minutes_lookup = history.groupby(["player_id", "GW"], sort=False)["minutes"].sum()
         minutes_lookup = minutes_lookup.to_dict()
 
         def weighted_minutes(player_id: float) -> float:
-            gw_minutes = [
-                minutes_lookup.get((player_id, predict_gw - i - 1), 0)
-                for i in range(3)
-            ]
+            gw_minutes = [minutes_lookup.get((player_id, predict_gw - i - 1), 0) for i in range(3)]
             return sum(m * w for m, w in zip(gw_minutes, weights))
 
         return df["player_id"].map(weighted_minutes)
