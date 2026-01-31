@@ -1,12 +1,12 @@
 {
   "position": "MID",
-  "weight_xgb": 0.8509999339169951,
-  "weight_lstm": 0.19407616413597872,
-  "intercept": 0.060421766965644386,
-  "alpha": 0.001,
-  "model_type": "lasso",
-  "mae": 1.3959934169599173,
-  "rmse": 2.373838317687675,
+  "weight_xgb": 0.874634861946106,
+  "weight_lstm": 0.11655030399560928,
+  "intercept": 0.09214365482330322,
+  "alpha": 10.0,
+  "model_type": "ridge",
+  "mae": 1.3965098857879639,
+  "rmse": 2.3753875616976323,
   "dominant_model": "xgb",
-  "trust_ratio": 4.384876101120513
+  "trust_ratio": 7.504354953765869
 }
