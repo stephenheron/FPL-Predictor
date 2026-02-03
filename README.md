@@ -17,11 +17,14 @@ pip install -e .
 ```bash
 # Get latest FPL data
 cd Fantasy-Premier-League
+source .venv/bin/activate
 python global_scraper.py
 python understat.py
 
 # Run the full pipeline for a gameweek
-./full_pipeline.sh GW
+cd ..
+source .venv/bin/activate
+./run_full_pipeline.sh GW
 
 # Top 10 by position
 uv run fpl-top10
