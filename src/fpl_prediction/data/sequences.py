@@ -76,12 +76,26 @@ def build_prediction_sequences(
 
     for _, group in df.groupby(["season", "player_id"], sort=False):
         group = group.sort_values("GW")
-        values = group[feature_cols].fillna(0.0).to_numpy(dtype=np.float32)
 
+        if predict_gw is not None:
+            history = group.loc[group["GW"] < predict_gw]
+            if len(history) < seq_len:
+                continue
+
+            history_values = history[feature_cols].fillna(0.0).to_numpy(dtype=np.float32)
+            history_window = history_values[-seq_len:]
+            targets = group.loc[group["GW"] == predict_gw]
+
+            for _, row in targets.iterrows():
+                sequences.append(history_window)
+                meta = row.to_dict()
+                meta["row_index"] = row.name
+                meta_rows.append(meta)
+            continue
+
+        values = group[feature_cols].fillna(0.0).to_numpy(dtype=np.float32)
         for idx in range(seq_len, len(group)):
             row = group.iloc[idx]
-            if predict_gw is not None and int(row["GW"]) != predict_gw:
-                continue
             sequences.append(values[idx - seq_len : idx])
             meta = row.to_dict()
             meta["row_index"] = row.name

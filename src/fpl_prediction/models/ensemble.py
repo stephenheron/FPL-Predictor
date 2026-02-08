@@ -61,6 +61,23 @@ def combine_predictions(
     if "season" in xgb_df.columns and "season" in lstm_df.columns:
         join_keys.append("season")
 
+    if "fixture" in xgb_df.columns and "fixture" in lstm_df.columns:
+        join_keys.append("fixture")
+    elif (
+        "opponent_team" in xgb_df.columns
+        and "opponent_team" in lstm_df.columns
+        and "was_home" in xgb_df.columns
+        and "was_home" in lstm_df.columns
+    ):
+        join_keys.extend(["opponent_team", "was_home"])
+    elif (
+        "opponent_name" in xgb_df.columns
+        and "opponent_name" in lstm_df.columns
+        and "was_home" in xgb_df.columns
+        and "was_home" in lstm_df.columns
+    ):
+        join_keys.extend(["opponent_name", "was_home"])
+
     # Merge predictions
     merged = pd.merge(
         xgb_df,
@@ -183,17 +200,20 @@ def combine_position_predictions(
     if weight_xgb is None and use_meta_weights:
         meta = load_meta_weights(position)
         if meta:
-            weight_xgb = meta["weight_xgb"]
+            loaded_weight = meta.get("weight_xgb")
+            weight_xgb = float(loaded_weight) if loaded_weight is not None else 0.5
             print(f"Using learned meta-weights for {position}: XGB={weight_xgb:.3f}")
         else:
             weight_xgb = 0.5  # Fallback to default
     elif weight_xgb is None:
         weight_xgb = 0.5
 
+    final_weight_xgb = float(weight_xgb) if weight_xgb is not None else 0.5
+
     return combine_predictions(
         xgb_file,
         lstm_file,
         output_file,
-        weight_xgb,
+        final_weight_xgb,
         normalize_scores,
     )
