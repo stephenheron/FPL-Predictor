@@ -85,9 +85,9 @@ fpl-train --position all --model xgboost
 
 ### Outputs
 
-- XGBoost: `models/xgb/xgb_{pos}_model.json`, `reports/training/feature_importance_{pos}.csv`
-- LSTM: `models/lstm/lstm_{pos}_model.pt`, `models/lstm/lstm_{pos}_scaler.pkl`,
-  `reports/training/lstm_{pos}_training_report.csv`
+- XGBoost: `models/xgb_{pos}_model.json`, `models/feature_importance_{pos}.csv`
+- LSTM: `models/lstm_{pos}_model.pt`, `models/lstm_{pos}_scaler.pkl`,
+  `models/lstm_{pos}_training_report.csv`
 
 ## Learning Ensemble Weights
 
