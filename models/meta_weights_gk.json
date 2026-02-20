@@ -1,12 +1,12 @@
 {
   "position": "GK",
-  "weight_xgb": 0.6125996112823486,
-  "weight_lstm": 0.48281484842300415,
-  "intercept": 0.20723795890808105,
+  "weight_xgb": 0.5245012640953064,
+  "weight_lstm": 0.6962227821350098,
+  "intercept": 0.27506279945373535,
   "alpha": 10.0,
   "model_type": "ridge",
-  "mae": 1.8104177713394165,
-  "rmse": 2.539437697639072,
-  "dominant_model": "xgb",
-  "trust_ratio": 1.2688086032867432
+  "mae": 1.845223069190979,
+  "rmse": 2.570044599212893,
+  "dominant_model": "lstm",
+  "trust_ratio": 1.3273996114730835
 }
