@@ -73,10 +73,7 @@ def add_dynamic_opponent_strengths(
     rating_slots = ["attack_home", "attack_away", "defence_home", "defence_away"]
 
     if missing_cols:
-        print(
-            "Skipping dynamic opponent strengths - missing columns: "
-            + ", ".join(missing_cols)
-        )
+        print("Skipping dynamic opponent strengths - missing columns: " + ", ".join(missing_cols))
         if ratings_state is None:
             ratings_state = {
                 "teams": {},
@@ -99,20 +96,15 @@ def add_dynamic_opponent_strengths(
         "kickoff_time",
     ]
 
-    fixture_df = merged_df[
-        fixture_cols + ["expected_goals", "expected_goals_conceded"]
-    ].copy()
+    fixture_df = merged_df[fixture_cols + ["expected_goals", "expected_goals_conceded"]].copy()
     fixture_df[["expected_goals", "expected_goals_conceded"]] = fixture_df[
         ["expected_goals", "expected_goals_conceded"]
     ].fillna(0)
 
-    fixture_df["kickoff_time_dt"] = pd.to_datetime(
-        fixture_df["kickoff_time"], errors="coerce"
-    )
+    fixture_df["kickoff_time_dt"] = pd.to_datetime(fixture_df["kickoff_time"], errors="coerce")
 
     fixture_df = fixture_df[
-        (fixture_df["expected_goals"] != 0)
-        & (fixture_df["expected_goals_conceded"] != 0)
+        (fixture_df["expected_goals"] != 0) & (fixture_df["expected_goals_conceded"] != 0)
     ].copy()
 
     fixture_agg = (
@@ -172,13 +164,9 @@ def add_dynamic_opponent_strengths(
             ensure_team(team_name)
 
         pre_ratings = {
-            team_name: ratings_state["teams"][team_name].copy()
-            for team_name in teams_in_group
+            team_name: ratings_state["teams"][team_name].copy() for team_name in teams_in_group
         }
-        updates = {
-            team_name: {slot: 0.0 for slot in rating_slots}
-            for team_name in teams_in_group
-        }
+        updates = {team_name: {slot: 0.0 for slot in rating_slots} for team_name in teams_in_group}
 
         for row in group.itertuples(index=False):
             team_name = row.team
@@ -212,9 +200,7 @@ def add_dynamic_opponent_strengths(
             actual_xga = row.expected_goals_conceded
 
             attack_delta = k_factor * (actual_xg - expected_xg) / max(baseline_xg, eps)
-            defence_delta = k_factor * (expected_xga - actual_xga) / max(
-                baseline_xga, eps
-            )
+            defence_delta = k_factor * (expected_xga - actual_xga) / max(baseline_xga, eps)
 
             updates[team_name][team_attack_key] += attack_delta
             updates[team_name][team_defence_key] += defence_delta
@@ -254,43 +240,8 @@ def add_dynamic_opponent_strengths(
         fixture_strengths["kickoff_time"], errors="coerce"
     )
 
-    weighted_records = []
-    for opponent_name, group in fixture_strengths.groupby(
-        "opponent_name", sort=False
-    ):
-        group = group.sort_values("kickoff_time_dt")
-        count = len(group)
-        if count == 0:
-            continue
-        if count == 1:
-            weights = np.array([1.0])
-        else:
-            weights = np.exp(np.arange(count) / (count - 1))
-        total_weight = weights.sum()
-        weighted_records.append(
-            {
-                "opponent_name": opponent_name,
-                "opp_dyn_attack": float(
-                    (group["opp_dyn_attack"].to_numpy() * weights).sum()
-                    / total_weight
-                ),
-                "opp_dyn_defence": float(
-                    (group["opp_dyn_defence"].to_numpy() * weights).sum()
-                    / total_weight
-                ),
-                "opp_dyn_overall": float(
-                    (group["opp_dyn_overall"].to_numpy() * weights).sum()
-                    / total_weight
-                ),
-            }
-        )
-
-    weighted_df = pd.DataFrame(weighted_records)
-    fixture_strengths = fixture_strengths.drop(
-        columns=["opp_dyn_attack", "opp_dyn_defence", "opp_dyn_overall"]
-    )
-    fixture_strengths = fixture_strengths.merge(
-        weighted_df, on="opponent_name", how="left"
+    fixture_strengths = fixture_strengths.sort_values(
+        ["kickoff_time_dt", "fixture", "team"], kind="mergesort"
     )
     merged_df = merged_df.merge(fixture_strengths, on=fixture_cols, how="left")
 
@@ -388,12 +339,8 @@ def process_season(
         "strength_defence_home",
         "strength_defence_away",
     ]
-    opponent_df = teams_df[opponent_columns].rename(
-        columns=lambda col: f"opponent_{col}"
-    )
-    fpl_df = fpl_df.merge(
-        opponent_df, left_on="opponent_team", right_on="opponent_id", how="left"
-    )
+    opponent_df = teams_df[opponent_columns].rename(columns=lambda col: f"opponent_{col}")
+    fpl_df = fpl_df.merge(opponent_df, left_on="opponent_team", right_on="opponent_id", how="left")
     fpl_df = fpl_df.drop(columns=["opponent_id"])
     print(f"FPL data: {len(fpl_df)} rows")
 
@@ -548,9 +495,7 @@ def process_season(
 
     # Add understat columns to FPL data
     understat_matched_df = pd.DataFrame(matches)
-    merged_df = pd.concat(
-        [fpl_df.reset_index(drop=True), understat_matched_df], axis=1
-    )
+    merged_df = pd.concat([fpl_df.reset_index(drop=True), understat_matched_df], axis=1)
     understat_prefixed_cols = [f"us_{c}" for c in understat_cols]
     merged_df.loc[merged_df["minutes"] == 0, understat_prefixed_cols] = 0
 
@@ -578,9 +523,9 @@ def process_season(
                 f"({100 * played_matched / played_total:.1f}%)"
             )
 
-            unmatched = merged_df[
-                (merged_df[metric_col].isna()) & (merged_df["minutes"] > 0)
-            ][["name", "match_date", "team"]].drop_duplicates()
+            unmatched = merged_df[(merged_df[metric_col].isna()) & (merged_df["minutes"] > 0)][
+                ["name", "match_date", "team"]
+            ].drop_duplicates()
             if len(unmatched) > 0:
                 print(
                     f"\nSample unmatched players who played "
@@ -589,9 +534,7 @@ def process_season(
                 print(unmatched.head(5).to_string(index=False))
 
         if season == "2022-23":
-            unmatched_played_mask = (merged_df["minutes"] > 0) & (
-                merged_df[metric_col].isna()
-            )
+            unmatched_played_mask = (merged_df["minutes"] > 0) & (merged_df[metric_col].isna())
             removed = int(unmatched_played_mask.sum())
             if removed:
                 merged_df = merged_df[~unmatched_played_mask].copy()
@@ -646,7 +589,7 @@ def run_pipeline(
             data_base_dir,
             output_dir,
             ratings_state=ratings_state,
-        k_factor=0.2,
+            k_factor=0.2,
         )
         if df is not None:
             all_dfs.append(df)
