@@ -1,9 +1,9 @@
 {
   "summary": {
-    "total_cost": 97.4,
-    "total_points": 79.11800014751903,
-    "starter_points": 64.3787157844319,
-    "bench_points": 14.739284363087117
+    "total_cost": 97.10000000000001,
+    "total_points": 78.35079127196401,
+    "starter_points": 63.97656006806666,
+    "bench_points": 14.374231203897368
   },
   "players": [
     {
@@ -31,18 +31,6 @@
       "is_starter": false
     },
     {
-      "player_id": 8853.0,
-      "name": "Maxence Lacroix",
-      "team": "Crystal Palace",
-      "now_cost": 5.1,
-      "predicted_points": 4.392310926121086,
-      "availability_multiplier": 1.0,
-      "opponent_name": "Wolves",
-      "fpl_id": 257,
-      "position": "DEF",
-      "is_starter": true
-    },
-    {
       "player_id": 12408.0,
       "name": "Daniel Mu\u00f1oz Mej\u00eda",
       "team": "Crystal Palace",
@@ -63,6 +51,18 @@
       "availability_multiplier": 1.0,
       "opponent_name": "Everton",
       "fpl_id": 443,
+      "position": "DEF",
+      "is_starter": true
+    },
+    {
+      "player_id": 10802.0,
+      "name": "Lisandro Mart\u00ednez",
+      "team": "Man Utd",
+      "now_cost": 4.8,
+      "predicted_points": 3.625102050566092,
+      "availability_multiplier": 1.0,
+      "opponent_name": "Everton",
+      "fpl_id": 437,
       "position": "DEF",
       "is_starter": false
     },
