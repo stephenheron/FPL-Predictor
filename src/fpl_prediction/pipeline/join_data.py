@@ -342,6 +342,17 @@ def process_season(
     opponent_df = teams_df[opponent_columns].rename(columns=lambda col: f"opponent_{col}")
     fpl_df = fpl_df.merge(opponent_df, left_on="opponent_team", right_on="opponent_id", how="left")
     fpl_df = fpl_df.drop(columns=["opponent_id"])
+
+    # Guardrail: keep only one row per player-fixture-gameweek.
+    # This protects downstream features if merged_gw.csv was appended twice.
+    dedupe_keys = [k for k in ["season", "fpl_id", "GW", "fixture"] if k in fpl_df.columns]
+    if dedupe_keys:
+        before_dedupe = len(fpl_df)
+        fpl_df = fpl_df.drop_duplicates(subset=dedupe_keys, keep="last").copy()
+        removed_dupes = before_dedupe - len(fpl_df)
+        if removed_dupes:
+            print(f"Removed {removed_dupes} duplicate FPL rows using keys: {dedupe_keys}")
+
     print(f"FPL data: {len(fpl_df)} rows")
 
     # Load understat data
