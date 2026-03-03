@@ -29,6 +29,10 @@ def combine_predictions(
     output_file: str,
     weight_xgb: float = 0.5,
     normalize_scores: bool = True,
+    divergence_penalty: bool = True,
+    divergence_threshold: float = 1.0,
+    divergence_full_penalty: float = 2.5,
+    max_divergence_penalty: float = 0.9,
 ) -> pd.DataFrame:
     """Combine XGBoost and LSTM predictions with weighted average.
 
@@ -96,33 +100,47 @@ def combine_predictions(
     if "season" in merged.columns:
         group_keys.append("season")
 
-    if normalize_scores:
-        grouped = merged.groupby(group_keys, dropna=False)
-        xgb_mean = grouped["predicted_points_xgb"].transform("mean")
-        xgb_std = grouped["predicted_points_xgb"].transform("std").fillna(0.0)
-        xgb_std = xgb_std.mask(xgb_std == 0, 1.0)
-        lstm_mean = grouped["predicted_points_lstm"].transform("mean")
-        lstm_std = grouped["predicted_points_lstm"].transform("std").fillna(0.0)
-        lstm_std = lstm_std.mask(lstm_std == 0, 1.0)
+    grouped = merged.groupby(group_keys, dropna=False)
+    xgb_mean = grouped["predicted_points_xgb"].transform("mean")
+    xgb_std = grouped["predicted_points_xgb"].transform("std").fillna(0.0)
+    xgb_std = xgb_std.mask(xgb_std == 0, 1.0)
+    lstm_mean = grouped["predicted_points_lstm"].transform("mean")
+    lstm_std = grouped["predicted_points_lstm"].transform("std").fillna(0.0)
+    lstm_std = lstm_std.mask(lstm_std == 0, 1.0)
 
-        xgb_scores = (merged["predicted_points_xgb"] - xgb_mean) / xgb_std
-        lstm_scores = (merged["predicted_points_lstm"] - lstm_mean) / lstm_std
+    xgb_z = (merged["predicted_points_xgb"] - xgb_mean) / xgb_std
+    lstm_z = (merged["predicted_points_lstm"] - lstm_mean) / lstm_std
+
+    if normalize_scores:
+        xgb_scores = xgb_z
+        lstm_scores = lstm_z
     else:
         xgb_scores = merged["predicted_points_xgb"]
         lstm_scores = merged["predicted_points_lstm"]
-        xgb_mean = merged["predicted_points_xgb"]
-        lstm_mean = merged["predicted_points_lstm"]
-        xgb_std = 1.0
-        lstm_std = 1.0
 
-    combined_scores = xgb_scores * weight_xgb + lstm_scores * (1.0 - weight_xgb)
+    effective_weight_xgb = pd.Series(weight_xgb, index=merged.index, dtype=float)
+    divergence_score = (xgb_z - lstm_z).abs()
+    penalty_strength = pd.Series(0.0, index=merged.index, dtype=float)
+
+    if divergence_penalty:
+        width = max(divergence_full_penalty - divergence_threshold, 1e-6)
+        excess = (divergence_score - divergence_threshold).clip(lower=0.0)
+        scaled = (excess / width).clip(upper=1.0)
+        penalty_strength = max_divergence_penalty * (scaled**2)
+        effective_weight_xgb = weight_xgb - (weight_xgb - 0.5) * penalty_strength
+
+    combined_scores = xgb_scores * effective_weight_xgb + lstm_scores * (1.0 - effective_weight_xgb)
 
     if normalize_scores:
-        combined_mean = xgb_mean * weight_xgb + lstm_mean * (1.0 - weight_xgb)
-        combined_std = xgb_std * weight_xgb + lstm_std * (1.0 - weight_xgb)
+        combined_mean = xgb_mean * effective_weight_xgb + lstm_mean * (1.0 - effective_weight_xgb)
+        combined_std = xgb_std * effective_weight_xgb + lstm_std * (1.0 - effective_weight_xgb)
         merged["combined_points"] = combined_scores * combined_std + combined_mean
     else:
         merged["combined_points"] = combined_scores
+
+    merged["divergence_score"] = divergence_score
+    merged["divergence_penalty_strength"] = penalty_strength
+    merged["effective_weight_xgb"] = effective_weight_xgb
 
     # Helper to pick best column value
     def pick_column(df: pd.DataFrame, col: str) -> pd.Series | None:
@@ -161,6 +179,9 @@ def combine_predictions(
     output["predicted_points_xgb"] = merged["predicted_points_xgb"]
     output["predicted_points_lstm"] = merged["predicted_points_lstm"]
     output["combined_points"] = merged["combined_points"]
+    output["divergence_score"] = merged["divergence_score"]
+    output["divergence_penalty_strength"] = merged["divergence_penalty_strength"]
+    output["effective_weight_xgb"] = merged["effective_weight_xgb"]
 
     output.to_csv(output_file, index=False)
     print(f"Saved combined predictions to: {output_file}")
@@ -175,6 +196,10 @@ def combine_position_predictions(
     weight_xgb: float | None = None,
     normalize_scores: bool = True,
     use_meta_weights: bool = True,
+    divergence_penalty: bool = True,
+    divergence_threshold: float = 1.0,
+    divergence_full_penalty: float = 2.5,
+    max_divergence_penalty: float = 0.9,
 ) -> pd.DataFrame:
     """Combine predictions for a position with default file paths.
 
@@ -216,4 +241,8 @@ def combine_position_predictions(
         output_file,
         final_weight_xgb,
         normalize_scores,
+        divergence_penalty,
+        divergence_threshold,
+        divergence_full_penalty,
+        max_divergence_penalty,
     )

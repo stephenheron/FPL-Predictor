@@ -75,7 +75,38 @@ Examples:
         dest="normalize_scores",
         help="Disable score normalization when combining.",
     )
+    parser.add_argument(
+        "--divergence-penalty",
+        action="store_true",
+        dest="divergence_penalty",
+        help="Apply a soft penalty when XGBoost and LSTM strongly disagree.",
+    )
+    parser.add_argument(
+        "--no-divergence-penalty",
+        action="store_false",
+        dest="divergence_penalty",
+        help="Disable disagreement penalty when combining.",
+    )
+    parser.add_argument(
+        "--divergence-threshold",
+        type=float,
+        default=1.0,
+        help="Divergence z-score where penalty starts (default: 1.0).",
+    )
+    parser.add_argument(
+        "--divergence-full-penalty",
+        type=float,
+        default=2.5,
+        help="Divergence z-score where maximum penalty is reached (default: 2.5).",
+    )
+    parser.add_argument(
+        "--max-divergence-penalty",
+        type=float,
+        default=0.9,
+        help="Maximum strength of divergence penalty from 0 to 1 (default: 0.9).",
+    )
     parser.set_defaults(normalize_scores=True)
+    parser.set_defaults(divergence_penalty=True)
     return parser.parse_args()
 
 
@@ -104,6 +135,10 @@ def main() -> None:
                 position,
                 weight_xgb=args.weight_xgb,
                 normalize_scores=args.normalize_scores,
+                divergence_penalty=args.divergence_penalty,
+                divergence_threshold=args.divergence_threshold,
+                divergence_full_penalty=args.divergence_full_penalty,
+                max_divergence_penalty=args.max_divergence_penalty,
             )
 
 
