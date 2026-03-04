@@ -1,23 +1,11 @@
 {
   "summary": {
-    "total_cost": 97.6,
-    "total_points": 60.179653576975326,
-    "starter_points": 47.454133369643884,
+    "total_cost": 98.1,
+    "total_points": 58.24117461123136,
+    "starter_points": 45.51565440389991,
     "bench_points": 12.725520207331448
   },
   "players": [
-    {
-      "player_id": 11592.0,
-      "name": "Nico O'Reilly",
-      "team": "Man City",
-      "now_cost": 5.0,
-      "predicted_points": 4.825130344626694,
-      "availability_multiplier": 1.0,
-      "opponent_name": "Nott'm Forest",
-      "fpl_id": 411,
-      "position": "DEF",
-      "is_starter": true
-    },
     {
       "player_id": 11000.0,
       "name": "Matheus Nunes",
@@ -39,6 +27,18 @@
       "availability_multiplier": 1.0,
       "opponent_name": "Wolves",
       "fpl_id": 373,
+      "position": "DEF",
+      "is_starter": true
+    },
+    {
+      "player_id": 6674.0,
+      "name": "Rayan A\u00eft-Nouri",
+      "team": "Man City",
+      "now_cost": 5.7,
+      "predicted_points": 4.020759312268687,
+      "availability_multiplier": 1.0,
+      "opponent_name": "Nott'm Forest",
+      "fpl_id": 402,
       "position": "DEF",
       "is_starter": true
     },
@@ -127,18 +127,6 @@
       "is_starter": false
     },
     {
-      "player_id": 5596.0,
-      "name": "Harry Wilson",
-      "team": "Fulham",
-      "now_cost": 5.9,
-      "predicted_points": 5.260597046175699,
-      "availability_multiplier": 1.0,
-      "opponent_name": "West Ham",
-      "fpl_id": 329,
-      "position": "MID",
-      "is_starter": true
-    },
-    {
       "player_id": 10697.0,
       "name": "Ryan Gravenberch",
       "team": "Liverpool",
@@ -171,6 +159,18 @@
       "availability_multiplier": 1.0,
       "opponent_name": "Nott'm Forest",
       "fpl_id": 82,
+      "position": "MID",
+      "is_starter": true
+    },
+    {
+      "player_id": 9492.0,
+      "name": "Crysencio Summerville",
+      "team": "West Ham",
+      "now_cost": 5.7,
+      "predicted_points": 4.126489112789735,
+      "availability_multiplier": 1.0,
+      "opponent_name": "Fulham",
+      "fpl_id": 615,
       "position": "MID",
       "is_starter": true
     },

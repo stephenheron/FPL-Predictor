@@ -165,7 +165,30 @@ python -m fpl_prediction predict --position FWD --model all --gw 23 --combine
 
 # Override with manual XGBoost weight
 python -m fpl_prediction predict --position all --model all --gw 23 --combine --weight-xgb 0.6
+
+# Control disagreement penalty when models diverge strongly
+python -m fpl_prediction predict --position all --model all --gw 23 --combine \
+  --divergence-threshold 1.0 --divergence-full-penalty 2.5 --max-divergence-penalty 0.9
 ```
+
+### Ensemble Disagreement Penalty
+
+Combined predictions now include a soft divergence penalty to reduce one-model spikes
+when XGBoost and LSTM disagree aggressively for the same player.
+
+- Divergence is measured as `abs(xgb_z - lstm_z)` within each GW/season group.
+- Below `--divergence-threshold`, blend weights are unchanged.
+- As divergence rises toward `--divergence-full-penalty`, the effective XGBoost
+  weight is smoothly pulled toward 0.5 (controlled by `--max-divergence-penalty`).
+- This is enabled by default when using `--combine` and can be disabled with
+  `--no-divergence-penalty`.
+
+Useful flags:
+
+- `--divergence-penalty` / `--no-divergence-penalty`
+- `--divergence-threshold` (default `1.0`)
+- `--divergence-full-penalty` (default `2.5`)
+- `--max-divergence-penalty` (default `0.9`)
 
 ### Alternative CLI
 
@@ -179,6 +202,8 @@ fpl-predict --position all --model all --gw 23 --combine
 - XGBoost: `reports/predictions/{pos}_predictions.csv`
 - LSTM: `reports/predictions/{pos}_predictions_lstm.csv`
 - Combined: `reports/predictions/{pos}_predictions_combined.csv`
+  - Includes blend diagnostics: `divergence_score`,
+    `divergence_penalty_strength`, `effective_weight_xgb`
 
 ### Top 10 by Position
 
