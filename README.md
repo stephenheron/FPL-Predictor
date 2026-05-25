@@ -1,283 +1,174 @@
-# FPL Prediction
+# FPL Model Performance Report
 
-Predict Fantasy Premier League points by position using rolling form features,
-fixture strength, and sequence models. The package trains and scores XGBoost and
-LSTM models for all positions (FWD, MID, DEF, GK), plus an optional ensemble blend.
+This README reviews the model's recorded performance from GW24 to GW38.
 
-## Installation
+For implementation details, setup, commands, and model architecture, see [HOW_IT_WORKS.md](HOW_IT_WORKS.md).
 
-This project uses Python 3.11+.
+## Scope
 
-```bash
-pip install -e .
+The model was not run for the full season, so these results should be treated as a partial-season review rather than a complete assessment. GW23 has predictions recorded, but no actual or average score was recorded in the markdown file, so it is excluded from the scored evaluation.
+
+Captaincy was not predicted by the model. Captains were selected manually and noted in the weekly markdown files using entries such as `14 (28 Cap)`. For model-only evaluation, the extra captain bonus is removed from the actual score.
+
+The model-only actual score is calculated as:
+
+```text
+model-only actual = actual total - captain raw points
 ```
 
-## Quick Start
+For example, if a captain scored `14 (28 Cap)`, the model-only score removes the extra `14` captain points but keeps the player's original `14` points as part of the selected XI.
 
-```bash
-# Get latest FPL data
-cd Fantasy-Premier-League
-source .venv/bin/activate
-python global_scraper.py
-python understat.py
+## Overall Results
 
-# Run the full pipeline for a gameweek
-cd ..
-source .venv/bin/activate
-./run_full_pipeline.sh GW
+| Metric | Result |
+| --- | ---: |
+| Gameweeks evaluated | 15 |
+| Evaluation window | GW24-GW38 |
+| Predicted XI total | 812.58 |
+| Model-only actual total | 820.00 |
+| Difference | +7.42 |
+| Mean predicted XI | 54.17 |
+| Mean model-only actual | 54.67 |
+| Bias | +0.49 pts/week |
+| Mean absolute error | 8.91 |
+| RMSE | 9.79 |
+| Within 10 points | 9 / 15 |
 
-# Top 10 by position
-uv run fpl-top10
-```
+The model was very well calibrated in aggregate. Across the evaluated period it predicted `812.58` starter points and the model-only actual total was `820.00`, a difference of only `7.42` points across 15 gameweeks.
 
-## Package Structure
+This means the model was not meaningfully over- or under-predicting overall once manual captaincy is removed. The average bias was only `+0.49` points per week.
 
-```
-src/fpl_prediction/
-├── cli/           # Command-line interfaces
-├── config/        # Centralized settings and feature definitions
-├── data/          # Data loading, preprocessing, sequences
-├── models/        # LSTM and ensemble model definitions
-├── pipeline/      # Data joining pipeline (FPL + Understat)
-├── prediction/    # Prediction and availability logic
-└── training/      # Unified trainers for LSTM and XGBoost
-```
+## Weekly Model-Only Accuracy
 
-## Data Preparation
+Positive error means the model underpredicted. Negative error means the model overpredicted.
 
-The pipeline merges FPL gameweek data with Understat match stats:
+| GW | Predicted XI | Actual Total | Captain Raw | Model-Only Actual | Error |
+| ---: | ---: | ---: | ---: | ---: | ---: |
+| 24 | 46.87 | 66 | 10 | 56 | +9.13 |
+| 25 | 48.96 | 53 | 2 | 51 | +2.04 |
+| 26 | 63.80 | 54 | 7 | 47 | -16.80 |
+| 27 | 63.98 | 54 | 3 | 51 | -12.98 |
+| 28 | 51.10 | 47 | 2 | 45 | -6.10 |
+| 29 | 45.52 | 57 | 4 | 53 | +7.48 |
+| 30 | 52.77 | 63 | 3 | 60 | +7.23 |
+| 31 | 49.67 | 50 | 13 | 37 | -12.67 |
+| 32 | 47.48 | 63 | 4 | 59 | +11.52 |
+| 33 | 82.42 | 109 | 16 | 93 | +10.58 |
+| 34 | 47.64 | 56 | 5 | 51 | +3.36 |
+| 35 | 47.48 | 58 | 5 | 53 | +5.52 |
+| 36 | 64.58 | 61 | 11 | 50 | -14.58 |
+| 37 | 48.82 | 65 | 9 | 56 | +7.18 |
+| 38 | 51.49 | 72 | 14 | 58 | +6.51 |
 
-```bash
-python -c "from fpl_prediction.pipeline import run_pipeline; run_pipeline()"
-```
+## Full Team Outcome
 
-This expects FPL + Understat data in `Fantasy-Premier-League/data/<season>/` folders
-and outputs `data/raw/merged_fpl_understat_<season>.csv` files.
+Although captaincy was manual, the full weekly team score is still useful for reviewing the combined process of model selection plus human captaincy.
 
-## Training Models
+| Metric | Result |
+| --- | ---: |
+| Full actual points | 928 |
+| FPL average points | 770 |
+| Difference vs average | +158 |
+| Weeks beating average | 10 / 15 |
+| Average weekly score | 61.87 |
+| Average FPL average | 51.33 |
 
-### Train a Single Model
+The overall team outcome was strong. The selected teams beat the FPL average by `158` points across the evaluated period and outperformed the average in `10` of `15` gameweeks.
 
-```bash
-# Train LSTM for forwards
-python -m fpl_prediction train --position FWD --model lstm
+## Strengths
 
-# Train XGBoost for midfielders
-python -m fpl_prediction train --position MID --model xgboost
-```
+### Strong Aggregate Calibration
 
-### Train All Models
+Across GW24-GW38, the model predicted `812.58` starter points and the selected XI actually scored `820.00` points after removing the extra manual captain bonus. That is a difference of only `7.42` points across 15 gameweeks, or `0.49` points per week.
 
-```bash
-# Train both model types for all positions
-python -m fpl_prediction train --position all --model all
+This is the clearest positive finding from the review: the model was very close in aggregate, even though individual gameweek errors were larger.
 
-# Train with full data (include holdout season, skip evaluation)
-python -m fpl_prediction train --position all --model all --train-full
-```
+The earlier impression that the model was heavily underpredicting came from comparing non-captain-adjusted predicted starter points against actual totals that included manual captain doubling. Once that is corrected, the model is close to neutral in aggregate.
 
-### Alternative CLI
+### Useful Team Selection Signal
 
-```bash
-fpl-train --position FWD --model lstm
-fpl-train --position all --model xgboost
-```
+The combined process produced teams that comfortably beat the FPL average. While this includes manual captaincy, the selected squads still needed to contain enough productive players for captaincy to matter.
 
-### Outputs
+The model appears useful as a selection and ranking tool, especially for building a playable XI under budget constraints.
 
-- XGBoost: `models/xgb_{pos}_model.json`, `models/feature_importance_{pos}.csv`
-- LSTM: `models/lstm_{pos}_model.pt`, `models/lstm_{pos}_scaler.pkl`,
-  `models/lstm_{pos}_training_report.csv`
+### Good Performance in High-Scoring Weeks
 
-## Learning Ensemble Weights
+The model contributed to several strong weeks, including GW33, GW38, GW30, GW34, and GW32. These weeks drove a large part of the overall outperformance versus the FPL average.
 
-Instead of using fixed 50/50 weights for combining XGBoost and LSTM predictions, you can
-train a meta-model to learn optimal weights from historical data using Ridge or Lasso regression.
+### Predictions Are Directionally Plausible
 
-### Train Meta-Model
+The prediction totals were usually in a realistic FPL range. The model was not producing obviously inflated or deflated weekly totals over the full evaluated period.
 
-```bash
-# Train Ridge meta-model for all positions (first run is slow - generates OOF predictions)
-python -m fpl_prediction train-meta --position all --model ridge
+## Weaknesses
 
-# Train for a specific position
-python -m fpl_prediction train-meta --position MID --model ridge
+### Limited Evaluation Window
 
-# Use Lasso to see if one model should be dropped entirely
-python -m fpl_prediction train-meta --position FWD --model lasso
-```
+The model was only evaluated from GW24 to GW38, with GW23 excluded due to missing actuals. This is not enough to make a final judgement on season-long reliability.
 
-### How It Works
+A full-season evaluation could reveal issues that are hidden in this shorter sample, especially around early-season uncertainty, fixture swings, rotation, injuries, and promoted-team effects.
 
-The meta-model uses **leave-one-season-out cross-validation** to generate out-of-fold predictions:
+### Week-to-Week Volatility
 
-1. For each season, train base models (XGBoost + LSTM) on all other seasons
-2. Generate predictions for the held-out season
-3. Train Ridge/Lasso regression on these OOF predictions to learn optimal weights
-4. Save weights to `models/meta_weights_{pos}.json`
+The aggregate result is strong, but individual gameweek errors are still material.
 
-This ensures the meta-model doesn't overfit by only seeing predictions the base models
-made on data they weren't trained on.
+The model-only MAE was `8.91` points and RMSE was `9.79` points. It landed within 10 points in `9` of `15` weeks, but there were still several larger misses.
 
-### Learned Weights
+Largest overpredictions:
 
-After training, the weights are automatically used when combining predictions:
+| GW | Predicted XI | Model-Only Actual | Error |
+| ---: | ---: | ---: | ---: |
+| 26 | 63.80 | 47 | -16.80 |
+| 36 | 64.58 | 50 | -14.58 |
+| 27 | 63.98 | 51 | -12.98 |
+| 31 | 49.67 | 37 | -12.67 |
 
-```bash
-# Predictions now auto-load learned weights
-fpl-predict --position MID --model all --gw 24 --combine
-# Output: "Using learned meta-weights for MID: XGB=0.851"
-```
+Largest underpredictions:
 
-Current learned weights:
+| GW | Predicted XI | Model-Only Actual | Error |
+| ---: | ---: | ---: | ---: |
+| 32 | 47.48 | 59 | +11.52 |
+| 33 | 82.42 | 93 | +10.58 |
+| 24 | 46.87 | 56 | +9.13 |
 
-| Position | XGB Weight | LSTM Weight | Dominant Model |
-|----------|------------|-------------|----------------|
-| GK | 0.58 | 0.66 | LSTM (1.1x) |
-| DEF | 0.79 | 0.19 | XGB (4.1x) |
-| MID | 0.85 | 0.20 | XGB (4.3x) |
-| FWD | 0.77 | 0.23 | XGB (3.3x) |
+This suggests the model is better judged over multiple weeks than as an exact weekly score forecast.
 
-**Key insight**: XGBoost dominates for outfield players, but LSTM is slightly preferred for goalkeepers.
+### No Modelled Captaincy
 
-### Outputs
+Captaincy was selected manually, not by the model. This is fine operationally, but it means full team score cannot be attributed entirely to the model.
 
-- Weights: `models/meta_weights_{pos}.json`
-- OOF predictions (cached): `models/meta_oof_{pos}.csv`
+For future reviews, model selection and captain selection should continue to be evaluated separately.
 
-## Generating Predictions
+### Limited Insight Into Player-Level Accuracy
 
-### Predict for a Specific Gameweek
+This review focuses on weekly team totals. It does not yet answer whether the model is consistently ranking individual players correctly within positions.
 
-```bash
-# LSTM predictions for forwards, GW 23
-python -m fpl_prediction predict --position FWD --model lstm --gw 23
+Useful future checks would include:
 
-# XGBoost predictions for all positions
-python -m fpl_prediction predict --position all --model xgboost --gw 23
-```
+- Top-ranked players vs lower-ranked alternatives by position
+- Predicted points buckets vs actual returns
+- How often the model's selected starters beat the bench alternatives
+- Whether high predicted scores are actually producing high returns
 
-### Predict and Combine
+### FPL Scoring Is High Variance
 
-```bash
-# Generate both model predictions and combine them (auto-loads learned weights if available)
-python -m fpl_prediction predict --position FWD --model all --gw 23 --combine
+FPL points are driven by discrete events such as goals, assists, clean sheets, bonus points, cards, substitutions, and injuries. Even a well-calibrated expected-points model will miss individual weeks.
 
-# Override with manual XGBoost weight
-python -m fpl_prediction predict --position all --model all --gw 23 --combine --weight-xgb 0.6
+The model should therefore be treated as a decision-support tool, not a precise score predictor.
 
-# Control disagreement penalty when models diverge strongly
-python -m fpl_prediction predict --position all --model all --gw 23 --combine \
-  --divergence-threshold 1.0 --divergence-full-penalty 2.5 --max-divergence-penalty 0.9
-```
+## Interpretation
 
-### Ensemble Disagreement Penalty
+The model performed well in the period evaluated.
 
-Combined predictions now include a soft divergence penalty to reduce one-model spikes
-when XGBoost and LSTM disagree aggressively for the same player.
+The most important finding is that, after removing the manual captain bonus, the model's total prediction was almost exactly aligned with actual outcomes. This indicates good aggregate calibration.
 
-- Divergence is measured as `abs(xgb_z - lstm_z)` within each GW/season group.
-- Below `--divergence-threshold`, blend weights are unchanged.
-- As divergence rises toward `--divergence-full-penalty`, the effective XGBoost
-  weight is smoothly pulled toward 0.5 (controlled by `--max-divergence-penalty`).
-- This is enabled by default when using `--combine` and can be disabled with
-  `--no-divergence-penalty`.
+The model also supported a team-selection process that beat the FPL average by a wide margin. That is the practical objective, and the process achieved it over the recorded period.
 
-Useful flags:
+The main limitation is sample size. Fifteen scored gameweeks is useful, but not enough to claim that the model is proven over a full season. The review also does not yet isolate player-level ranking quality or compare selected players against realistic alternatives not chosen by the optimizer.
 
-- `--divergence-penalty` / `--no-divergence-penalty`
-- `--divergence-threshold` (default `1.0`)
-- `--divergence-full-penalty` (default `2.5`)
-- `--max-divergence-penalty` (default `0.9`)
+## Conclusion
 
-### Alternative CLI
+The model looks promising and useful.
 
-```bash
-fpl-predict --position FWD --model lstm --gw 23
-fpl-predict --position all --model all --gw 23 --combine
-```
+It was almost perfectly calibrated in aggregate across GW24-GW38, with only `7.42` points of total difference between predicted XI points and model-only actual points. The full team process also beat the FPL average by `158` points across 15 gameweeks.
 
-### Outputs
-
-- XGBoost: `reports/predictions/{pos}_predictions.csv`
-- LSTM: `reports/predictions/{pos}_predictions_lstm.csv`
-- Combined: `reports/predictions/{pos}_predictions_combined.csv`
-  - Includes blend diagnostics: `divergence_score`,
-    `divergence_penalty_strength`, `effective_weight_xgb`
-
-### Top 10 by Position
-
-```bash
-fpl-top10
-fpl-top10 --gw 23 --limit 15
-fpl-top10 --metric predicted_points_xgb
-```
-
-## Attaching Player Prices
-
-Add FPL prices from the season-specific `Fantasy-Premier-League/data/<season>/cleaned_players.csv`
-to a predictions CSV (updates in place by default):
-
-```bash
-python -m fpl_prediction prices --input reports/predictions/mid_predictions_gw23.csv
-```
-
-The tool reads the `season` column to pick the right players file.
-
-Write to a new file instead:
-
-```bash
-python -m fpl_prediction prices \
-  --input reports/predictions/mid_predictions_gw23.csv \
-  --output reports/predictions/mid_predictions_gw23_with_prices.csv
-```
-
-Override the players file if needed:
-
-```bash
-python -m fpl_prediction prices \
-  --input reports/predictions/mid_predictions_gw23.csv \
-  --players Fantasy-Premier-League/data/2024-25/cleaned_players.csv
-```
-
-### Alternative CLI
-
-```bash
-fpl-prices --input reports/predictions/mid_predictions_gw23.csv
-```
-
-## Configuration
-
-All hyperparameters are centralized in `src/fpl_prediction/config/`:
-
-- `settings.py`: Model configs (LSTMConfig, XGBoostConfig, MetaConfig, PredictionConfig)
-- `features.py`: Feature column definitions (BASE_COLS, PER90_COLS, etc.)
-- `player_mappings.py`: Manual FPL-to-Understat player ID mappings
-
-### Key Settings
-
-| Parameter | LSTM Default | XGBoost Default |
-|-----------|--------------|-----------------|
-| seq_len | 5 | - |
-| roll_window | 8 | 3, 5, 8 |
-| hidden_size | 64 | - |
-| num_layers | 2 | - |
-| dropout | 0.2 | - |
-| batch_size | 128 | - |
-| n_estimators | - | 300 |
-| max_depth | - | 5 |
-
-## Features
-
-- **Rolling features**: Historical averages over configurable windows
-- **Per-90 rates**: Normalized stats for key FPL and Understat metrics
-- **Fixture context**: Home/away, dynamic opponent strength ratings
-- **Availability**: Minutes-based multipliers for prediction adjustment
-- **Walk-forward CV**: XGBoost training window selection per season
-
-## Notes
-
-- LSTM models use 5-game sequences with roll-8 hint features
-- Availability multipliers: >=180min (1.0), >=90min (0.7), >0min (0.4), 0min (0.2)
-- XGBoost uses walk-forward validation to select best training window (15/25/35 GWs)
-- Dynamic opponent strengths are computed from xG performance history
+The strongest conclusion is that the model is a good selection aid over a multi-week period. The weaker conclusion is that it can accurately forecast any single gameweek, because weekly variance remains significant and the evaluation sample is still limited.
