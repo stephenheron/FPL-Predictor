@@ -83,8 +83,6 @@ Across GW24-GW38, the model predicted `812.58` starter points and the selected X
 
 This is the clearest positive finding from the review: the model was very close in aggregate, even though individual gameweek errors were larger.
 
-The earlier impression that the model was heavily underpredicting came from comparing non-captain-adjusted predicted starter points against actual totals that included manual captain doubling. Once that is corrected, the model is close to neutral in aggregate.
-
 ### Useful Team Selection Signal
 
 The combined process produced teams that comfortably beat the FPL average. While this includes manual captaincy, the selected squads still needed to contain enough productive players for captaincy to matter.
